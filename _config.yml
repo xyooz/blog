@@ -1,12 +1,12 @@
 # Site
-title: XY's Lab
-subtitle: '折腾是成长的必经之路'
+title: Code & Coffee
+subtitle: '用咖啡驱动代码，用代码改变世界'
 description: '记录 OpenClaw、AI、技术的折腾笔记'
 keywords:
   - OpenClaw
   - AI
   - 技术博客
-  - VPS
+  - Code & Coffee
 author: XY
 language: zh-CN
 timezone: 'Asia/Shanghai'
