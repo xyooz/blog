@@ -1,9 +1,13 @@
 # Site
-title: 我的博客
-subtitle: ''
-description: ''
+title: XY's Lab
+subtitle: '折腾是成长的必经之路'
+description: '记录 OpenClaw、AI、技术的折腾笔记'
 keywords:
-author: XYX
+  - OpenClaw
+  - AI
+  - 技术博客
+  - VPS
+author: XY
 language: zh-CN
 timezone: 'Asia/Shanghai'
 
