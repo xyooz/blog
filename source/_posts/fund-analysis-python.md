@@ -25,6 +25,79 @@ categories:
 
 ---
 
+## 零、真实数据获取
+
+使用东方财富 API 获取基金历史净值：
+
+```python
+import requests
+import time
+from datetime import datetime, timedelta
+
+def get_fund_history(fund_code: str, days: int = 60) -> List[Dict]:
+    """获取基金历史净值 - 真实数据"""
+    url = "http://api.fund.eastmoney.com/f10/lsjz"
+    end_date = datetime.now().strftime("%Y-%m-%d")
+    start_date = (datetime.now() - timedelta(days=days+30)).strftime("%Y-%m-%d")
+    
+    params = {
+        "fundCode": fund_code,
+        "pageIndex": 1,
+        "pageSize": days,
+        "startDate": start_date,
+        "endDate": end_date,
+        "_": int(time.time() * 1000)
+    }
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+        "Referer": f"http://fund.eastmoney.com/jjjz_{fund_code}.html",
+    }
+    
+    try:
+        r = requests.get(url, params=params, headers=headers, timeout=15)
+        if r.status_code == 200:
+            data = r.json()
+            if data.get("Data"):
+                records = data["Data"].get("LSJZList", [])
+                # 解析为标准格式
+                return [{
+                    "date": r["FSRQ"],
+                    "nav": float(r["DWJZ"]),
+                    "change": float(r["JZZZL"])
+                } for r in records]
+    except Exception as e:
+        print(f"Error fetching {fund_code}: {e}")
+    return []
+```
+
+**API 返回字段**：
+| 字段 | 含义 |
+|------|------|
+| `FSRQ` | 净值日期 |
+| `DWJZ` | 单位净值 |
+| `LJJZ` | 累计净值 |
+| `JZZZL` | 日增长率(%) |
+
+**使用示例**：
+```python
+# 获取 60 天历史数据
+data = get_fund_history("012895", days=60)
+for item in data[:5]:
+    print(f"{item['date']}: {item['nav']} ({item['change']}%)")
+```
+
+**输出示例**：
+```
+2026-02-05: 0.9993 (-1.85%)
+2026-02-04: 1.0181 (-1.35%)
+2026-02-03: 1.0320 (0.64%)
+...
+```
+
+> ⚠️ 注意：东方财富 API 可能有访问频率限制，建议设置合理的请求间隔。
+
+---
+
 ## 一、核心数据结构
 
 首先，定义基金数据和基准：
@@ -288,6 +361,67 @@ def analyze_fund(code: str, nav_data: List[Dict]) -> Dict:
 
 ---
 
+## 七、真实数据分析效果
+
+使用东方财富 API 获取真实数据后的分析结果：
+
+```
+======================================================================
+📊 Enhanced Fund Analysis Report
+   Analysis Date: 2026-02-06 15:42
+   Data Source: Eastmoney API (真实数据)
+======================================================================
+
+🔹 天弘中证科创创业50ETF联接C (012895) [ETF]
+------------------------------------------------------------
+📈 Trend: 🔴 DOWN
+   MA5=1.0251, MA20=1.0398, MA60=1.0398
+   MACD: DIF=-0.0084, Hist=-0.0034
+📊 Total Return (20d): -4.24%
+
+📉 Risk Metrics:
+   Max Drawdown: 5.58% (🟡 MEDIUM)
+   Volatility: 24.45%
+   Sharpe Ratio: -2.31
+
+📊 Relative Strength:
+   vs 创业板指: -0.52%
+   Category Rank: TOP 30%
+
+🔹 南方亚太精选ETF联接(QDII)C (021190) [QDII]
+------------------------------------------------------------
+📈 Trend: 🟡 UP
+   MA5=1.3220, MA20=1.2975, MA60=1.2975
+   MACD: DIF=0.0134, Hist=0.0053
+📊 Total Return (20d): +4.95%
+
+📉 Risk Metrics:
+   Max Drawdown: 1.72% (🟢 LOW)
+   Volatility: 32.53%
+   Sharpe Ratio: 1.83
+
+🔹 华泰柏瑞致远混合C (017992) [Mixed]
+------------------------------------------------------------
+📈 Trend: 🟡 UP
+   MA5=1.6926, MA20=1.6439, MA60=1.6439
+   MACD: DIF=0.0415, Hist=0.0166
+📊 Total Return (20d): +12.06%
+
+======================================================================
+🏆 Performance Ranking:
+   1. 华泰柏瑞致远混合C: +12.06% (🟡 UP)
+   2. 南方亚太精选ETF联接(QDII)C: +4.95% (🟡 UP)
+   3. 天弘中证科创创业50ETF联接C: -4.24% (🔴 DOWN)
+======================================================================
+```
+
+**结果解读**：
+- **华泰柏瑞致远**：趋势 UP，收益 +12.06%，MACD 动能向上
+- **南方亚太精选**：趋势 UP，收益 +4.95%，最大回撤仅 1.72%
+- **天弘科创创业**：趋势 DOWN，短期可能需要观望
+
+---
+
 ## 八、总结
 
 ### 核心指标
@@ -324,6 +458,20 @@ def analyze_fund(code: str, nav_data: List[Dict]) -> Dict:
 
 ```bash
 /root/.openclaw/skills/fund-analysis/scripts/fund_analysis_enhanced.py
+```
+
+**运行方式**：
+```bash
+# 完整分析（使用真实数据）
+python3 fund_analysis_enhanced.py
+
+# 单基金信号
+python3 fund_analysis_enhanced.py --signal 012895
+```
+
+**依赖**：
+```bash
+pip install requests
 ```
 
 ---
