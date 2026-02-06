@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.2001.life","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="Redisson 分布式锁避免重复提交任务为什么要引入 分布式锁 ？在本地锁场景下，已经能够解决本地服务下多线程竞争资源的同步问题，但是在分布式的场景下，服务A对资源x加锁，而服务B不受服务A的限制，若此时服务B也去访问资源B，就会出现数据不一致的问题，导致服务出错。 分布式锁分布式锁是分布式集群场景下共享的一种锁机制，保证了不同服务下的互斥性，任意时刻，只有一个客户端可以持有锁。特性：  互斥性">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redisson分布式锁避免重复提交任务">
+<meta property="og:url" content="https://blog.2001.life/2025/10/10/2025-10-10-70/index.html">
+<meta property="og:site_name" content="Code &amp; Coffee">
+<meta property="og:description" content="Redisson 分布式锁避免重复提交任务为什么要引入 分布式锁 ？在本地锁场景下，已经能够解决本地服务下多线程竞争资源的同步问题，但是在分布式的场景下，服务A对资源x加锁，而服务B不受服务A的限制，若此时服务B也去访问资源B，就会出现数据不一致的问题，导致服务出错。 分布式锁分布式锁是分布式集群场景下共享的一种锁机制，保证了不同服务下的互斥性，任意时刻，只有一个客户端可以持有锁。特性：  互斥性">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-10-10T08:03:27.000Z">
+<meta property="article:modified_time" content="2026-02-06T09:55:36.439Z">
+<meta property="article:author" content="XY">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="Code &amp; Coffee">
+<meta property="article:tag" content="OpenClaw">
+<meta property="article:tag" content="技术博客">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.2001.life/2025/10/10/2025-10-10-70/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.2001.life/2025/10/10/2025-10-10-70/","path":"2025/10/10/2025-10-10-70/","title":"Redisson分布式锁避免重复提交任务"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Redisson分布式锁避免重复提交任务 | Code & Coffee</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Code & Coffee</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">用咖啡驱动代码，用代码改变世界</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redisson-%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E9%81%BF%E5%85%8D%E9%87%8D%E5%A4%8D%E6%8F%90%E4%BA%A4%E4%BB%BB%E5%8A%A1"><span class="nav-number">1.</span> <span class="nav-text">Redisson 分布式锁避免重复提交任务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%BC%95%E5%85%A5-%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81-%EF%BC%9F"><span class="nav-number">1.1.</span> <span class="nav-text">为什么要引入 分布式锁 ？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81"><span class="nav-number">1.2.</span> <span class="nav-text">分布式锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="nav-number">1.3.</span> <span class="nav-text">几种实现方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.4.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.4.1.</span> <span class="nav-text">直接实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E8%A7%A3%E5%BC%8F%E9%9D%9E%E5%85%A5%E4%BE%B5%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">注解式非入侵实现</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">XY</p>
+  <div class="site-description" itemprop="description">记录 OpenClaw、AI、技术的折腾笔记</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.2001.life/2025/10/10/2025-10-10-70/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="XY">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Code & Coffee">
+      <meta itemprop="description" content="记录 OpenClaw、AI、技术的折腾笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Redisson分布式锁避免重复提交任务 | Code & Coffee">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Redisson分布式锁避免重复提交任务
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-10-10 16:03:27" itemprop="dateCreated datePublished" datetime="2025-10-10T16:03:27+08:00">2025-10-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-02-06 17:55:36" itemprop="dateModified" datetime="2026-02-06T17:55:36+08:00">2026-02-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/" itemprop="url" rel="index"><span itemprop="name">默认分类</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="Redisson-分布式锁避免重复提交任务"><a href="#Redisson-分布式锁避免重复提交任务" class="headerlink" title="Redisson 分布式锁避免重复提交任务"></a>Redisson 分布式锁避免重复提交任务</h1><h2 id="为什么要引入-分布式锁-？"><a href="#为什么要引入-分布式锁-？" class="headerlink" title="为什么要引入 分布式锁 ？"></a>为什么要引入 <strong>分布式锁</strong> ？</h2><p>在本地锁场景下，已经能够解决本地服务下多线程竞争资源的同步问题，但是在分布式的场景下，服务A对资源x加锁，而服务B不受服务A的限制，若此时服务B也去访问资源B，就会出现数据不一致的问题，导致服务出错。</p>
+<h2 id="分布式锁"><a href="#分布式锁" class="headerlink" title="分布式锁"></a>分布式锁</h2><p>分布式锁是分布式集群场景下共享的一种锁机制，保证了不同服务下的互斥性，任意时刻，<strong>只有一个客户端可以持有锁</strong>。<br>特性：</p>
+<ul>
+<li><strong>互斥性</strong>：同一时刻，只有一个客户端可以持有锁，不同线程之间具有互斥性，即便是跨服务。</li>
+<li><strong>超时机制</strong>：正常情况下，持有锁的客户端执行完成之后释放锁，但是如果执行时发生异常，导致锁无法正确释放，就会造成<strong>死锁</strong>。<br>为了防止死锁，需要设置超时机制，超时自动释放。</li>
+<li><strong>自动续期</strong>：超时机制会带来一个问题，如果持有锁的客户端在时间内无法完成任务，会导致任务还没完成就释放锁，这与我们的初衷是违背的（我们引入超时机制并不是为了阻碍正常的任务完成，而是为了解决潜在服务异常造成的死锁问题），因此，需要引入自动续期机制。<br>开启一个<strong>监听任务</strong>，监听线程，如果客户端还存活就<strong>延长</strong>超时时间，直到任务完成或者是任务异常。</li>
+</ul>
+<h2 id="几种实现方式"><a href="#几种实现方式" class="headerlink" title="几种实现方式"></a>几种实现方式</h2><ul>
+<li>数据库</li>
+<li>Zookeeper</li>
+<li>Redis</li>
+</ul>
+<p>其中，Redis<strong>性能最高</strong>，方式有两种，一是利用SetNX（但是有<strong>死锁问题</strong>），而是<strong>Redisson</strong> ，也是最常用的。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="直接实现"><a href="#直接实现" class="headerlink" title="直接实现"></a>直接实现</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">String lockKey = REVIEW_LOCK_PREFIX + taskId;</span><br><span class="line">RLock lock = redissonCilent.getLock(lockKey);</span><br><span class="line"></span><br><span class="line">try&#123;</span><br><span class="line">    // 尝试获取锁（最多等待2秒，锁30秒后释放）</span><br><span class="line">    if(lock.tryLock(2, 30, TimeUnit.second)&#123;</span><br><span class="line">        // 任务执行逻辑</span><br><span class="line">        // ...</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        log.info(&quot;任务 &#123;&#125; 正在被其他人员处理，跳过此次提交&quot;, taskId);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;catch(InterruptedException e)&#123;</span><br><span class="line">    Thread.currentThread().interrupt();</span><br><span class="line">    log.info(&quot;线程终端，任务 &#123;&#125; 执行失败&quot;, taskId);</span><br><span class="line">&#125;catch(Exception e)&#123;</span><br><span class="line">    log.info(&quot;任务 &#123;&#125; 执行异常&quot;, taskId);</span><br><span class="line">&#125;finally&#123;</span><br><span class="line">    if(lock.isHeldByCurrentThread)&#123;</span><br><span class="line">        lock.unlock();</span><br><span class="line">        lock.info(&quot;已释放锁 &#123;&#125;&quot;, lockKey);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里假设任务比较简单，没有加入锁续期机制，如果要续期，使用<code>lock.lock()</code>可以自动实现看门狗的续期机制。</p>
+<h4 id="注解式非入侵实现"><a href="#注解式非入侵实现" class="headerlink" title="注解式非入侵实现"></a>注解式非入侵实现</h4><p>直接实现分布式锁需要对具体方法进行代码改动，如果我们引入注解来实现，可以实现<strong>非入侵</strong>的分布式锁实现。</p>
+<p>使用方式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@DistributedLock(key = &quot;#taskId&quot;, prefix = &quot;precheck:&quot;, leaseTime = 30)</span><br><span class="line">public void handlePrecheck(Long taskId)&#123;...&#125;</span><br></pre></td></tr></table></figure>
+<p>只需要在方法之前加上自定义的分布式锁注解，使用起来十分轻便。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">业务方法（@DistributedLock）</span><br><span class="line">     │</span><br><span class="line">     ▼</span><br><span class="line">DistributedLockAspect（AOP拦截）</span><br><span class="line">     │</span><br><span class="line">     ├─ 解析 SpEL 表达式，得到完整锁 key</span><br><span class="line">     │</span><br><span class="line">     ├─ 调用 IDistributedLock.tryLock(...)</span><br><span class="line">     │</span><br><span class="line">     │       │</span><br><span class="line">     │       ▼</span><br><span class="line">     │   RedissonDistributedLock（封装 Redisson 实现）</span><br><span class="line">     │       │</span><br><span class="line">     │       ├─ 获取 RLock</span><br><span class="line">     │       ├─ 执行 tryLock(...)</span><br><span class="line">     │       ├─ 成功 → new ILock(RLock, this)</span><br><span class="line">     │       ▼</span><br><span class="line">     │   返回 ILock（封装锁引用）</span><br><span class="line">     │</span><br><span class="line">     ├─ 执行业务逻辑 joinPoint.proceed()</span><br><span class="line">     │</span><br><span class="line">     ├─ finally：lock.close()</span><br><span class="line">     │</span><br><span class="line">     │       ▼</span><br><span class="line">     │   ILock.close()</span><br><span class="line">     │       │</span><br><span class="line">     │       └─ 调用 distributedLock.unlock(lock)</span><br><span class="line">     │</span><br><span class="line">     │              │</span><br><span class="line">     │              ▼</span><br><span class="line">     │        RedissonDistributedLock.unlock()</span><br><span class="line">     │              ├─ 校验线程持有锁</span><br><span class="line">     │              └─ 调用 RLock.unlock()</span><br><span class="line">     ▼</span><br><span class="line">   🔓 锁释放</span><br></pre></td></tr></table></figure>
+
+<p>那么如何实现呢？</p>
+<ol>
+<li>定义注解@DistributedLock <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public @interface DistributedLock&#123;</span><br><span class="line">    String key(); </span><br><span class="line">    String prefix() default &quot;lock:&quot;;</span><br><span class="line">    long tryTime() default 30; // 尝试时间，30s</span><br><span class="line">    long leaseTime() default 30; // 释放时间，30s</span><br><span class="line">    TimeUnit unit() default TimeUnit.Seconds; // 时间单位，秒</span><br><span class="line">    boolean fair default false; // 默认非公平锁</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>ILock 封装锁逻辑（策略模式） <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class ILock implements AutoCloseable&#123;</span><br><span class="line">    private final Object lock;</span><br><span class="line">    private IDistributedLock distributedLock; // 可以适应不同的分布式锁实现</span><br><span class="line">    </span><br><span class="line">    @Override</span><br><span class="line">    public void close() throws Exception&#123;</span><br><span class="line">        if(lock != null)&#123;</span><br><span class="line">            distributedLock.unlock(lock);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+ ILock 将锁的逻辑封装，可以通过不同的DistributedLock实现不同的锁（可以是Redis、Zookeeper），这里主要是为了能够实现不同的close，即便是不同的分布式锁，close方法都封装在ILock中，使用时无需关心具体的是什么分布式锁，实现了<code>策略模式</code>。<br> 继承AutoCloseable很关键，使得 <code>try { ILock lock = distributedLock.tryLock(...); }</code> 具备自动释放资源的能力，而不用在finally手写资源释放close。</li>
+<li>IDistributedLock 分布式锁操作接口 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public interface IDistributedLock&#123;</span><br><span class="line">    ILock lock(String key, long leaseTime, TimeUnit unit, boolean fair);</span><br><span class="line">    ILock tryLock(String key, long tryTime, long leaseTime, TimeUnit unit, boolean fair) throws Exception;</span><br><span class="line">    void unlock(Object lock);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>RedissonDistributedLock 实现 IDistributedLock 接口 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">public class RedissonDitributedLock implements IDistributedLock&#123;</span><br><span class="line">    @Resource</span><br><span class="line">    RedissonClient redissonClient;</span><br><span class="line">    </span><br><span class="line">    @Override</span><br><span class="line">    public ILock lock(String key, long leaseTime, TimeUnit unit, boolean fair)&#123;</span><br><span class="line">        RLock lock = fair? redissonClient.getFairLock(key) : redissonClient.getLock(key);</span><br><span class="line">        lock.lock(leaseTime, unit);</span><br><span class="line">        return new ILock(lock, this);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    @Override</span><br><span class="line">    public ILock tryLock(String key, long tryTime, long leaseTime, TimeUnit unit, boolean fair)&#123;</span><br><span class="line">        RLock lock = fair? redissonClient.getFairLock(key) : redissonClient.getLock(key);</span><br><span class="line">        boolean acquired = lock.tryLock(tryTime, leaseTime, unit);</span><br><span class="line">        if(acquired)&#123;</span><br><span class="line">            return new ILock(lock, this);</span><br><span class="line">        &#125;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    @Override</span><br><span class="line">    public void unlock(Object lock)&#123;</span><br><span class="line">        if(lock instanceOf RLock)&#123;</span><br><span class="line">            RLock rLock = (RLock) lock;</span><br><span class="line">            try&#123;</span><br><span class="line">                if(rLock.islocked() &amp;&amp; rLock.isHeldByCurrentThread)&#123;</span><br><span class="line">                    rLock.unlock();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;catch(IllegalMonitorStateException e)&#123;</span><br><span class="line">                log.warn(&quot;分布式锁释放失败：&#123;&#125;&quot;, e.getMessage());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+5.DistibutedLockAspect 切面 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">public class DistributedLockAspect&#123;</span><br><span class="line">    </span><br><span class="line">    @Resource</span><br><span class="line">    private final IDistributedLock distributedLock;</span><br><span class="line">    </span><br><span class="line">    @around(@annoation(distributedLockAnno))</span><br><span class="line">    private Object around(ProceedingJointPoint jointPoint, DistributedLock distributedLockAnno) throws Exception&#123;</span><br><span class="line">        String key = parseKey(jointPoint, distributedLockAnno);</span><br><span class="line">        ILock lock = null;</span><br><span class="line">        try&#123;</span><br><span class="line">            lock = distributedLock.tryLock(</span><br><span class="line">                    key,</span><br><span class="line">                    distributedLockAnno.tryTime(),</span><br><span class="line">                    distributedLockAnno.leaseTime(),</span><br><span class="line">                    distributedLockAnno.unit(),</span><br><span class="line">                    distributedLockAnno.fair()        </span><br><span class="line">            );</span><br><span class="line">            if(lock == null)&#123;</span><br><span class="line">                log.warn(&quot;未能获取到锁, &#123;&#125;&quot;, key);</span><br><span class="line">                return null;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            Object result = jointPoint.proceed(); // 原本方法执行的结果</span><br><span class="line">        &#125; finally&#123;</span><br><span class="line">            if (lock != null) &#123;</span><br><span class="line">                lock.close();</span><br><span class="line">                log.info(&quot;🔓 已释放锁：&#123;&#125;&quot;, key);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    private String parseKey(ProceedingJoinPoint joinPoint, DistributedLock anno) &#123;</span><br><span class="line">        String spelKey = anno.key();</span><br><span class="line">        MethodSignature signature = (MethodSignature) joinPoint.getSignature();</span><br><span class="line">        Method method = signature.getMethod();</span><br><span class="line">        String[] paramNames = signature.getParameterNames();</span><br><span class="line">        Object[] args = joinPoint.getArgs();</span><br><span class="line"></span><br><span class="line">        EvaluationContext context = new StandardEvaluationContext();</span><br><span class="line">        for (int i = 0; i &lt; paramNames.length; i++) &#123;</span><br><span class="line">            context.setVariable(paramNames[i], args[i]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Expression expression = parser.parseExpression(spelKey);</span><br><span class="line">        Object value = expression.getValue(context);</span><br><span class="line">        return anno.prefix() + Objects.toString(value);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>整体流程：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">┌────────────────────────────┐</span><br><span class="line">│ @DistributedLock(key=&quot;#id&quot;)│  ← 业务方法</span><br><span class="line">└────────────┬───────────────┘</span><br><span class="line">             │</span><br><span class="line">             ▼</span><br><span class="line">     [DistributedLockAspect]</span><br><span class="line">             │</span><br><span class="line">             ▼</span><br><span class="line">     [IDistributedLock 接口]</span><br><span class="line">             │</span><br><span class="line">             ▼</span><br><span class="line">     [RedissonDistributedLock]</span><br><span class="line">             │</span><br><span class="line">             ▼</span><br><span class="line">     [Redis 实例]</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/10/09/2025-10-09-69/" rel="prev" title="Redis + Lua 脚本实现计数器限流">
+                  <i class="fa fa-angle-left"></i> Redis + Lua 脚本实现计数器限流
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/10/10/2025-10-10-71/" rel="next" title="RocketMQ消息队列编排工作流">
+                  RocketMQ消息队列编排工作流 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">XY</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.2001.life","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="Redis + Lua 脚本实现计数器限流限流系统高并发的三大保障有：缓存、降级、限流限流：限制系统或者某个服务在单位时间内处理请求的数量，防止系统超负荷，保障服务正常运行。常用算法有：计数器、令牌桶和漏桶等。 限流中的两个概念：  阈值：比如将QPS限制为500，那么说明每秒处理500个请求，通过设置阈值，控制系统负载，达到防止超负荷的目的。 拒绝策略：那么被阈值拒之门外的请求应该作何处理呢？拒">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis + Lua 脚本实现计数器限流">
+<meta property="og:url" content="https://blog.2001.life/2025/10/09/2025-10-09-69/index.html">
+<meta property="og:site_name" content="Code &amp; Coffee">
+<meta property="og:description" content="Redis + Lua 脚本实现计数器限流限流系统高并发的三大保障有：缓存、降级、限流限流：限制系统或者某个服务在单位时间内处理请求的数量，防止系统超负荷，保障服务正常运行。常用算法有：计数器、令牌桶和漏桶等。 限流中的两个概念：  阈值：比如将QPS限制为500，那么说明每秒处理500个请求，通过设置阈值，控制系统负载，达到防止超负荷的目的。 拒绝策略：那么被阈值拒之门外的请求应该作何处理呢？拒">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-10-09T13:59:00.000Z">
+<meta property="article:modified_time" content="2026-02-06T09:55:36.435Z">
+<meta property="article:author" content="XY">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="Code &amp; Coffee">
+<meta property="article:tag" content="OpenClaw">
+<meta property="article:tag" content="技术博客">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.2001.life/2025/10/09/2025-10-09-69/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.2001.life/2025/10/09/2025-10-09-69/","path":"2025/10/09/2025-10-09-69/","title":"Redis + Lua 脚本实现计数器限流"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Redis + Lua 脚本实现计数器限流 | Code & Coffee</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Code & Coffee</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">用咖啡驱动代码，用代码改变世界</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis-Lua-%E8%84%9A%E6%9C%AC%E5%AE%9E%E7%8E%B0%E8%AE%A1%E6%95%B0%E5%99%A8%E9%99%90%E6%B5%81"><span class="nav-number">1.</span> <span class="nav-text">Redis + Lua 脚本实现计数器限流</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%90%E6%B5%81"><span class="nav-number">1.1.</span> <span class="nav-text">限流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFLua%E8%84%9A%E6%9C%AC%EF%BC%9F"><span class="nav-number">1.2.</span> <span class="nav-text">什么是Lua脚本？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E5%BA%94%E7%94%A8"><span class="nav-number">1.3.</span> <span class="nav-text">项目应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Lua-%E8%84%9A%E6%9C%AC%E9%85%8D%E7%BD%AE"><span class="nav-number">1.3.1.</span> <span class="nav-text">Lua 脚本配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3"><span class="nav-number">1.3.2.</span> <span class="nav-text">自定义注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%87%E9%9D%A2"><span class="nav-number">1.3.3.</span> <span class="nav-text">切面</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">XY</p>
+  <div class="site-description" itemprop="description">记录 OpenClaw、AI、技术的折腾笔记</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.2001.life/2025/10/09/2025-10-09-69/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="XY">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Code & Coffee">
+      <meta itemprop="description" content="记录 OpenClaw、AI、技术的折腾笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Redis + Lua 脚本实现计数器限流 | Code & Coffee">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Redis + Lua 脚本实现计数器限流
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-10-09 21:59:00" itemprop="dateCreated datePublished" datetime="2025-10-09T21:59:00+08:00">2025-10-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-02-06 17:55:36" itemprop="dateModified" datetime="2026-02-06T17:55:36+08:00">2026-02-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/" itemprop="url" rel="index"><span itemprop="name">默认分类</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="Redis-Lua-脚本实现计数器限流"><a href="#Redis-Lua-脚本实现计数器限流" class="headerlink" title="Redis + Lua 脚本实现计数器限流"></a>Redis + Lua 脚本实现计数器限流</h1><h2 id="限流"><a href="#限流" class="headerlink" title="限流"></a>限流</h2><p>系统高并发的三大保障有：缓存、降级、<strong>限流</strong><br>限流：限制系统或者某个服务在<strong>单位时间内处理请求的数量</strong>，防止系统超负荷，保障服务正常运行。常用算法有：计数器、令牌桶和漏桶等。</p>
+<p>限流中的两个概念：</p>
+<ul>
+<li><strong>阈值</strong>：比如将QPS限制为500，那么说明每秒处理500个请求，通过设置阈值，控制系统负载，达到防止超负荷的目的。</li>
+<li><strong>拒绝策略</strong>：那么被阈值拒之门外的请求应该作何处理呢？拒绝策略提供了方案，常见的有：<ul>
+<li><strong>直接拒绝</strong>：直接拒绝超过阈值的请求，不予处理。</li>
+<li><strong>排队等待</strong>：将超过阈值的请求放入队列，等候处理。<br>不同业务场景下选择合适的拒绝策略能够提高用户的体验。</li>
+</ul>
+</li>
+</ul>
+<p>目前比较主流的两个限流方案</p>
+<ul>
+<li>网关层：限流在所有应用的入口处。</li>
+<li>中间件限流：限流信息存储在中间件（如Redis）中，每个组件可以从此获得事实的限流信息，来决定操作。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">//计数器限流示意</span><br><span class="line">public class Limiter&#123;</span><br><span class="line">    private final int limit = 10;</span><br><span class="line">    private final int timeWindow = 1000;</span><br><span class="line">    private long time;</span><br><span class="line">    private AtomicInteger reqCount = new AtomicInteger(0);</span><br><span class="line">       </span><br><span class="line">    public Limiter()&#123;</span><br><span class="line">        this.time = System.currentTimeMillis();</span><br><span class="line">    &#125;</span><br><span class="line">    // 每次请求前使用</span><br><span class="line">    public boolean limit()&#123;</span><br><span class="line">        long now = System.currentTimeMillis();</span><br><span class="line">        if(now &lt; time + timeWindow)&#123;</span><br><span class="line">            reqCount.addAndGet(1);</span><br><span class="line">            return reqCount.get() &lt; limit;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            // 超出时间窗口，重新计数</span><br><span class="line">            time = now;</span><br><span class="line">            reqCount = new AtomicInteger(0);</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="什么是Lua脚本？"><a href="#什么是Lua脚本？" class="headerlink" title="什么是Lua脚本？"></a>什么是Lua脚本？</h2><p>一种轻量级、嵌入式脚本语言，常用游戏开发、脚本编程和嵌入式系统中。Redis从2.6开始支持Lua脚本，可以通过 EVAL 命令执行Lua脚本，实现原子操作，避免复杂的多步操作。<br>Lua脚本类似于MySQL的事务，存储一组指令，这些指令要么全部执行成功，要么全部失败，具有<strong>原子性</strong>，在开发中使用 Lua 脚本，可以将其看作是一段<strong>具有业务逻辑的代码块</strong>，因为我们需要用到原子性的一组操作，必然是业务需求。</p>
+<p>Lua脚本在Redis中的好处：</p>
+<ul>
+<li><strong>原子性操作</strong></li>
+<li><strong>减少网络开销</strong>：一次性组装多条命令，减少Redis通信开销</li>
+<li><strong>便利复杂操</strong>：作实现复杂操作，原本Redis命令执行可能很繁琐</li>
+</ul>
+<p>常见使用场景：</p>
+<ul>
+<li><strong>分布式锁</strong>：Redisson 分布式锁底层就包括Lua脚本</li>
+<li><strong>计数器限流</strong>：Lua脚本实现精确计数器限流，避免并发问题</li>
+<li><strong>复杂事务</strong>：Lua脚本处理多步事务，保障操作完整性。</li>
+</ul>
+<h2 id="项目应用"><a href="#项目应用" class="headerlink" title="项目应用"></a>项目应用</h2><p>在项目中应用<strong>Redis+Lua</strong>脚本实现计数器限流，避免频繁等重复或者恶意的提交，减少系统的异常压力。我们不仅实现限流，还应用<strong>自定义注解</strong> + <strong>切面</strong>，实现灵活的限流。</p>
+<h3 id="Lua-脚本配置"><a href="#Lua-脚本配置" class="headerlink" title="Lua 脚本配置"></a>Lua 脚本配置</h3><p>首先将脚本配置注入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">public class RedisRateLimiterConfig &#123;</span><br><span class="line">    @Bean</span><br><span class="line">    public DefaultRedisScript&lt;Long&gt; limitScript() &#123;</span><br><span class="line">        DefaultRedisScript&lt;Long&gt; redisScript = new DefaultRedisScript&lt;&gt;();</span><br><span class="line">        redisScript.setScriptText(limitScriptText());</span><br><span class="line">        redisScript.setResultType(Long.class);</span><br><span class="line">        return redisScript;</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * 限流Lua脚本（基于计数器算法）</span><br><span class="line">     */</span><br><span class="line">    private String limitScriptText() &#123;</span><br><span class="line">        return &quot;local key = KEYS[1]\n&quot; +</span><br><span class="line">                &quot;local count = tonumber(ARGV[1])\n&quot; +</span><br><span class="line">                &quot;local time = tonumber(ARGV[2])\n&quot; +</span><br><span class="line">                &quot;local current = redis.call(&#x27;get&#x27;, key)\n&quot; +</span><br><span class="line">                &quot;if current and tonumber(current) &gt; count then\n&quot; +</span><br><span class="line">                &quot;    return tonumber(current)\n&quot; +</span><br><span class="line">                &quot;end\n&quot; +</span><br><span class="line">                &quot;current = redis.call(&#x27;incr&#x27;, key)\n&quot; +</span><br><span class="line">                &quot;if tonumber(current) == 1 then\n&quot; +</span><br><span class="line">                &quot;    redis.call(&#x27;expire&#x27;, key, time)\n&quot; +</span><br><span class="line">                &quot;end\n&quot; +</span><br><span class="line">                &quot;return tonumber(current)&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Lua 脚本流程：</p>
+<ol>
+<li>读取key计数</li>
+<li>如果key存在，且值超过限制，返回计数，代表超出阈值</li>
+<li>计数+1，如果不存在，计数会被设置为1</li>
+<li>如果计数&#x3D;&#x3D;1，意味着是第一次访问，设置过期时间</li>
+<li>返回计数</li>
+</ol>
+<h3 id="自定义注解"><a href="#自定义注解" class="headerlink" title="自定义注解"></a>自定义注解</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">@Target(ElementType.METHOD) // 表示只能用于方法</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME) // 表示运行时存活，可被反射获取</span><br><span class="line">@Documented</span><br><span class="line">public @interface RateLimiter &#123;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 限流key（前缀）</span><br><span class="line">     */</span><br><span class="line">    String key() default &quot;RATE_LIMIT:&quot;;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 限流时间窗口，单位秒</span><br><span class="line">     */</span><br><span class="line">    int time() default 60;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 限流次数</span><br><span class="line">     */</span><br><span class="line">    int count() default 100;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 限流类型（默认/按IP）</span><br><span class="line">     */</span><br><span class="line">    LimitType limitType() default LimitType.DEFAULT;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="切面"><a href="#切面" class="headerlink" title="切面"></a>切面</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">private RedisTemplate&lt;Object, Object&gt; redisTemplate;</span><br><span class="line">    private RedisScript&lt;Long&gt; limitScript;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    public void setRedisTemplate(RedisTemplate&lt;Object, Object&gt; redisTemplate) &#123;</span><br><span class="line">        this.redisTemplate = redisTemplate;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    public void setLimitScript(RedisScript&lt;Long&gt; limitScript) &#123;</span><br><span class="line">        this.limitScript = limitScript;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Before(&quot;@annotation(rateLimiter)&quot;)</span><br><span class="line">    public void doBefore(JoinPoint point, RateLimiter rateLimiter) &#123;</span><br><span class="line">        int time = rateLimiter.time();</span><br><span class="line">        int count = rateLimiter.count();</span><br><span class="line">        String key = buildKey(rateLimiter, point);</span><br><span class="line"></span><br><span class="line">        List&lt;Object&gt; keys = Collections.singletonList(key);</span><br><span class="line">        Long current = redisTemplate.execute(limitScript, keys, count, time);</span><br><span class="line"></span><br><span class="line">        if (current == null || current.intValue() &gt; count) &#123;</span><br><span class="line">            throw new ServiceException(&quot;访问过于频繁，请稍候再试&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        log.info(&quot;🔒 限流：key=&#123;&#125;, 当前请求次数=&#123;&#125;, 限制次数=&#123;&#125;&quot;, key, current, count);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private String buildKey(RateLimiter rateLimiter, JoinPoint point) &#123;</span><br><span class="line">        StringBuilder sb = new StringBuilder(rateLimiter.key());</span><br><span class="line">        if (rateLimiter.limitType() == LimitType.IP) &#123;</span><br><span class="line">            sb.append(IpUtils.getIpAddr(ServletUtils.getRequest())).append(&quot;:&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        MethodSignature signature = (MethodSignature) point.getSignature();</span><br><span class="line">        Method method = signature.getMethod();</span><br><span class="line">        sb.append(method.getDeclaringClass().getName()).append(&quot;.&quot;).append(method.getName());</span><br><span class="line">        return sb.toString();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>定义切面，执行带有@RateLimiter注解的方法之前，会先执行 doBefore，doBefore就是我们定义的限流逻辑：</p>
+<ol>
+<li>从注解ratelimiter类获取限流配置信息（底层是反射，这就是为什么<strong>注解周期要设置成运行时</strong>）</li>
+<li>构造key，这里加入IP来构造，并且通过<strong>反射</strong>获取方法的所在类和方法名，结合构造，最终是RATE_LIMIT:IP:com.example.test.login 这种形式，以达到限制同一IP请求同一方法频率的目的。</li>
+<li>执行Lua脚本限流逻辑，如果超出限制，抛出异常。</li>
+</ol>
+<p>如何分析改进策略？</p>
+<ul>
+<li>某接口限流次数很多（例如 &#x2F;login 被拒绝上千次）<br>说明限额太低或流量高峰明显<br>提高 count 或缩短 time</li>
+<li>某些 IP 频繁被限流<br>说明有刷接口风险<br>对该 IP 单独设更低限额或拉黑</li>
+<li>某时段（比如 9:00-9:30）限流集中<br>说明系统高峰期<br>调整限流窗口、引入“分时段动态限流”</li>
+<li>限流接口都是低价值接口（如 &#x2F;ping）<br>说明资源浪费<br>可以放宽或取消限流</li>
+<li>限流导致主业务接口大量被拒绝<br>说明策略太激进<br>调整全局限额或使用令牌桶平滑限流</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/04/10/2025-04-10-64/" rel="prev" title="自己开发的动态线程池组件对接项目">
+                  <i class="fa fa-angle-left"></i> 自己开发的动态线程池组件对接项目
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/10/10/2025-10-10-70/" rel="next" title="Redisson分布式锁避免重复提交任务">
+                  Redisson分布式锁避免重复提交任务 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">XY</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

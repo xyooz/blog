@@ -136,16 +136,16 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -1528,6 +1528,410 @@
 
 
 
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.2001.life/2025/10/20/2025-10-20-81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="XY">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Code & Coffee">
+      <meta itemprop="description" content="记录 OpenClaw、AI、技术的折腾笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Code & Coffee">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/10/20/2025-10-20-81/" class="post-title-link" itemprop="url">🔢 向量化：让机器更 “懂”人类文字</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-10-20 17:37:00" itemprop="dateCreated datePublished" datetime="2025-10-20T17:37:00+08:00">2025-10-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-02-06 17:55:36" itemprop="dateModified" datetime="2026-02-06T17:55:36+08:00">2026-02-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/" itemprop="url" rel="index"><span itemprop="name">默认分类</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="🔢-向量化：让机器更-“懂”人类文字"><a href="#🔢-向量化：让机器更-“懂”人类文字" class="headerlink" title="🔢 向量化：让机器更 “懂”人类文字"></a>🔢 向量化：让机器更 “懂”人类文字</h1><p>科研人在检索论文的时候一定有过这种感觉——研究方向的关键词检索，往往检索不到所有可能启发我们的论文。因为技术是通用的，完全可能有别的领域的论文所做的工作和我们领域的类似，但由于我们搜索的仅仅是我们领域的关键词，于是检索不到，错失了可能的启发。</p>
+<p>我的研究场景是 <code>MobileCrowdsensing</code> ，其实 <code>Crowdsourcing</code> 也是类似的场景，但我在检索的时候往往要分别检索这两个关键词来寻找论文，这便是单纯文本匹配检索的弊端。</p>
+<p>还有我们的工作可能包含分布式的无人机行动规划，其实这种规划类似于自动驾驶的规划，完全可以从中参照，因此简单的检索引擎也会让我错失一些启发性的优质文章。</p>
+<h2 id="向量化是啥"><a href="#向量化是啥" class="headerlink" title="向量化是啥"></a>向量化是啥</h2><p>“我喜欢吃苹果。”<br>“我爱吃水果。”</p>
+<p>这两句话<strong>意思接近</strong>，它们在<strong>高维空间的“距离”也很近</strong>。<br>而“我在写代码”那条向量，就离它们老远。</p>
+<p>计算机通过这种方式“感受”语义上的相似程度，<br>有点像人脑中的联想机制。</p>
+<hr>
+<h2 id="为什么要向量化"><a href="#为什么要向量化" class="headerlink" title="为什么要向量化"></a>为什么要向量化</h2><p>以前的搜索是关键词匹配——你搜“程序员”，它找不到“开发者”。<br>但向量化不看字面，而是看语义。</p>
+<p>这就是为什么在 RAG（检索增强生成）系统里，<br>我们要先把所有文档都向量化、存进数据库。<br>当用户提问时，也把问题向量化，再找“最近”的那几段内容给模型看。<br>模型就能在有上下文的前提下回答问题。</p>
+<p>一句话：向量化让模型先理解，再回答。</p>
+<hr>
+<h2 id="向量是怎么来的"><a href="#向量是怎么来的" class="headerlink" title="向量是怎么来的"></a>向量是怎么来的</h2><p>靠的是 <strong>Embedding 模型</strong>。<br>比如 OpenAI 的 text-embedding-3、阿里百炼的 text-embedding-v2、<br>还有开源的 bge-large、m3e 等。</p>
+<p>这些模型经过大规模语料训练，能把语义转成数字。<br>比如一句话会被转成一个 1024 维的数组 [0.12, -0.03, 0.85, …]，<br>我们看不懂，但在机器眼里，这就是“意思”。</p>
+<hr>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>向量化让机器能够进行“语义检索”，更好地“理解”人类语言。<br>想想向量化有点像人类的思考，我们的脑海中 巴士 和 公交 映射出来的画面大概率都是一辆 🚌，于是这两个词的向量距离就相近，当有人在公交站和我们说 巴士怎么还不来 的时候，我们理所当然的能够理解是在说我们等的车怎么还不来。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.2001.life/2025/10/20/2025-10-20-80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="XY">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Code & Coffee">
+      <meta itemprop="description" content="记录 OpenClaw、AI、技术的折腾笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Code & Coffee">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/10/20/2025-10-20-80/" class="post-title-link" itemprop="url">RAG 与 模型幻觉</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-10-20 17:21:22" itemprop="dateCreated datePublished" datetime="2025-10-20T17:21:22+08:00">2025-10-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-02-06 17:55:36" itemprop="dateModified" datetime="2026-02-06T17:55:36+08:00">2026-02-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/" itemprop="url" rel="index"><span itemprop="name">默认分类</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="🤯-RAG-与大模型幻觉：让模型“说真话”的秘密武器"><a href="#🤯-RAG-与大模型幻觉：让模型“说真话”的秘密武器" class="headerlink" title="🤯 RAG 与大模型幻觉：让模型“说真话”的秘密武器"></a>🤯 RAG 与大模型幻觉：让模型“说真话”的秘密武器</h1><p>如果你经常和 ChatGPT、通义千问之类的大模型打交道，你大概见识过它一本正经地胡说八道的样子。<br>比如你问它：“我上周的论文标题是什么？”<br>它会一本正经地回答：“《跨模态差分隐私下的自适应生成网络研究》。”<br>听起来很专业，但——根本不存在。</p>
+<p>这就是所谓的 <strong>幻觉</strong>。</p>
+<hr>
+<h2 id="幻觉从哪来？"><a href="#幻觉从哪来？" class="headerlink" title="幻觉从哪来？"></a>幻觉从哪来？</h2><p>简单说，语言模型的核心任务是“预测下一个词”。它并不真正理解事实，只是在大量语料中学习“词语搭配的概率”。当你问它问题时，它会根据语义猜一个“看起来合理的答案”，<br><strong>但并不保证那是真的</strong>。</p>
+<hr>
+<h2 id="RAG-是怎么帮忙的？"><a href="#RAG-是怎么帮忙的？" class="headerlink" title="RAG 是怎么帮忙的？"></a>RAG 是怎么帮忙的？</h2><p>RAG（Retrieval-Augmented Generation）可以理解为模型的外置事实引擎。<br>它不再“凭记忆瞎猜”，而是先去查资料。</p>
+<p>当你提问时，系统会先用检索模型（embedding + 向量库）找出与问题最相关的知识片段，再把这些片段拼进 prompt 一起交给模型生成。</p>
+<hr>
+<h2 id="为什么-RAG-不能完全消灭幻觉？"><a href="#为什么-RAG-不能完全消灭幻觉？" class="headerlink" title="为什么 RAG 不能完全消灭幻觉？"></a>为什么 RAG 不能完全消灭幻觉？</h2><p>RAG 能显著降低幻觉，但无法完全消灭。原因有三：</p>
+<ol>
+<li><strong>检索不准</strong>：如果向量库召回了错误片段，模型仍然可能胡说。</li>
+<li><strong>引用不严谨</strong>：模型有时会“二次加工”资料，把原话改得面目全非。</li>
+<li><strong>知识缺失</strong>：如果知识库本身没有这条信息，RAG 也帮不了忙。</li>
+</ol>
+<p>换句话说，RAG 不是防幻觉的“护身符”，而是一个让模型“有依据可查”的事实来源。</p>
+<hr>
+<h2 id="工程实践：如何让-RAG-更可靠？"><a href="#工程实践：如何让-RAG-更可靠？" class="headerlink" title="工程实践：如何让 RAG 更可靠？"></a>工程实践：如何让 RAG 更可靠？</h2><p>实践中想让 RAG 真正降低幻觉，需要几条关键策略：</p>
+<ul>
+<li><strong>知识分段合理</strong>：段太长检索不准，太短语义碎。</li>
+<li><strong>embedding 模型质量</strong>高：保证语义相似度匹配准确。</li>
+<li>检索 + rerank <strong>混合召回</strong>：向量 + BM25 双保险。</li>
+<li><strong>Prompt</strong> 结构清晰：提示模型“请仅根据以下内容回答”。</li>
+<li><strong>引用验证</strong>：生成结果后可做语义比对，检测回答是否出自检索文本。</li>
+</ul>
+<p>有些企业项目甚至会在 RAG 结果上再套一层 “Fact Check 模块”，<br>自动比对生成内容与原文相似度，<strong>进一步过滤幻觉</strong>。</p>
+<hr>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>RAG 其实是利用知识库来为模型提供上下文，以给出相对可靠的答案。但是在过程中，由于<strong>回答是由AI给出</strong>，即便有了相关的上下文，仍然可能给出不靠谱的答案；另外知识库中检索出来的知识精度（<strong>召回率</strong>）也是一大影响，只有准确的检索才能引导模型给出靠谱的答案，因此可以从<strong>embedding模型、输出验证等</strong>下手，提高回答精度。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.2001.life/2025/10/20/2025-10-20-78/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="XY">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Code & Coffee">
+      <meta itemprop="description" content="记录 OpenClaw、AI、技术的折腾笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Code & Coffee">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/10/20/2025-10-20-78/" class="post-title-link" itemprop="url">RAG 是什么</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-10-20 17:09:27" itemprop="dateCreated datePublished" datetime="2025-10-20T17:09:27+08:00">2025-10-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-02-06 17:55:36" itemprop="dateModified" datetime="2026-02-06T17:55:36+08:00">2026-02-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/" itemprop="url" rel="index"><span itemprop="name">默认分类</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="RAG-是什么？为什么它成了大模型落地的“标配”？"><a href="#RAG-是什么？为什么它成了大模型落地的“标配”？" class="headerlink" title="RAG 是什么？为什么它成了大模型落地的“标配”？"></a>RAG 是什么？为什么它成了大模型落地的“标配”？</h1><p><img src="https://images/typecho//2025/10/790909958.png" alt="2025-10-20T09:09:12.png"><br>最近几年，RAG（Retrieval-Augmented Generation，检索增强生成）这个词几乎成了大模型落地项目的标配。无论是知识问答、文档助手，还是企业智能客服，都在说自己是“RAG 架构”。</p>
+<p>简单来说，RAG 是一种让大语言模型具备“外部记忆”的方法。传统模型回答问题完全依赖训练参数，但训练数据有时效性，模型并不知道最新的业务或文档。而 RAG 的做法是——在生成答案前，先去知识库里检索相关信息，再让模型基于这些资料回答。这就像模型身边多了个“资料管理员”📚，让它能即时查阅、即时回答。</p>
+<p>工作原理其实不复杂：<br>当我们提问时，系统会先用一个 <strong>Embedding 模型</strong>把问题向量化，然后去向量数据库（如 Milvus、Faiss、Elasticsearch 等）中找到最相似的文档片段。接着，这些片段会被拼进 prompt，一起传给大语言模型生成回答。这样模型既能保持语言能力，又能引用你提供的知识。</p>
+<p>相比直接问模型，RAG 有三个明显好处：</p>
+<ol>
+<li>模型能回答“它原本不知道”的内容，比如公司内部政策、产品手册。</li>
+<li>回答更可信，不容易胡说八道（虽然还不能完全避免 🤔）。</li>
+<li>更新方便，只要改知识库，不用重新微调模型。</li>
+</ol>
+<p>举个常见的例子：企业知识问答。过去，员工问“我们的审批流程是几步？”，得去翻文档。现在用 RAG，只要提前把文档分段嵌入数据库，员工提问后系统检索出相关段落，再交给模型生成一句自然的回答：“审批流程共三步，分别是…”。既快又准。</p>
+<p>当然，RAG 不是万能的。检索粒度、向量质量、上下文拼接都很影响效果。段落太大找不准，太小又容易丢语义；<strong>Embedding 模型</strong>选不好，相似度也不准。实践中，“检索比生成更重要”几乎是金科玉律。</p>
+<p>现在，很多团队在探索更聪明的 RAG，比如混合召回（向量+BM25）、Graph RAG（知识图谱增强）、多轮上下文记忆等。RAG 不再只是“查资料”，而是演化成一种能动态理解和整合知识的框架。</p>
+<p>RAG 的意义在于——它让大模型真正具备“知识更新”能力，而不用重新训练。<br>对于企业来说，这是一条极具性价比的落地路线：</p>
+<ol>
+<li>数据自己掌控，</li>
+<li>模型灵活组合，</li>
+<li>系统能随时更新。</li>
+</ol>
+<p>一句话总结：</p>
+<blockquote>
+<p>RAG 让模型不止会“说”，还能“查”与“懂”。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.2001.life/2025/10/11/2025-10-11-76/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="XY">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Code & Coffee">
+      <meta itemprop="description" content="记录 OpenClaw、AI、技术的折腾笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Code & Coffee">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/10/11/2025-10-11-76/" class="post-title-link" itemprop="url">RocketMQ 应用：工作流和服务解耦</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-10-11 00:36:01" itemprop="dateCreated datePublished" datetime="2025-10-11T00:36:01+08:00">2025-10-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-02-06 17:55:36" itemprop="dateModified" datetime="2026-02-06T17:55:36+08:00">2026-02-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/" itemprop="url" rel="index"><span itemprop="name">默认分类</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="RocketMQ应用：工作流和服务解耦"><a href="#RocketMQ应用：工作流和服务解耦" class="headerlink" title="RocketMQ应用：工作流和服务解耦"></a>RocketMQ应用：工作流和服务解耦</h1><p><img src="https://images/typecho//2025/10/1922781609.png" alt="2025-10-10T12:44:13.png"><br>整个工作流程由 <code>Workflow</code> 服务调度，其他微服务都订阅了与自己任务相关的主题，主题的消息由Workflow的producer发送，同时Workflow也监听其他微服务返回的结果，由返回的结果触发对应的producer。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
 
 </div>
   </main>

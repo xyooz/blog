@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.2001.life","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="项目展示 项目起源支持 Markdown 语法的轻量桌面便签。 在开发 MarkNote 之前，我一直在寻找一个简单但功能强大的桌面便签应用。市面上的便签应用要么过于简单，要么过于复杂。于是我决定自己开发一个既轻量又实用的便签应用。 技术选型 开发语言: Python GUI 框架: PyQt5 开发工具: Cursor IDE 构建工具: PyInstaller  开发历程1. 基础框架搭建首先">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MarkNote 开发历程：从零开始的桌面便签应用开发">
+<meta property="og:url" content="https://blog.2001.life/2025/04/04/2025-04-04-47/index.html">
+<meta property="og:site_name" content="Code &amp; Coffee">
+<meta property="og:description" content="项目展示 项目起源支持 Markdown 语法的轻量桌面便签。 在开发 MarkNote 之前，我一直在寻找一个简单但功能强大的桌面便签应用。市面上的便签应用要么过于简单，要么过于复杂。于是我决定自己开发一个既轻量又实用的便签应用。 技术选型 开发语言: Python GUI 框架: PyQt5 开发工具: Cursor IDE 构建工具: PyInstaller  开发历程1. 基础框架搭建首先">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://images/typecho//2025/04/601261715.png">
+<meta property="og:image" content="https://images/typecho//2025/04/394463393.png">
+<meta property="article:published_time" content="2025-04-03T16:46:00.000Z">
+<meta property="article:modified_time" content="2026-02-06T09:55:36.423Z">
+<meta property="article:author" content="XY">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="Code &amp; Coffee">
+<meta property="article:tag" content="OpenClaw">
+<meta property="article:tag" content="技术博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://images/typecho//2025/04/601261715.png">
+
+
+<link rel="canonical" href="https://blog.2001.life/2025/04/04/2025-04-04-47/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.2001.life/2025/04/04/2025-04-04-47/","path":"2025/04/04/2025-04-04-47/","title":"MarkNote 开发历程：从零开始的桌面便签应用开发"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>MarkNote 开发历程：从零开始的桌面便签应用开发 | Code & Coffee</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Code & Coffee</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">用咖啡驱动代码，用代码改变世界</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E5%B1%95%E7%A4%BA"><span class="nav-number">1.</span> <span class="nav-text">项目展示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E8%B5%B7%E6%BA%90"><span class="nav-number">2.</span> <span class="nav-text">项目起源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">技术选型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E5%8E%86%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">开发历程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%9F%BA%E7%A1%80%E6%A1%86%E6%9E%B6%E6%90%AD%E5%BB%BA"><span class="nav-number">4.1.</span> <span class="nav-text">1. 基础框架搭建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Markdown-%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0"><span class="nav-number">4.2.</span> <span class="nav-text">2. Markdown 功能实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%BE%85%E5%8A%9E%E4%BA%8B%E9%A1%B9%E5%8A%9F%E8%83%BD"><span class="nav-number">4.3.</span> <span class="nav-text">3. 待办事项功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-UI-UX-%E4%BC%98%E5%8C%96"><span class="nav-number">4.4.</span> <span class="nav-text">4. UI&#x2F;UX 优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E9%85%8D%E7%BD%AE%E7%B3%BB%E7%BB%9F"><span class="nav-number">4.5.</span> <span class="nav-text">5. 配置系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E9%A1%B9%E7%9B%AE%E9%87%8D%E6%9E%84%E4%B8%8E%E9%87%8D%E5%91%BD%E5%90%8D"><span class="nav-number">4.6.</span> <span class="nav-text">6. 项目重构与重命名</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%80%E6%9C%AF%E9%9A%BE%E7%82%B9%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">5.</span> <span class="nav-text">技术难点与解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Markdown-%E6%B8%B2%E6%9F%93%E6%80%A7%E8%83%BD"><span class="nav-number">5.1.</span> <span class="nav-text">1. Markdown 渲染性能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96"><span class="nav-number">5.2.</span> <span class="nav-text">2. 数据持久化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%B3%BB%E7%BB%9F%E6%89%98%E7%9B%98%E9%9B%86%E6%88%90"><span class="nav-number">5.3.</span> <span class="nav-text">3. 系统托盘集成</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E4%B8%8E%E6%95%88%E7%8E%87"><span class="nav-number">6.</span> <span class="nav-text">开发工具与效率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E5%8F%91%E5%B8%83"><span class="nav-number">7.</span> <span class="nav-text">项目发布</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AA%E6%9D%A5%E5%B1%95%E6%9C%9B"><span class="nav-number">8.</span> <span class="nav-text">未来展望</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">9.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E9%93%BE%E6%8E%A5"><span class="nav-number">10.</span> <span class="nav-text">项目链接</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">XY</p>
+  <div class="site-description" itemprop="description">记录 OpenClaw、AI、技术的折腾笔记</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.2001.life/2025/04/04/2025-04-04-47/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="XY">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Code & Coffee">
+      <meta itemprop="description" content="记录 OpenClaw、AI、技术的折腾笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="MarkNote 开发历程：从零开始的桌面便签应用开发 | Code & Coffee">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MarkNote 开发历程：从零开始的桌面便签应用开发
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-04-04 00:46:00" itemprop="dateCreated datePublished" datetime="2025-04-04T00:46:00+08:00">2025-04-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-02-06 17:55:36" itemprop="dateModified" datetime="2026-02-06T17:55:36+08:00">2026-02-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/" itemprop="url" rel="index"><span itemprop="name">默认分类</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="项目展示"><a href="#项目展示" class="headerlink" title="项目展示"></a>项目展示</h2><p><img src="https://images/typecho//2025/04/601261715.png" alt="2025-04-03T16:46:01.png"><br><img src="https://images/typecho//2025/04/394463393.png" alt="2025-04-03T16:46:12.png"></p>
+<h2 id="项目起源"><a href="#项目起源" class="headerlink" title="项目起源"></a>项目起源</h2><p>支持 Markdown 语法的轻量桌面便签。</p>
+<p>在开发 MarkNote 之前，我一直在寻找一个简单但功能强大的桌面便签应用。市面上的便签应用要么过于简单，要么过于复杂。于是我决定自己开发一个既轻量又实用的便签应用。</p>
+<h2 id="技术选型"><a href="#技术选型" class="headerlink" title="技术选型"></a>技术选型</h2><ul>
+<li><strong>开发语言</strong>: Python</li>
+<li><strong>GUI 框架</strong>: PyQt5</li>
+<li><strong>开发工具</strong>: Cursor IDE</li>
+<li><strong>构建工具</strong>: PyInstaller</li>
+</ul>
+<h2 id="开发历程"><a href="#开发历程" class="headerlink" title="开发历程"></a>开发历程</h2><h3 id="1-基础框架搭建"><a href="#1-基础框架搭建" class="headerlink" title="1. 基础框架搭建"></a>1. 基础框架搭建</h3><p>首先创建了基本的 GUI 框架，包括：</p>
+<ul>
+<li>主窗口布局</li>
+<li>系统托盘集成</li>
+<li>单例模式实现</li>
+<li>基础的文件保存&#x2F;加载功能</li>
+</ul>
+<h3 id="2-Markdown-功能实现"><a href="#2-Markdown-功能实现" class="headerlink" title="2. Markdown 功能实现"></a>2. Markdown 功能实现</h3><p>这是最具挑战性的部分之一：</p>
+<ul>
+<li>使用 QWebEngineView 实现 Markdown 渲染</li>
+<li>添加实时预览功能</li>
+<li>实现代码高亮</li>
+<li>优化渲染性能</li>
+</ul>
+<h3 id="3-待办事项功能"><a href="#3-待办事项功能" class="headerlink" title="3. 待办事项功能"></a>3. 待办事项功能</h3><p>添加了 To-Do List 功能：</p>
+<ul>
+<li>支持添加&#x2F;删除待办事项</li>
+<li>复选框状态管理</li>
+<li>数据持久化存储</li>
+</ul>
+<h3 id="4-UI-UX-优化"><a href="#4-UI-UX-优化" class="headerlink" title="4. UI&#x2F;UX 优化"></a>4. UI&#x2F;UX 优化</h3><p>持续改进用户界面：</p>
+<ul>
+<li>优化顶部栏设计</li>
+<li>添加图标和视觉反馈</li>
+<li>实现窗口拖拽和调整大小</li>
+<li>添加固定位置功能</li>
+</ul>
+<h3 id="5-配置系统"><a href="#5-配置系统" class="headerlink" title="5. 配置系统"></a>5. 配置系统</h3><p>实现完整的配置管理：</p>
+<ul>
+<li>自定义保存路径</li>
+<li>开机自启动选项</li>
+<li>字体设置</li>
+<li>窗口位置记忆</li>
+</ul>
+<h3 id="6-项目重构与重命名"><a href="#6-项目重构与重命名" class="headerlink" title="6. 项目重构与重命名"></a>6. 项目重构与重命名</h3><p>将项目从 StickyNote 重命名为 MarkNote：</p>
+<ul>
+<li>更新所有相关文件名</li>
+<li>修改代码中的引用</li>
+<li>更新文档和说明</li>
+<li>调整 GitHub 仓库设置</li>
+</ul>
+<h2 id="技术难点与解决方案"><a href="#技术难点与解决方案" class="headerlink" title="技术难点与解决方案"></a>技术难点与解决方案</h2><h3 id="1-Markdown-渲染性能"><a href="#1-Markdown-渲染性能" class="headerlink" title="1. Markdown 渲染性能"></a>1. Markdown 渲染性能</h3><p><strong>问题</strong>: 实时渲染导致界面卡顿</p>
+<p><strong>解决方案</strong>: </p>
+<ul>
+<li>使用 QTimer 实现延迟渲染</li>
+<li>优化渲染逻辑</li>
+<li>添加缓存机制</li>
+</ul>
+<h3 id="2-数据持久化"><a href="#2-数据持久化" class="headerlink" title="2. 数据持久化"></a>2. 数据持久化</h3><p><strong>问题</strong>: 需要可靠的数据保存机制</p>
+<p><strong>解决方案</strong>:</p>
+<ul>
+<li>使用 INI 文件格式存储数据</li>
+<li>实现自动保存功能</li>
+<li>添加数据备份机制</li>
+</ul>
+<h3 id="3-系统托盘集成"><a href="#3-系统托盘集成" class="headerlink" title="3. 系统托盘集成"></a>3. 系统托盘集成</h3><p><strong>问题</strong>: 托盘图标管理复杂</p>
+<p><strong>解决方案</strong>:</p>
+<ul>
+<li>实现托盘菜单</li>
+<li>优化图标显示</li>
+<li>添加快捷操作</li>
+</ul>
+<h2 id="开发工具与效率"><a href="#开发工具与效率" class="headerlink" title="开发工具与效率"></a>开发工具与效率</h2><p>使用 Cursor IDE 进行开发，它提供了：</p>
+<ul>
+<li>AI 辅助编程</li>
+<li>智能代码补全</li>
+<li>实时代码分析</li>
+<li>快速重构工具</li>
+</ul>
+<h2 id="项目发布"><a href="#项目发布" class="headerlink" title="项目发布"></a>项目发布</h2><ol>
+<li>创建 GitHub 仓库</li>
+<li>编写详细文档</li>
+<li>打包发布</li>
+<li>持续维护和更新</li>
+</ol>
+<h2 id="未来展望"><a href="#未来展望" class="headerlink" title="未来展望"></a>未来展望</h2><p>计划添加的功能：</p>
+<ul>
+<li>多主题支持</li>
+<li>云同步</li>
+<li>快捷键自定义</li>
+<li>插件系统</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过这个项目，我不仅开发了一个实用的工具，也学到了很多：</p>
+<ul>
+<li>PyQt5 开发经验</li>
+<li>Python 项目结构</li>
+<li>Git 版本控制</li>
+<li>软件发布流程</li>
+</ul>
+<p>这个项目展示了从零开始开发一个完整桌面应用的全过程，也让我体会到了编程的乐趣。</p>
+<h2 id="项目链接"><a href="#项目链接" class="headerlink" title="项目链接"></a>项目链接</h2><ul>
+<li><p>GitHub: <a target="_blank" rel="noopener" href="https://github.com/xyooz/MarkNote">MarkNote</a><br>Releases: <a target="_blank" rel="noopener" href="https://github.com/xyooz/MarkNote/releases">下载页面</a></p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/03/16/2025-03-16-25/" rel="prev" title="Debian12&#x2F;Ubuntu22.04 安装 Docker Docker-Compose">
+                  <i class="fa fa-angle-left"></i> Debian12/Ubuntu22.04 安装 Docker Docker-Compose
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/04/06/2025-04-06-50/" rel="next" title="记一次SSH爆破排查以及解决方案">
+                  记一次SSH爆破排查以及解决方案 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">XY</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.2001.life","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="高延迟网络下糟糕的 SSH 体验最近购入了一台 伦敦 的服务器，优点是便宜量大、相对稳定不丢包，缺点是延迟稳定的高，以至于在 SSH 连接使用服务器时，键盘输入延迟严重，丝毫不跟手，体验糟糕。于是在网上搜索解决方案🔍，发现了一款宝藏引用 Mosh。 Mosh在网络延迟较高或经常断线的环境中，传统 SSH 会话（如 Termius、OpenSSH）常常出现卡顿、掉线、粘贴延迟等问题。为此，推荐使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 Mosh：优化高延迟网络下的 SSH 连接体验">
+<meta property="og:url" content="https://blog.2001.life/2025/04/06/2025-04-06-54/index.html">
+<meta property="og:site_name" content="Code &amp; Coffee">
+<meta property="og:description" content="高延迟网络下糟糕的 SSH 体验最近购入了一台 伦敦 的服务器，优点是便宜量大、相对稳定不丢包，缺点是延迟稳定的高，以至于在 SSH 连接使用服务器时，键盘输入延迟严重，丝毫不跟手，体验糟糕。于是在网上搜索解决方案🔍，发现了一款宝藏引用 Mosh。 Mosh在网络延迟较高或经常断线的环境中，传统 SSH 会话（如 Termius、OpenSSH）常常出现卡顿、掉线、粘贴延迟等问题。为此，推荐使用">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://images/typecho//2025/04/1033170522.png">
+<meta property="og:image" content="https://images/typecho//2025/04/3150756892.png">
+<meta property="article:published_time" content="2025-04-06T09:58:34.000Z">
+<meta property="article:modified_time" content="2026-02-06T09:55:36.427Z">
+<meta property="article:author" content="XY">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="Code &amp; Coffee">
+<meta property="article:tag" content="OpenClaw">
+<meta property="article:tag" content="技术博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://images/typecho//2025/04/1033170522.png">
+
+
+<link rel="canonical" href="https://blog.2001.life/2025/04/06/2025-04-06-54/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.2001.life/2025/04/06/2025-04-06-54/","path":"2025/04/06/2025-04-06-54/","title":"使用 Mosh：优化高延迟网络下的 SSH 连接体验"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>使用 Mosh：优化高延迟网络下的 SSH 连接体验 | Code & Coffee</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Code & Coffee</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">用咖啡驱动代码，用代码改变世界</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E5%BB%B6%E8%BF%9F%E7%BD%91%E7%BB%9C%E4%B8%8B%E7%B3%9F%E7%B3%95%E7%9A%84-SSH-%E4%BD%93%E9%AA%8C"><span class="nav-number">1.</span> <span class="nav-text">高延迟网络下糟糕的 SSH 体验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mosh"><span class="nav-number">2.</span> <span class="nav-text">Mosh</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Termius-%E4%B8%AD%E7%9A%84%E6%96%B9%E4%BE%BF%E4%BD%BF%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">Termius 中的方便使用</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">XY</p>
+  <div class="site-description" itemprop="description">记录 OpenClaw、AI、技术的折腾笔记</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.2001.life/2025/04/06/2025-04-06-54/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="XY">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Code & Coffee">
+      <meta itemprop="description" content="记录 OpenClaw、AI、技术的折腾笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="使用 Mosh：优化高延迟网络下的 SSH 连接体验 | Code & Coffee">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          使用 Mosh：优化高延迟网络下的 SSH 连接体验
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-04-06 17:58:34" itemprop="dateCreated datePublished" datetime="2025-04-06T17:58:34+08:00">2025-04-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-02-06 17:55:36" itemprop="dateModified" datetime="2026-02-06T17:55:36+08:00">2026-02-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/" itemprop="url" rel="index"><span itemprop="name">默认分类</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="高延迟网络下糟糕的-SSH-体验"><a href="#高延迟网络下糟糕的-SSH-体验" class="headerlink" title="高延迟网络下糟糕的 SSH 体验"></a>高延迟网络下糟糕的 SSH 体验</h2><p>最近购入了一台 <strong>伦敦</strong> 的服务器，优点是便宜量大、相对稳定不丢包，缺点是<strong>延迟稳定的高</strong>，以至于在 SSH 连接使用服务器时，<u><strong>键盘输入延迟严重，丝毫不跟手</strong></u>，体验糟糕。<br>于是在网上搜索解决方案🔍，发现了一款宝藏引用 <code>Mosh</code>。<br><img src="https://images/typecho//2025/04/1033170522.png" alt="2025-04-06T09:53:57.png"></p>
+<h2 id="Mosh"><a href="#Mosh" class="headerlink" title="Mosh"></a>Mosh</h2><p>在网络延迟较高或经常断线的环境中，传统 SSH 会话（如 Termius、OpenSSH）常常出现卡顿、掉线、粘贴延迟等问题。为此，推荐使用 Mosh（Mobile Shell） 来替代传统 SSH。</p>
+<blockquote>
+<p><strong>关于 Mosh（Mobile Shell）</strong></p>
+<p>Mosh 是一种比 SSH 更适合远程连接的终端工具，尤其适用于高延迟、不稳定网络环境。它支持断网重连、IP 变更不中断连接，并提供更流畅的打字体验。</p>
+<p>相较于传统 SSH，Mosh 使用 UDP 协议，通过本地预回显机制让输入响应几乎无延迟。</p>
+<p>官网：<a target="_blank" rel="noopener" href="https://mosh.org/">https://mosh.org/</a></p>
+<p>安装方法（Ubuntu）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install mosh</span><br></pre></td></tr></table></figure>
+
+<p>使用方式：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mosh username@server --ssh=<span class="string">&#x27;ssh -p 2222&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：需要开放 UDP 60000-61000 端口，服务端也需安装 mosh。</p>
+</blockquote>
+<p>✅ Mosh 的优势</p>
+<ul>
+<li><p>容错强：连接中断后自动重连（即使你换了 IP）</p>
+</li>
+<li><p>低延迟响应：本地预输入回显，打字不卡顿</p>
+</li>
+<li><p>适合不稳定网络：如移动网络、海外跳板机、4G 服务器场景</p>
+</li>
+</ul>
+<h2 id="Termius-中的方便使用"><a href="#Termius-中的方便使用" class="headerlink" title="Termius 中的方便使用"></a>Termius 中的方便使用</h2><p><code>Termius</code> 是一款强大的 SSH 客户端，支持开启 <code>Mosh</code> 优化高延的服务器连接。<br>开启方法：<br>    1. 编辑服务器设置。<br>    2. 在配置的最下方找到 Mosh 设置，选择 <code>Enable</code> 打开即可。<br>    3. 点击 <code>Connect</code> 连接，后续的连接将通过 Mosh 实现。<br><img src="https://images/typecho//2025/04/3150756892.png" alt="2025-04-06T09:50:06.png"></p>
+<p>实测在高延迟的<strong>伦敦</strong>服务器连接中，也能够<u><strong>实现良好的键盘输入跟手体验</strong></u>。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/04/06/2025-04-06-50/" rel="prev" title="记一次SSH爆破排查以及解决方案">
+                  <i class="fa fa-angle-left"></i> 记一次SSH爆破排查以及解决方案
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/04/07/2025-04-07-57/" rel="next" title="Typora 无限试用探索：通过修改配置文件日期实现 &quot;续杯&quot;">
+                  Typora 无限试用探索：通过修改配置文件日期实现 &quot;续杯&quot; <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">XY</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.2001.life","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="🔢 向量化：让机器更 “懂”人类文字科研人在检索论文的时候一定有过这种感觉——研究方向的关键词检索，往往检索不到所有可能启发我们的论文。因为技术是通用的，完全可能有别的领域的论文所做的工作和我们领域的类似，但由于我们搜索的仅仅是我们领域的关键词，于是检索不到，错失了可能的启发。 我的研究场景是 MobileCrowdsensing ，其实 Crowdsourcing 也是类似的场景，但我在检索的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="🔢 向量化：让机器更 “懂”人类文字">
+<meta property="og:url" content="https://blog.2001.life/2025/10/20/2025-10-20-81/index.html">
+<meta property="og:site_name" content="Code &amp; Coffee">
+<meta property="og:description" content="🔢 向量化：让机器更 “懂”人类文字科研人在检索论文的时候一定有过这种感觉——研究方向的关键词检索，往往检索不到所有可能启发我们的论文。因为技术是通用的，完全可能有别的领域的论文所做的工作和我们领域的类似，但由于我们搜索的仅仅是我们领域的关键词，于是检索不到，错失了可能的启发。 我的研究场景是 MobileCrowdsensing ，其实 Crowdsourcing 也是类似的场景，但我在检索的">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-10-20T09:37:00.000Z">
+<meta property="article:modified_time" content="2026-02-06T09:55:36.447Z">
+<meta property="article:author" content="XY">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="Code &amp; Coffee">
+<meta property="article:tag" content="OpenClaw">
+<meta property="article:tag" content="技术博客">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.2001.life/2025/10/20/2025-10-20-81/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.2001.life/2025/10/20/2025-10-20-81/","path":"2025/10/20/2025-10-20-81/","title":"🔢 向量化：让机器更 “懂”人类文字"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>🔢 向量化：让机器更 “懂”人类文字 | Code & Coffee</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Code & Coffee</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">用咖啡驱动代码，用代码改变世界</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%94%A2-%E5%90%91%E9%87%8F%E5%8C%96%EF%BC%9A%E8%AE%A9%E6%9C%BA%E5%99%A8%E6%9B%B4-%E2%80%9C%E6%87%82%E2%80%9D%E4%BA%BA%E7%B1%BB%E6%96%87%E5%AD%97"><span class="nav-number">1.</span> <span class="nav-text">🔢 向量化：让机器更 “懂”人类文字</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%91%E9%87%8F%E5%8C%96%E6%98%AF%E5%95%A5"><span class="nav-number">1.1.</span> <span class="nav-text">向量化是啥</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%90%91%E9%87%8F%E5%8C%96"><span class="nav-number">1.2.</span> <span class="nav-text">为什么要向量化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%91%E9%87%8F%E6%98%AF%E6%80%8E%E4%B9%88%E6%9D%A5%E7%9A%84"><span class="nav-number">1.3.</span> <span class="nav-text">向量是怎么来的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="nav-number">1.4.</span> <span class="nav-text">写在最后</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">XY</p>
+  <div class="site-description" itemprop="description">记录 OpenClaw、AI、技术的折腾笔记</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.2001.life/2025/10/20/2025-10-20-81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="XY">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Code & Coffee">
+      <meta itemprop="description" content="记录 OpenClaw、AI、技术的折腾笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="🔢 向量化：让机器更 “懂”人类文字 | Code & Coffee">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          🔢 向量化：让机器更 “懂”人类文字
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-10-20 17:37:00" itemprop="dateCreated datePublished" datetime="2025-10-20T17:37:00+08:00">2025-10-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-02-06 17:55:36" itemprop="dateModified" datetime="2026-02-06T17:55:36+08:00">2026-02-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/" itemprop="url" rel="index"><span itemprop="name">默认分类</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="🔢-向量化：让机器更-“懂”人类文字"><a href="#🔢-向量化：让机器更-“懂”人类文字" class="headerlink" title="🔢 向量化：让机器更 “懂”人类文字"></a>🔢 向量化：让机器更 “懂”人类文字</h1><p>科研人在检索论文的时候一定有过这种感觉——研究方向的关键词检索，往往检索不到所有可能启发我们的论文。因为技术是通用的，完全可能有别的领域的论文所做的工作和我们领域的类似，但由于我们搜索的仅仅是我们领域的关键词，于是检索不到，错失了可能的启发。</p>
+<p>我的研究场景是 <code>MobileCrowdsensing</code> ，其实 <code>Crowdsourcing</code> 也是类似的场景，但我在检索的时候往往要分别检索这两个关键词来寻找论文，这便是单纯文本匹配检索的弊端。</p>
+<p>还有我们的工作可能包含分布式的无人机行动规划，其实这种规划类似于自动驾驶的规划，完全可以从中参照，因此简单的检索引擎也会让我错失一些启发性的优质文章。</p>
+<h2 id="向量化是啥"><a href="#向量化是啥" class="headerlink" title="向量化是啥"></a>向量化是啥</h2><p>“我喜欢吃苹果。”<br>“我爱吃水果。”</p>
+<p>这两句话<strong>意思接近</strong>，它们在<strong>高维空间的“距离”也很近</strong>。<br>而“我在写代码”那条向量，就离它们老远。</p>
+<p>计算机通过这种方式“感受”语义上的相似程度，<br>有点像人脑中的联想机制。</p>
+<hr>
+<h2 id="为什么要向量化"><a href="#为什么要向量化" class="headerlink" title="为什么要向量化"></a>为什么要向量化</h2><p>以前的搜索是关键词匹配——你搜“程序员”，它找不到“开发者”。<br>但向量化不看字面，而是看语义。</p>
+<p>这就是为什么在 RAG（检索增强生成）系统里，<br>我们要先把所有文档都向量化、存进数据库。<br>当用户提问时，也把问题向量化，再找“最近”的那几段内容给模型看。<br>模型就能在有上下文的前提下回答问题。</p>
+<p>一句话：向量化让模型先理解，再回答。</p>
+<hr>
+<h2 id="向量是怎么来的"><a href="#向量是怎么来的" class="headerlink" title="向量是怎么来的"></a>向量是怎么来的</h2><p>靠的是 <strong>Embedding 模型</strong>。<br>比如 OpenAI 的 text-embedding-3、阿里百炼的 text-embedding-v2、<br>还有开源的 bge-large、m3e 等。</p>
+<p>这些模型经过大规模语料训练，能把语义转成数字。<br>比如一句话会被转成一个 1024 维的数组 [0.12, -0.03, 0.85, …]，<br>我们看不懂，但在机器眼里，这就是“意思”。</p>
+<hr>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>向量化让机器能够进行“语义检索”，更好地“理解”人类语言。<br>想想向量化有点像人类的思考，我们的脑海中 巴士 和 公交 映射出来的画面大概率都是一辆 🚌，于是这两个词的向量距离就相近，当有人在公交站和我们说 巴士怎么还不来 的时候，我们理所当然的能够理解是在说我们等的车怎么还不来。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/10/20/2025-10-20-80/" rel="prev" title="RAG 与 模型幻觉">
+                  <i class="fa fa-angle-left"></i> RAG 与 模型幻觉
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2026/02/06/hello-world/" rel="next" title="Hello World">
+                  Hello World <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">XY</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

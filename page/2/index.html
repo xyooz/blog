@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.2001.life","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="记录 OpenClaw、AI、技术的折腾笔记">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Code &amp; Coffee">
+<meta property="og:url" content="https://blog.2001.life/page/2/index.html">
+<meta property="og:site_name" content="Code &amp; Coffee">
+<meta property="og:description" content="记录 OpenClaw、AI、技术的折腾笔记">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="XY">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="Code &amp; Coffee">
+<meta property="article:tag" content="OpenClaw">
+<meta property="article:tag" content="技术博客">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.2001.life/page/2/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"page/2/index.html","title":""}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Code & Coffee</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Code & Coffee</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">用咖啡驱动代码，用代码改变世界</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">XY</p>
+  <div class="site-description" itemprop="description">记录 OpenClaw、AI、技术的折腾笔记</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.2001.life/2025/10/10/2025-10-10-71/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="XY">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Code & Coffee">
+      <meta itemprop="description" content="记录 OpenClaw、AI、技术的折腾笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Code & Coffee">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/10/10/2025-10-10-71/" class="post-title-link" itemprop="url">RocketMQ消息队列编排工作流</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-10-10 20:23:02" itemprop="dateCreated datePublished" datetime="2025-10-10T20:23:02+08:00">2025-10-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-02-06 17:55:36" itemprop="dateModified" datetime="2026-02-06T17:55:36+08:00">2026-02-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/" itemprop="url" rel="index"><span itemprop="name">默认分类</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="RocketMQ-消息队列"><a href="#RocketMQ-消息队列" class="headerlink" title="RocketMQ 消息队列"></a>RocketMQ 消息队列</h1><h2 id="什么是消息队列？"><a href="#什么是消息队列？" class="headerlink" title="什么是消息队列？"></a>什么是消息队列？</h2><p>消息队列顾名思义就是把消息放到一个队列里，从消息队列中获取消息的行为我们称之为<strong>消费</strong>，需要消费消息的消费者自行从消息队列中获取消息，那么就引出了消息队列的第一个特性——<strong>解耦</strong>。</p>
+<ol>
+<li><strong>解耦</strong>：如果没有消息队列：我们将服务A的消息发送给服务B和服务C，后续又新增了服务D需要服务A的消息，服务C不需要A的消息了，那么就需要对一个个服务进行具体的更改。在引入消息队列之后，我们只需要将消息丢到队列里，需要的自取就可以了，实现了服务的解耦。</li>
+</ol>
+<p>先放到队列里，有需要的服务自取消息，那么这种模式又有什么特性呢？——<strong>异步</strong>。<br>2. <strong>异步</strong>：许多提交材料返回结果的操作都具有异步的特性，为什么需要异步性呢，因为同步的操作太耗费时间了，提交–&gt;处理–&gt;返回，如果是需要处理的请求特别多，那么返回的时间还会大幅增加，没有必要让用户持续等待，我们完全可以在用户提交后异步处理，处理完成后再通知用户。</p>
+<pre><code>异步处理拆解为：**提交--&gt;已经提交，处理--&gt;处理完成，通知--&gt;通知完成**。三者中间通过消息队列串联起来就可以了，大大降低了每个请求的响应时间，提升了用户的体验。这就是消息队列的第二个用途，服务解耦。
+</code></pre>
+<p>异步意味着服务不必实时处理请求，那么这种模式又可以带来什么呢？——<strong>削峰</strong>。<br>3. <strong>削弱峰</strong>：当大量的请求涌入，这在生活中完全是可能的（秒杀、抢票等高并发场景），请求的波峰是无法避免的，同步的操作中服务器的负载也是随着请求而波动，但是异步操作使得我们可以根据服务器的能力均衡负载，<strong>请求存入消息队列–&gt;服务器根据自己能力从中消费请求</strong>，使得系统负载稳定，避免大幅波动，保障服务正常运行。</p>
+<h2 id="几种消息队列"><a href="#几种消息队列" class="headerlink" title="几种消息队列"></a>几种消息队列</h2><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>Kafka</th>
+<th>ActiveMQ</th>
+<th>RabbitMQ</th>
+<th>RocketMQ</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>功能支持</strong></td>
+<td>分布式、分区、高吞吐量、流处理、持久化</td>
+<td>JMS 支持、持久化、事务、消息过滤</td>
+<td>消息路由、插件机制、持久化、多种协议支持</td>
+<td>分布式、高吞吐量、事务、定时和延时消息、持久化</td>
+</tr>
+<tr>
+<td><strong>可用性</strong></td>
+<td>高（多副本机制、自动恢复）</td>
+<td>高（支持主从架构和多种持久化机制）</td>
+<td>高（镜像队列、集群模式）</td>
+<td>高（多副本机制、集群模式）</td>
+</tr>
+<tr>
+<td><strong>消息可靠性</strong></td>
+<td>高（数据复制、多副本）</td>
+<td>高（持久化存储、事务支持）</td>
+<td>高（确认机制、持久化存储）</td>
+<td>高（数据复制、多副本、持久化存储）</td>
+</tr>
+<tr>
+<td><strong>时效性</strong></td>
+<td>毫秒级（取决于配置和网络条件）</td>
+<td>毫秒级（取决于配置和网络条件）</td>
+<td>微秒级到毫秒级（取决于配置和网络条件）</td>
+<td>毫秒级（取决于配置和网络条件）</td>
+</tr>
+<tr>
+<td><strong>Topic 数量对吞吐量的影响</strong></td>
+<td>影响较大（分区机制带来管理和资源消耗）</td>
+<td>影响中等（队列管理开销）</td>
+<td>影响较小（高效的路由机制）</td>
+<td>影响中等（分区机制和管理开销）</td>
+</tr>
+<tr>
+<td><strong>单机吞吐量</strong></td>
+<td>高（百万级消息每秒）</td>
+<td>中等（十万级消息每秒）</td>
+<td>中等（十万级消息每秒）</td>
+<td>高（百万级消息每秒）</td>
+</tr>
+<tr>
+<td><strong>Client SDK</strong></td>
+<td>多语言（Java、Scala、Python 等）</td>
+<td>多语言（Java、C、C++ 等）</td>
+<td>多语言（Java、Erlang、.NET 等）</td>
+<td>多语言（Java、C++、Go 等）</td>
+</tr>
+</tbody></table>
+<ul>
+<li>其中Kafaka适合大数据领域的实时计算、日志采集场景，因为性能最高。</li>
+<li>对实时性有要求，不关心底层，用RabbitMQ即可。</li>
+<li>阿里的RocketMQ经历过618、双11等节点的考验，且具有丰富的教程，一般使用RocketMQ就可以。</li>
+</ul>
+<h2 id="RocketMQ"><a href="#RocketMQ" class="headerlink" title="RocketMQ"></a>RocketMQ</h2><p><img src="https://images/typecho//2025/10/2185089787.png" alt="2025-10-10T09:36:59.png">官网的RocketMQ部署模型图</p>
+<p>RocketMQ 四大核心组件</p>
+<table>
+<thead>
+<tr>
+<th>部署架构部分</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>生产者（Producer）</strong></td>
+<td>发布消息的角色。Producer 通过 MQ 的负载均衡模块选择相应的 Broker 集群队列进行消息投递，投递过程支持快速失败和重试机制。</td>
+</tr>
+<tr>
+<td><strong>消费者（Consumer）</strong></td>
+<td>消息消费的角色。<br> - 支持 <strong>推（push）</strong> 和 <strong>拉（pull）</strong> 两种模式对消息进行消费。<br> - 支持 <strong>集群模式</strong> 和 <strong>广播模式</strong> 两种消费方式。<br> - 提供 <strong>实时消息订阅机制</strong>，可满足大多数用户的需求。</td>
+</tr>
+<tr>
+<td><strong>名称服务器（NameServer）</strong></td>
+<td>NameServer 是一个轻量级的 <strong>Topic 路由注册中心</strong>，支持 Topic、Broker 的动态注册与发现。<br><br>主要包含两个功能：<br>① <strong>Broker 管理</strong>：NameServer 接受 Broker 集群的注册信息并保存下来，作为路由信息的基础数据，并提供心跳检测机制检查 Broker 存活状态。<br>② <strong>路由信息管理</strong>：每个 NameServer 都会保存整个 Broker 集群的路由信息和客户端（Producer、Consumer）可查询的队列信息。Producer 和 Consumer 可通过 NameServer 获取 Broker 集群的路由信息，从而完成消息投递与消费。<br><br>此外，NameServer 通常会有多个实例部署，各实例之间互不通信。Broker 会向每台 NameServer 注册自己的路由信息，每个 NameServer 都保存完整副本。当某个 NameServer 下线时，客户端仍可从其他 NameServer 获取路由数据，保证系统高可用。</td>
+</tr>
+<tr>
+<td><strong>代理服务器（Broker）</strong></td>
+<td>Broker 负责 <strong>消息的存储、投递、查询</strong>，并保证服务的高可用。<br><br> - NameServer 为无状态节点，而 <strong>Broker 是集群的核心存储节点</strong>。<br> - 支持 <strong>Master–Slave 架构</strong>，Broker 可分为 Master 与 Slave。一个 Master 可对应多个 Slave，但每个 Slave 只能对应一个 Master。<br> - Master 与 Slave 的对应关系通过相同的 <code>BrokerName</code> 标识，不同的 <code>BrokerId</code> 区分（<code>BrokerId=0</code> 表示 Master，非 0 表示 Slave）。<br> - 每个 Broker 节点独立存储数据，Master 节点也可以部署多个以实现更高吞吐与容灾能力。</td>
+</tr>
+</tbody></table>
+<p>RocketMQ 消息流转架构图<br><img src="https://images/typecho//2025/10/4172020056.png" alt="2025-10-10T09:47:04.png"></p>
+<p>RocketMQ 消息流转时序图<br><img src="https://images/typecho//2025/10/3606436471.png" alt="2025-10-10T09:54:58.png"></p>
+<h2 id="为什么用RocketMQ？"><a href="#为什么用RocketMQ？" class="headerlink" title="为什么用RocketMQ？"></a>为什么用RocketMQ？</h2><p>RocketMQ是一个天然的分布式组件，对于分布式微服务来说很好用。<br>业务场景对延时性要求不高，可以用RocketMQ。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.2001.life/2025/10/10/2025-10-10-70/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="XY">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Code & Coffee">
+      <meta itemprop="description" content="记录 OpenClaw、AI、技术的折腾笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Code & Coffee">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/10/10/2025-10-10-70/" class="post-title-link" itemprop="url">Redisson分布式锁避免重复提交任务</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-10-10 16:03:27" itemprop="dateCreated datePublished" datetime="2025-10-10T16:03:27+08:00">2025-10-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-02-06 17:55:36" itemprop="dateModified" datetime="2026-02-06T17:55:36+08:00">2026-02-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/" itemprop="url" rel="index"><span itemprop="name">默认分类</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Redisson-分布式锁避免重复提交任务"><a href="#Redisson-分布式锁避免重复提交任务" class="headerlink" title="Redisson 分布式锁避免重复提交任务"></a>Redisson 分布式锁避免重复提交任务</h1><h2 id="为什么要引入-分布式锁-？"><a href="#为什么要引入-分布式锁-？" class="headerlink" title="为什么要引入 分布式锁 ？"></a>为什么要引入 <strong>分布式锁</strong> ？</h2><p>在本地锁场景下，已经能够解决本地服务下多线程竞争资源的同步问题，但是在分布式的场景下，服务A对资源x加锁，而服务B不受服务A的限制，若此时服务B也去访问资源B，就会出现数据不一致的问题，导致服务出错。</p>
+<h2 id="分布式锁"><a href="#分布式锁" class="headerlink" title="分布式锁"></a>分布式锁</h2><p>分布式锁是分布式集群场景下共享的一种锁机制，保证了不同服务下的互斥性，任意时刻，<strong>只有一个客户端可以持有锁</strong>。<br>特性：</p>
+<ul>
+<li><strong>互斥性</strong>：同一时刻，只有一个客户端可以持有锁，不同线程之间具有互斥性，即便是跨服务。</li>
+<li><strong>超时机制</strong>：正常情况下，持有锁的客户端执行完成之后释放锁，但是如果执行时发生异常，导致锁无法正确释放，就会造成<strong>死锁</strong>。<br>为了防止死锁，需要设置超时机制，超时自动释放。</li>
+<li><strong>自动续期</strong>：超时机制会带来一个问题，如果持有锁的客户端在时间内无法完成任务，会导致任务还没完成就释放锁，这与我们的初衷是违背的（我们引入超时机制并不是为了阻碍正常的任务完成，而是为了解决潜在服务异常造成的死锁问题），因此，需要引入自动续期机制。<br>开启一个<strong>监听任务</strong>，监听线程，如果客户端还存活就<strong>延长</strong>超时时间，直到任务完成或者是任务异常。</li>
+</ul>
+<h2 id="几种实现方式"><a href="#几种实现方式" class="headerlink" title="几种实现方式"></a>几种实现方式</h2><ul>
+<li>数据库</li>
+<li>Zookeeper</li>
+<li>Redis</li>
+</ul>
+<p>其中，Redis<strong>性能最高</strong>，方式有两种，一是利用SetNX（但是有<strong>死锁问题</strong>），而是<strong>Redisson</strong> ，也是最常用的。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="直接实现"><a href="#直接实现" class="headerlink" title="直接实现"></a>直接实现</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">String lockKey = REVIEW_LOCK_PREFIX + taskId;</span><br><span class="line">RLock lock = redissonCilent.getLock(lockKey);</span><br><span class="line"></span><br><span class="line">try&#123;</span><br><span class="line">    // 尝试获取锁（最多等待2秒，锁30秒后释放）</span><br><span class="line">    if(lock.tryLock(2, 30, TimeUnit.second)&#123;</span><br><span class="line">        // 任务执行逻辑</span><br><span class="line">        // ...</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        log.info(&quot;任务 &#123;&#125; 正在被其他人员处理，跳过此次提交&quot;, taskId);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;catch(InterruptedException e)&#123;</span><br><span class="line">    Thread.currentThread().interrupt();</span><br><span class="line">    log.info(&quot;线程终端，任务 &#123;&#125; 执行失败&quot;, taskId);</span><br><span class="line">&#125;catch(Exception e)&#123;</span><br><span class="line">    log.info(&quot;任务 &#123;&#125; 执行异常&quot;, taskId);</span><br><span class="line">&#125;finally&#123;</span><br><span class="line">    if(lock.isHeldByCurrentThread)&#123;</span><br><span class="line">        lock.unlock();</span><br><span class="line">        lock.info(&quot;已释放锁 &#123;&#125;&quot;, lockKey);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里假设任务比较简单，没有加入锁续期机制，如果要续期，使用<code>lock.lock()</code>可以自动实现看门狗的续期机制。</p>
+<h4 id="注解式非入侵实现"><a href="#注解式非入侵实现" class="headerlink" title="注解式非入侵实现"></a>注解式非入侵实现</h4><p>直接实现分布式锁需要对具体方法进行代码改动，如果我们引入注解来实现，可以实现<strong>非入侵</strong>的分布式锁实现。</p>
+<p>使用方式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@DistributedLock(key = &quot;#taskId&quot;, prefix = &quot;precheck:&quot;, leaseTime = 30)</span><br><span class="line">public void handlePrecheck(Long taskId)&#123;...&#125;</span><br></pre></td></tr></table></figure>
+<p>只需要在方法之前加上自定义的分布式锁注解，使用起来十分轻便。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">业务方法（@DistributedLock）</span><br><span class="line">     │</span><br><span class="line">     ▼</span><br><span class="line">DistributedLockAspect（AOP拦截）</span><br><span class="line">     │</span><br><span class="line">     ├─ 解析 SpEL 表达式，得到完整锁 key</span><br><span class="line">     │</span><br><span class="line">     ├─ 调用 IDistributedLock.tryLock(...)</span><br><span class="line">     │</span><br><span class="line">     │       │</span><br><span class="line">     │       ▼</span><br><span class="line">     │   RedissonDistributedLock（封装 Redisson 实现）</span><br><span class="line">     │       │</span><br><span class="line">     │       ├─ 获取 RLock</span><br><span class="line">     │       ├─ 执行 tryLock(...)</span><br><span class="line">     │       ├─ 成功 → new ILock(RLock, this)</span><br><span class="line">     │       ▼</span><br><span class="line">     │   返回 ILock（封装锁引用）</span><br><span class="line">     │</span><br><span class="line">     ├─ 执行业务逻辑 joinPoint.proceed()</span><br><span class="line">     │</span><br><span class="line">     ├─ finally：lock.close()</span><br><span class="line">     │</span><br><span class="line">     │       ▼</span><br><span class="line">     │   ILock.close()</span><br><span class="line">     │       │</span><br><span class="line">     │       └─ 调用 distributedLock.unlock(lock)</span><br><span class="line">     │</span><br><span class="line">     │              │</span><br><span class="line">     │              ▼</span><br><span class="line">     │        RedissonDistributedLock.unlock()</span><br><span class="line">     │              ├─ 校验线程持有锁</span><br><span class="line">     │              └─ 调用 RLock.unlock()</span><br><span class="line">     ▼</span><br><span class="line">   🔓 锁释放</span><br></pre></td></tr></table></figure>
+
+<p>那么如何实现呢？</p>
+<ol>
+<li>定义注解@DistributedLock <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public @interface DistributedLock&#123;</span><br><span class="line">    String key(); </span><br><span class="line">    String prefix() default &quot;lock:&quot;;</span><br><span class="line">    long tryTime() default 30; // 尝试时间，30s</span><br><span class="line">    long leaseTime() default 30; // 释放时间，30s</span><br><span class="line">    TimeUnit unit() default TimeUnit.Seconds; // 时间单位，秒</span><br><span class="line">    boolean fair default false; // 默认非公平锁</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>ILock 封装锁逻辑（策略模式） <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class ILock implements AutoCloseable&#123;</span><br><span class="line">    private final Object lock;</span><br><span class="line">    private IDistributedLock distributedLock; // 可以适应不同的分布式锁实现</span><br><span class="line">    </span><br><span class="line">    @Override</span><br><span class="line">    public void close() throws Exception&#123;</span><br><span class="line">        if(lock != null)&#123;</span><br><span class="line">            distributedLock.unlock(lock);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+ ILock 将锁的逻辑封装，可以通过不同的DistributedLock实现不同的锁（可以是Redis、Zookeeper），这里主要是为了能够实现不同的close，即便是不同的分布式锁，close方法都封装在ILock中，使用时无需关心具体的是什么分布式锁，实现了<code>策略模式</code>。<br> 继承AutoCloseable很关键，使得 <code>try { ILock lock = distributedLock.tryLock(...); }</code> 具备自动释放资源的能力，而不用在finally手写资源释放close。</li>
+<li>IDistributedLock 分布式锁操作接口 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public interface IDistributedLock&#123;</span><br><span class="line">    ILock lock(String key, long leaseTime, TimeUnit unit, boolean fair);</span><br><span class="line">    ILock tryLock(String key, long tryTime, long leaseTime, TimeUnit unit, boolean fair) throws Exception;</span><br><span class="line">    void unlock(Object lock);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>RedissonDistributedLock 实现 IDistributedLock 接口 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">public class RedissonDitributedLock implements IDistributedLock&#123;</span><br><span class="line">    @Resource</span><br><span class="line">    RedissonClient redissonClient;</span><br><span class="line">    </span><br><span class="line">    @Override</span><br><span class="line">    public ILock lock(String key, long leaseTime, TimeUnit unit, boolean fair)&#123;</span><br><span class="line">        RLock lock = fair? redissonClient.getFairLock(key) : redissonClient.getLock(key);</span><br><span class="line">        lock.lock(leaseTime, unit);</span><br><span class="line">        return new ILock(lock, this);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    @Override</span><br><span class="line">    public ILock tryLock(String key, long tryTime, long leaseTime, TimeUnit unit, boolean fair)&#123;</span><br><span class="line">        RLock lock = fair? redissonClient.getFairLock(key) : redissonClient.getLock(key);</span><br><span class="line">        boolean acquired = lock.tryLock(tryTime, leaseTime, unit);</span><br><span class="line">        if(acquired)&#123;</span><br><span class="line">            return new ILock(lock, this);</span><br><span class="line">        &#125;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    @Override</span><br><span class="line">    public void unlock(Object lock)&#123;</span><br><span class="line">        if(lock instanceOf RLock)&#123;</span><br><span class="line">            RLock rLock = (RLock) lock;</span><br><span class="line">            try&#123;</span><br><span class="line">                if(rLock.islocked() &amp;&amp; rLock.isHeldByCurrentThread)&#123;</span><br><span class="line">                    rLock.unlock();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;catch(IllegalMonitorStateException e)&#123;</span><br><span class="line">                log.warn(&quot;分布式锁释放失败：&#123;&#125;&quot;, e.getMessage());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+5.DistibutedLockAspect 切面 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">public class DistributedLockAspect&#123;</span><br><span class="line">    </span><br><span class="line">    @Resource</span><br><span class="line">    private final IDistributedLock distributedLock;</span><br><span class="line">    </span><br><span class="line">    @around(@annoation(distributedLockAnno))</span><br><span class="line">    private Object around(ProceedingJointPoint jointPoint, DistributedLock distributedLockAnno) throws Exception&#123;</span><br><span class="line">        String key = parseKey(jointPoint, distributedLockAnno);</span><br><span class="line">        ILock lock = null;</span><br><span class="line">        try&#123;</span><br><span class="line">            lock = distributedLock.tryLock(</span><br><span class="line">                    key,</span><br><span class="line">                    distributedLockAnno.tryTime(),</span><br><span class="line">                    distributedLockAnno.leaseTime(),</span><br><span class="line">                    distributedLockAnno.unit(),</span><br><span class="line">                    distributedLockAnno.fair()        </span><br><span class="line">            );</span><br><span class="line">            if(lock == null)&#123;</span><br><span class="line">                log.warn(&quot;未能获取到锁, &#123;&#125;&quot;, key);</span><br><span class="line">                return null;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            Object result = jointPoint.proceed(); // 原本方法执行的结果</span><br><span class="line">        &#125; finally&#123;</span><br><span class="line">            if (lock != null) &#123;</span><br><span class="line">                lock.close();</span><br><span class="line">                log.info(&quot;🔓 已释放锁：&#123;&#125;&quot;, key);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    private String parseKey(ProceedingJoinPoint joinPoint, DistributedLock anno) &#123;</span><br><span class="line">        String spelKey = anno.key();</span><br><span class="line">        MethodSignature signature = (MethodSignature) joinPoint.getSignature();</span><br><span class="line">        Method method = signature.getMethod();</span><br><span class="line">        String[] paramNames = signature.getParameterNames();</span><br><span class="line">        Object[] args = joinPoint.getArgs();</span><br><span class="line"></span><br><span class="line">        EvaluationContext context = new StandardEvaluationContext();</span><br><span class="line">        for (int i = 0; i &lt; paramNames.length; i++) &#123;</span><br><span class="line">            context.setVariable(paramNames[i], args[i]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Expression expression = parser.parseExpression(spelKey);</span><br><span class="line">        Object value = expression.getValue(context);</span><br><span class="line">        return anno.prefix() + Objects.toString(value);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>整体流程：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">┌────────────────────────────┐</span><br><span class="line">│ @DistributedLock(key=&quot;#id&quot;)│  ← 业务方法</span><br><span class="line">└────────────┬───────────────┘</span><br><span class="line">             │</span><br><span class="line">             ▼</span><br><span class="line">     [DistributedLockAspect]</span><br><span class="line">             │</span><br><span class="line">             ▼</span><br><span class="line">     [IDistributedLock 接口]</span><br><span class="line">             │</span><br><span class="line">             ▼</span><br><span class="line">     [RedissonDistributedLock]</span><br><span class="line">             │</span><br><span class="line">             ▼</span><br><span class="line">     [Redis 实例]</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.2001.life/2025/10/09/2025-10-09-69/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="XY">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Code & Coffee">
+      <meta itemprop="description" content="记录 OpenClaw、AI、技术的折腾笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Code & Coffee">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/10/09/2025-10-09-69/" class="post-title-link" itemprop="url">Redis + Lua 脚本实现计数器限流</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-10-09 21:59:00" itemprop="dateCreated datePublished" datetime="2025-10-09T21:59:00+08:00">2025-10-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-02-06 17:55:36" itemprop="dateModified" datetime="2026-02-06T17:55:36+08:00">2026-02-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/" itemprop="url" rel="index"><span itemprop="name">默认分类</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Redis-Lua-脚本实现计数器限流"><a href="#Redis-Lua-脚本实现计数器限流" class="headerlink" title="Redis + Lua 脚本实现计数器限流"></a>Redis + Lua 脚本实现计数器限流</h1><h2 id="限流"><a href="#限流" class="headerlink" title="限流"></a>限流</h2><p>系统高并发的三大保障有：缓存、降级、<strong>限流</strong><br>限流：限制系统或者某个服务在<strong>单位时间内处理请求的数量</strong>，防止系统超负荷，保障服务正常运行。常用算法有：计数器、令牌桶和漏桶等。</p>
+<p>限流中的两个概念：</p>
+<ul>
+<li><strong>阈值</strong>：比如将QPS限制为500，那么说明每秒处理500个请求，通过设置阈值，控制系统负载，达到防止超负荷的目的。</li>
+<li><strong>拒绝策略</strong>：那么被阈值拒之门外的请求应该作何处理呢？拒绝策略提供了方案，常见的有：<ul>
+<li><strong>直接拒绝</strong>：直接拒绝超过阈值的请求，不予处理。</li>
+<li><strong>排队等待</strong>：将超过阈值的请求放入队列，等候处理。<br>不同业务场景下选择合适的拒绝策略能够提高用户的体验。</li>
+</ul>
+</li>
+</ul>
+<p>目前比较主流的两个限流方案</p>
+<ul>
+<li>网关层：限流在所有应用的入口处。</li>
+<li>中间件限流：限流信息存储在中间件（如Redis）中，每个组件可以从此获得事实的限流信息，来决定操作。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">//计数器限流示意</span><br><span class="line">public class Limiter&#123;</span><br><span class="line">    private final int limit = 10;</span><br><span class="line">    private final int timeWindow = 1000;</span><br><span class="line">    private long time;</span><br><span class="line">    private AtomicInteger reqCount = new AtomicInteger(0);</span><br><span class="line">       </span><br><span class="line">    public Limiter()&#123;</span><br><span class="line">        this.time = System.currentTimeMillis();</span><br><span class="line">    &#125;</span><br><span class="line">    // 每次请求前使用</span><br><span class="line">    public boolean limit()&#123;</span><br><span class="line">        long now = System.currentTimeMillis();</span><br><span class="line">        if(now &lt; time + timeWindow)&#123;</span><br><span class="line">            reqCount.addAndGet(1);</span><br><span class="line">            return reqCount.get() &lt; limit;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            // 超出时间窗口，重新计数</span><br><span class="line">            time = now;</span><br><span class="line">            reqCount = new AtomicInteger(0);</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="什么是Lua脚本？"><a href="#什么是Lua脚本？" class="headerlink" title="什么是Lua脚本？"></a>什么是Lua脚本？</h2><p>一种轻量级、嵌入式脚本语言，常用游戏开发、脚本编程和嵌入式系统中。Redis从2.6开始支持Lua脚本，可以通过 EVAL 命令执行Lua脚本，实现原子操作，避免复杂的多步操作。<br>Lua脚本类似于MySQL的事务，存储一组指令，这些指令要么全部执行成功，要么全部失败，具有<strong>原子性</strong>，在开发中使用 Lua 脚本，可以将其看作是一段<strong>具有业务逻辑的代码块</strong>，因为我们需要用到原子性的一组操作，必然是业务需求。</p>
+<p>Lua脚本在Redis中的好处：</p>
+<ul>
+<li><strong>原子性操作</strong></li>
+<li><strong>减少网络开销</strong>：一次性组装多条命令，减少Redis通信开销</li>
+<li><strong>便利复杂操</strong>：作实现复杂操作，原本Redis命令执行可能很繁琐</li>
+</ul>
+<p>常见使用场景：</p>
+<ul>
+<li><strong>分布式锁</strong>：Redisson 分布式锁底层就包括Lua脚本</li>
+<li><strong>计数器限流</strong>：Lua脚本实现精确计数器限流，避免并发问题</li>
+<li><strong>复杂事务</strong>：Lua脚本处理多步事务，保障操作完整性。</li>
+</ul>
+<h2 id="项目应用"><a href="#项目应用" class="headerlink" title="项目应用"></a>项目应用</h2><p>在项目中应用<strong>Redis+Lua</strong>脚本实现计数器限流，避免频繁等重复或者恶意的提交，减少系统的异常压力。我们不仅实现限流，还应用<strong>自定义注解</strong> + <strong>切面</strong>，实现灵活的限流。</p>
+<h3 id="Lua-脚本配置"><a href="#Lua-脚本配置" class="headerlink" title="Lua 脚本配置"></a>Lua 脚本配置</h3><p>首先将脚本配置注入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">public class RedisRateLimiterConfig &#123;</span><br><span class="line">    @Bean</span><br><span class="line">    public DefaultRedisScript&lt;Long&gt; limitScript() &#123;</span><br><span class="line">        DefaultRedisScript&lt;Long&gt; redisScript = new DefaultRedisScript&lt;&gt;();</span><br><span class="line">        redisScript.setScriptText(limitScriptText());</span><br><span class="line">        redisScript.setResultType(Long.class);</span><br><span class="line">        return redisScript;</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * 限流Lua脚本（基于计数器算法）</span><br><span class="line">     */</span><br><span class="line">    private String limitScriptText() &#123;</span><br><span class="line">        return &quot;local key = KEYS[1]\n&quot; +</span><br><span class="line">                &quot;local count = tonumber(ARGV[1])\n&quot; +</span><br><span class="line">                &quot;local time = tonumber(ARGV[2])\n&quot; +</span><br><span class="line">                &quot;local current = redis.call(&#x27;get&#x27;, key)\n&quot; +</span><br><span class="line">                &quot;if current and tonumber(current) &gt; count then\n&quot; +</span><br><span class="line">                &quot;    return tonumber(current)\n&quot; +</span><br><span class="line">                &quot;end\n&quot; +</span><br><span class="line">                &quot;current = redis.call(&#x27;incr&#x27;, key)\n&quot; +</span><br><span class="line">                &quot;if tonumber(current) == 1 then\n&quot; +</span><br><span class="line">                &quot;    redis.call(&#x27;expire&#x27;, key, time)\n&quot; +</span><br><span class="line">                &quot;end\n&quot; +</span><br><span class="line">                &quot;return tonumber(current)&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Lua 脚本流程：</p>
+<ol>
+<li>读取key计数</li>
+<li>如果key存在，且值超过限制，返回计数，代表超出阈值</li>
+<li>计数+1，如果不存在，计数会被设置为1</li>
+<li>如果计数&#x3D;&#x3D;1，意味着是第一次访问，设置过期时间</li>
+<li>返回计数</li>
+</ol>
+<h3 id="自定义注解"><a href="#自定义注解" class="headerlink" title="自定义注解"></a>自定义注解</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">@Target(ElementType.METHOD) // 表示只能用于方法</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME) // 表示运行时存活，可被反射获取</span><br><span class="line">@Documented</span><br><span class="line">public @interface RateLimiter &#123;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 限流key（前缀）</span><br><span class="line">     */</span><br><span class="line">    String key() default &quot;RATE_LIMIT:&quot;;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 限流时间窗口，单位秒</span><br><span class="line">     */</span><br><span class="line">    int time() default 60;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 限流次数</span><br><span class="line">     */</span><br><span class="line">    int count() default 100;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 限流类型（默认/按IP）</span><br><span class="line">     */</span><br><span class="line">    LimitType limitType() default LimitType.DEFAULT;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="切面"><a href="#切面" class="headerlink" title="切面"></a>切面</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">private RedisTemplate&lt;Object, Object&gt; redisTemplate;</span><br><span class="line">    private RedisScript&lt;Long&gt; limitScript;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    public void setRedisTemplate(RedisTemplate&lt;Object, Object&gt; redisTemplate) &#123;</span><br><span class="line">        this.redisTemplate = redisTemplate;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    public void setLimitScript(RedisScript&lt;Long&gt; limitScript) &#123;</span><br><span class="line">        this.limitScript = limitScript;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Before(&quot;@annotation(rateLimiter)&quot;)</span><br><span class="line">    public void doBefore(JoinPoint point, RateLimiter rateLimiter) &#123;</span><br><span class="line">        int time = rateLimiter.time();</span><br><span class="line">        int count = rateLimiter.count();</span><br><span class="line">        String key = buildKey(rateLimiter, point);</span><br><span class="line"></span><br><span class="line">        List&lt;Object&gt; keys = Collections.singletonList(key);</span><br><span class="line">        Long current = redisTemplate.execute(limitScript, keys, count, time);</span><br><span class="line"></span><br><span class="line">        if (current == null || current.intValue() &gt; count) &#123;</span><br><span class="line">            throw new ServiceException(&quot;访问过于频繁，请稍候再试&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        log.info(&quot;🔒 限流：key=&#123;&#125;, 当前请求次数=&#123;&#125;, 限制次数=&#123;&#125;&quot;, key, current, count);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private String buildKey(RateLimiter rateLimiter, JoinPoint point) &#123;</span><br><span class="line">        StringBuilder sb = new StringBuilder(rateLimiter.key());</span><br><span class="line">        if (rateLimiter.limitType() == LimitType.IP) &#123;</span><br><span class="line">            sb.append(IpUtils.getIpAddr(ServletUtils.getRequest())).append(&quot;:&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        MethodSignature signature = (MethodSignature) point.getSignature();</span><br><span class="line">        Method method = signature.getMethod();</span><br><span class="line">        sb.append(method.getDeclaringClass().getName()).append(&quot;.&quot;).append(method.getName());</span><br><span class="line">        return sb.toString();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>定义切面，执行带有@RateLimiter注解的方法之前，会先执行 doBefore，doBefore就是我们定义的限流逻辑：</p>
+<ol>
+<li>从注解ratelimiter类获取限流配置信息（底层是反射，这就是为什么<strong>注解周期要设置成运行时</strong>）</li>
+<li>构造key，这里加入IP来构造，并且通过<strong>反射</strong>获取方法的所在类和方法名，结合构造，最终是RATE_LIMIT:IP:com.example.test.login 这种形式，以达到限制同一IP请求同一方法频率的目的。</li>
+<li>执行Lua脚本限流逻辑，如果超出限制，抛出异常。</li>
+</ol>
+<p>如何分析改进策略？</p>
+<ul>
+<li>某接口限流次数很多（例如 &#x2F;login 被拒绝上千次）<br>说明限额太低或流量高峰明显<br>提高 count 或缩短 time</li>
+<li>某些 IP 频繁被限流<br>说明有刷接口风险<br>对该 IP 单独设更低限额或拉黑</li>
+<li>某时段（比如 9:00-9:30）限流集中<br>说明系统高峰期<br>调整限流窗口、引入“分时段动态限流”</li>
+<li>限流接口都是低价值接口（如 &#x2F;ping）<br>说明资源浪费<br>可以放宽或取消限流</li>
+<li>限流导致主业务接口大量被拒绝<br>说明策略太激进<br>调整全局限额或使用令牌桶平滑限流</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.2001.life/2025/04/10/2025-04-10-64/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="XY">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Code & Coffee">
+      <meta itemprop="description" content="记录 OpenClaw、AI、技术的折腾笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Code & Coffee">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/04/10/2025-04-10-64/" class="post-title-link" itemprop="url">自己开发的动态线程池组件对接项目</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-04-10 22:53:28" itemprop="dateCreated datePublished" datetime="2025-04-10T22:53:28+08:00">2025-04-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-02-06 17:55:36" itemprop="dateModified" datetime="2026-02-06T17:55:36+08:00">2026-02-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/" itemprop="url" rel="index"><span itemprop="name">默认分类</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean install</span><br></pre></td></tr></table></figure>
+
+<p>打包好的动态线程池在本地maven仓库，这个时候可以在需要引入的项目的<code>pom</code>文件里导入动态线程池组件。</p>
+<p>过程中需要注意的一点是，动态线程池使用了 Redissonclient，对接项目中也使用了 Redissonclient，刚开始运行的时候会发生系统不知道注入哪个 bean 的冲突，需要解决冲突。</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>指定其中一个Redissonclient bean <code>@Primary</code>，或者是在所有需要注入 Redissonclient 的地方（在<code>@Resource</code>下面）加上<code>@Qualifier(bean名称)</code><br><img src="https://images/typecho//2025/04/2715596355.png" alt="2025-04-10T14:52:42.png"><br><img src="https://images/typecho//2025/04/3897093518.png" alt="2025-04-10T14:52:47.png"></p>
+<p>运行程序，接着在动态线程池管理页面就可以动态监控、管理了。<br><img src="https://images/typecho//2025/04/3220638611.png" alt="2025-04-10T14:52:58.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.2001.life/2025/04/07/2025-04-07-57/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="XY">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Code & Coffee">
+      <meta itemprop="description" content="记录 OpenClaw、AI、技术的折腾笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Code & Coffee">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/04/07/2025-04-07-57/" class="post-title-link" itemprop="url">Typora 无限试用探索：通过修改配置文件日期实现 &quot;续杯&quot;</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-04-07 22:07:00" itemprop="dateCreated datePublished" datetime="2025-04-07T22:07:00+08:00">2025-04-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-02-06 17:55:36" itemprop="dateModified" datetime="2026-02-06T17:55:36+08:00">2026-02-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/" itemprop="url" rel="index"><span itemprop="name">默认分类</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>本文仅用于学习和研究，不建议绕过 Typora 的正版授权机制。请合理使用，支持优秀的软件开发者！</p>
+</blockquote>
+<hr>
+<h2 id="一、项目背景"><a href="#一、项目背景" class="headerlink" title="一、项目背景"></a>一、项目背景</h2><p><a target="_blank" rel="noopener" href="https://typora.io/">Typora</a> 是一款极致优雅的 Markdown 文档编辑器，并提供手写样台体高度达成的手写组织体验。</p>
+<p>Typora 原本是免费软件，但在进入正式发布版本后，已改为付费软件，无论是 Windows 还是 macOS，都有试用时间限制。</p>
+<h2 id="在试用期结束后，Typora-需要正版授权才能继续使用。那么，还有没有可能通过保留试用状态，实现同样效果的方法呢？"><a href="#在试用期结束后，Typora-需要正版授权才能继续使用。那么，还有没有可能通过保留试用状态，实现同样效果的方法呢？" class="headerlink" title="在试用期结束后，Typora 需要正版授权才能继续使用。那么，还有没有可能通过保留试用状态，实现同样效果的方法呢？"></a>在试用期结束后，Typora 需要正版授权才能继续使用。那么，还有没有可能通过保留试用状态，实现同样效果的方法呢？<br><img src="https://images/typecho//2025/04/3991686178.png" alt="2025-04-07T14:07:58.png"></h2><h2 id="二、Typora-配置文件分析"><a href="#二、Typora-配置文件分析" class="headerlink" title="二、Typora 配置文件分析"></a>二、Typora 配置文件分析</h2><p>Typora 在 Windows 上会把用户配置存储在</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%APPDATA%\Typora\profile.data</span><br></pre></td></tr></table></figure>
+
+<p>该文件本质是一个被 UTF-8 编码后再转换为 16 进制的 JSON 文件，我们可以将其转为 JSON，分析其中包含如下样的日期字段：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;_iD&quot;</span><span class="punctuation">:</span> <span class="string">&quot;3/18/2025&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>非常明显，这是用于记录试用开始时间的字段。而 Typora 同步上下没有与服务器校验，那么，我们只需要修改这个日期，就有可能重新启动试用。</p>
+<hr>
+<h2 id="三、Python-脚本实现“日期重置试用”"><a href="#三、Python-脚本实现“日期重置试用”" class="headerlink" title="三、Python 脚本实现“日期重置试用”"></a>三、Python 脚本实现“日期重置试用”</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hex_to_json</span>(<span class="params">hex_str</span>):</span><br><span class="line">    <span class="keyword">return</span> json.loads(<span class="built_in">bytes</span>.fromhex(hex_str).decode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">json_to_hex</span>(<span class="params">data</span>):</span><br><span class="line">    json_str = json.dumps(data, separators=(<span class="string">&#x27;,&#x27;</span>, <span class="string">&#x27;:&#x27;</span>))</span><br><span class="line">    <span class="keyword">return</span> json_str.encode(<span class="string">&#x27;utf-8&#x27;</span>).<span class="built_in">hex</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_today_date_str</span>():</span><br><span class="line">    today = datetime.today()</span><br><span class="line">    <span class="keyword">return</span> <span class="string">f&quot;<span class="subst">&#123;today.month&#125;</span>/<span class="subst">&#123;today.day&#125;</span>/<span class="subst">&#123;today.year&#125;</span>&quot;</span>  <span class="comment"># M/D/YYYY</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fix_path</span>(<span class="params">path: <span class="built_in">str</span></span>):</span><br><span class="line">    <span class="keyword">return</span> path.replace(<span class="string">&quot;\\&quot;</span>, <span class="string">&quot;\\\\&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    file_path = os.path.expandvars(<span class="string">r&quot;%APPDATA%\\Typora\\profile.data&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(file_path):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;\u6587\u4ef6\u4e0d\u5b58\u5728\uff1a<span class="subst">&#123;file_path&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(file_path, <span class="string">&quot;r&quot;</span>, encoding=<span class="string">&quot;utf-8&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        hex_input = f.read().strip()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        data = hex_to_json(hex_input)</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;\u89e3\u6790\u5931\u8d25\uff0c\u8bf7\u786e\u8ba4\u6587\u4ef6\u5185\u5bb9\u662f hex \u7f16\u7801\u7684 JSON\u3002&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;\u9519\u8bef\u4fe1\u606f\uff1a&quot;</span>, e)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    today_str = get_today_date_str()</span><br><span class="line">    data[<span class="string">&quot;_iD&quot;</span>] = today_str</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;\u5df2\u5c06 _iD \u66f4\u65b0\u4e3a\uff1a<span class="subst">&#123;today_str&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="string">&quot;pinFolder&quot;</span> <span class="keyword">in</span> data:</span><br><span class="line">        data[<span class="string">&quot;pinFolder&quot;</span>] = fix_path(data[<span class="string">&quot;pinFolder&quot;</span>])</span><br><span class="line"></span><br><span class="line">    modified_hex = json_to_hex(data)</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(file_path, <span class="string">&quot;w&quot;</span>, encoding=<span class="string">&quot;utf-8&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        f.write(modified_hex)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;\u4fee\u6539\u6210\u529f \u2705&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;\u65b0\u5185\u5bb9\u5199\u5165\uff1a<span class="subst">&#123;file_path&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="四、实验效果"><a href="#四、实验效果" class="headerlink" title="四、实验效果"></a>四、实验效果</h2><ul>
+<li>每次运行脚本后，Typora 重启后会重新进入试用状态</li>
+<li>每日更新一次即可“续杯”</li>
+</ul>
+<hr>
+<h2 id="五、结论-提示"><a href="#五、结论-提示" class="headerlink" title="五、结论 &amp; 提示"></a>五、结论 &amp; 提示</h2><ul>
+<li><p>实现简单。Typora 试用状态存储于本地，无服务器校验</p>
+</li>
+<li><p>无需纯删除文件，只修改日期即可<br>-<u> <strong>支持开源优秀软件</strong>，Typora 值得购买</u></p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.2001.life/2025/04/06/2025-04-06-54/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="XY">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Code & Coffee">
+      <meta itemprop="description" content="记录 OpenClaw、AI、技术的折腾笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Code & Coffee">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/04/06/2025-04-06-54/" class="post-title-link" itemprop="url">使用 Mosh：优化高延迟网络下的 SSH 连接体验</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-04-06 17:58:34" itemprop="dateCreated datePublished" datetime="2025-04-06T17:58:34+08:00">2025-04-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-02-06 17:55:36" itemprop="dateModified" datetime="2026-02-06T17:55:36+08:00">2026-02-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/" itemprop="url" rel="index"><span itemprop="name">默认分类</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="高延迟网络下糟糕的-SSH-体验"><a href="#高延迟网络下糟糕的-SSH-体验" class="headerlink" title="高延迟网络下糟糕的 SSH 体验"></a>高延迟网络下糟糕的 SSH 体验</h2><p>最近购入了一台 <strong>伦敦</strong> 的服务器，优点是便宜量大、相对稳定不丢包，缺点是<strong>延迟稳定的高</strong>，以至于在 SSH 连接使用服务器时，<u><strong>键盘输入延迟严重，丝毫不跟手</strong></u>，体验糟糕。<br>于是在网上搜索解决方案🔍，发现了一款宝藏引用 <code>Mosh</code>。<br><img src="https://images/typecho//2025/04/1033170522.png" alt="2025-04-06T09:53:57.png"></p>
+<h2 id="Mosh"><a href="#Mosh" class="headerlink" title="Mosh"></a>Mosh</h2><p>在网络延迟较高或经常断线的环境中，传统 SSH 会话（如 Termius、OpenSSH）常常出现卡顿、掉线、粘贴延迟等问题。为此，推荐使用 Mosh（Mobile Shell） 来替代传统 SSH。</p>
+<blockquote>
+<p><strong>关于 Mosh（Mobile Shell）</strong></p>
+<p>Mosh 是一种比 SSH 更适合远程连接的终端工具，尤其适用于高延迟、不稳定网络环境。它支持断网重连、IP 变更不中断连接，并提供更流畅的打字体验。</p>
+<p>相较于传统 SSH，Mosh 使用 UDP 协议，通过本地预回显机制让输入响应几乎无延迟。</p>
+<p>官网：<a target="_blank" rel="noopener" href="https://mosh.org/">https://mosh.org/</a></p>
+<p>安装方法（Ubuntu）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install mosh</span><br></pre></td></tr></table></figure>
+
+<p>使用方式：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mosh username@server --ssh=<span class="string">&#x27;ssh -p 2222&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：需要开放 UDP 60000-61000 端口，服务端也需安装 mosh。</p>
+</blockquote>
+<p>✅ Mosh 的优势</p>
+<ul>
+<li><p>容错强：连接中断后自动重连（即使你换了 IP）</p>
+</li>
+<li><p>低延迟响应：本地预输入回显，打字不卡顿</p>
+</li>
+<li><p>适合不稳定网络：如移动网络、海外跳板机、4G 服务器场景</p>
+</li>
+</ul>
+<h2 id="Termius-中的方便使用"><a href="#Termius-中的方便使用" class="headerlink" title="Termius 中的方便使用"></a>Termius 中的方便使用</h2><p><code>Termius</code> 是一款强大的 SSH 客户端，支持开启 <code>Mosh</code> 优化高延的服务器连接。<br>开启方法：<br>    1. 编辑服务器设置。<br>    2. 在配置的最下方找到 Mosh 设置，选择 <code>Enable</code> 打开即可。<br>    3. 点击 <code>Connect</code> 连接，后续的连接将通过 Mosh 实现。<br><img src="https://images/typecho//2025/04/3150756892.png" alt="2025-04-06T09:50:06.png"></p>
+<p>实测在高延迟的<strong>伦敦</strong>服务器连接中，也能够<u><strong>实现良好的键盘输入跟手体验</strong></u>。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.2001.life/2025/04/06/2025-04-06-50/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="XY">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Code & Coffee">
+      <meta itemprop="description" content="记录 OpenClaw、AI、技术的折腾笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Code & Coffee">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/04/06/2025-04-06-50/" class="post-title-link" itemprop="url">记一次SSH爆破排查以及解决方案</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-04-06 17:39:00" itemprop="dateCreated datePublished" datetime="2025-04-06T17:39:00+08:00">2025-04-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-02-06 17:55:36" itemprop="dateModified" datetime="2026-02-06T17:55:36+08:00">2026-02-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%BD%91%E7%AB%99%E8%BF%90%E7%BB%B4/" itemprop="url" rel="index"><span itemprop="name">网站运维</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="问题发现"><a href="#问题发现" class="headerlink" title="问题发现"></a>问题发现</h2><p>最近在使用服务器的时候也了解到一些相关云服务器安全问题，于是进行了排查，发现了疑似 <code>SSH 爆破</code>的攻击，便展开排查处理，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ss -tan state established</span><br></pre></td></tr></table></figure>
+<p>![2025-04-06T09:21:55.png][1]<br>发现疑似爆破行为存在，进一步查看日志：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">tail</span> -f /var/log/auth.log</span><br></pre></td></tr></table></figure>
+<p>![2025-04-06T09:24:42.png][2]<br>发现可疑 ip 在尝试爆破，需要为 <code>SSH</code> 增加防护措施。</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>安装 <code>fail2ban</code> 。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.fail2ban.org/">Fail2ban</a> 是一款轻量级的服务器安全工具，专门用于<strong>检测暴力破解行为并自动封禁攻击 IP</strong>。<br>它的工作流程：</p>
+</blockquote>
+<blockquote>
+<ol>
+<li>实时监控系统日志（如 <code>/var/log/auth.log</code>）；</li>
+<li>发现异常行为（如 SSH 登录失败次数过多）；</li>
+<li>自动通过 <code>iptables</code> 或 <code>firewalld</code> 拉黑该 IP，一般封禁时间为 10 分钟至数小时。</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>Fail2ban 支持多种服务（如 sshd、nginx、vsftpd、mysql 等）监控规则，非常适合部署在公网服务器上作为第一道防线。</p>
+</blockquote>
+<blockquote>
+<p>优点：</p>
+<ul>
+<li>✦ 安装简单（<code>apt install fail2ban -y</code>）</li>
+<li>✦ 默认即可生效</li>
+<li>✦ 支持配置自定义策略（封禁阈值、持续时间、邮件通知等）</li>
+</ul>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">apt update</span><br><span class="line">apt install fail2ban -y</span><br><span class="line">systemctl <span class="built_in">enable</span> fail2ban</span><br><span class="line">systemctl start fail2ban</span><br></pre></td></tr></table></figure>
+<p>效果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fail2ban-cilent status sshd</span><br></pre></td></tr></table></figure>
+
+<p>![2025-04-06T09:21:03.png][3]</p>
+<p>已经自动封禁 <code>违规ip</code> ，提升了 <code>SSH</code> 的 <strong>安全性</strong>。在做</p>
+<h2 id="进一步的安全性"><a href="#进一步的安全性" class="headerlink" title="进一步的安全性"></a>进一步的安全性</h2><p>此外，如果还要进一步提升 <code>SSH</code> 的安全性，有如下措施：</p>
+<ul>
+<li>禁止 <code>root</code> 用户登录。</li>
+<li>禁止 <code>密码</code> 登录，通过 <code>密钥</code> 登录。</li>
+<li>修改默认 SSH <code>端口</code>。</li>
+<li>如果是 <code>固定 IP</code> 登录服务器，也可以限制登录源 IP。</li>
+<li>定期 <code>日志审计</code> ，识别可疑尝试。<br>[1]: https:&#x2F;&#x2F;&#x2F;images&#x2F;typecho&#x2F;&#x2F;2025&#x2F;04&#x2F;4060019133.png<br><br>[2]: https:&#x2F;&#x2F;&#x2F;images&#x2F;typecho&#x2F;&#x2F;2025&#x2F;04&#x2F;1955318361.png<br><br>[3]: https:&#x2F;&#x2F;&#x2F;images&#x2F;typecho&#x2F;&#x2F;2025&#x2F;04&#x2F;1638401865.png</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.2001.life/2025/04/04/2025-04-04-47/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="XY">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Code & Coffee">
+      <meta itemprop="description" content="记录 OpenClaw、AI、技术的折腾笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Code & Coffee">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/04/04/2025-04-04-47/" class="post-title-link" itemprop="url">MarkNote 开发历程：从零开始的桌面便签应用开发</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-04-04 00:46:00" itemprop="dateCreated datePublished" datetime="2025-04-04T00:46:00+08:00">2025-04-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-02-06 17:55:36" itemprop="dateModified" datetime="2026-02-06T17:55:36+08:00">2026-02-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/" itemprop="url" rel="index"><span itemprop="name">默认分类</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="项目展示"><a href="#项目展示" class="headerlink" title="项目展示"></a>项目展示</h2><p><img src="https://images/typecho//2025/04/601261715.png" alt="2025-04-03T16:46:01.png"><br><img src="https://images/typecho//2025/04/394463393.png" alt="2025-04-03T16:46:12.png"></p>
+<h2 id="项目起源"><a href="#项目起源" class="headerlink" title="项目起源"></a>项目起源</h2><p>支持 Markdown 语法的轻量桌面便签。</p>
+<p>在开发 MarkNote 之前，我一直在寻找一个简单但功能强大的桌面便签应用。市面上的便签应用要么过于简单，要么过于复杂。于是我决定自己开发一个既轻量又实用的便签应用。</p>
+<h2 id="技术选型"><a href="#技术选型" class="headerlink" title="技术选型"></a>技术选型</h2><ul>
+<li><strong>开发语言</strong>: Python</li>
+<li><strong>GUI 框架</strong>: PyQt5</li>
+<li><strong>开发工具</strong>: Cursor IDE</li>
+<li><strong>构建工具</strong>: PyInstaller</li>
+</ul>
+<h2 id="开发历程"><a href="#开发历程" class="headerlink" title="开发历程"></a>开发历程</h2><h3 id="1-基础框架搭建"><a href="#1-基础框架搭建" class="headerlink" title="1. 基础框架搭建"></a>1. 基础框架搭建</h3><p>首先创建了基本的 GUI 框架，包括：</p>
+<ul>
+<li>主窗口布局</li>
+<li>系统托盘集成</li>
+<li>单例模式实现</li>
+<li>基础的文件保存&#x2F;加载功能</li>
+</ul>
+<h3 id="2-Markdown-功能实现"><a href="#2-Markdown-功能实现" class="headerlink" title="2. Markdown 功能实现"></a>2. Markdown 功能实现</h3><p>这是最具挑战性的部分之一：</p>
+<ul>
+<li>使用 QWebEngineView 实现 Markdown 渲染</li>
+<li>添加实时预览功能</li>
+<li>实现代码高亮</li>
+<li>优化渲染性能</li>
+</ul>
+<h3 id="3-待办事项功能"><a href="#3-待办事项功能" class="headerlink" title="3. 待办事项功能"></a>3. 待办事项功能</h3><p>添加了 To-Do List 功能：</p>
+<ul>
+<li>支持添加&#x2F;删除待办事项</li>
+<li>复选框状态管理</li>
+<li>数据持久化存储</li>
+</ul>
+<h3 id="4-UI-UX-优化"><a href="#4-UI-UX-优化" class="headerlink" title="4. UI&#x2F;UX 优化"></a>4. UI&#x2F;UX 优化</h3><p>持续改进用户界面：</p>
+<ul>
+<li>优化顶部栏设计</li>
+<li>添加图标和视觉反馈</li>
+<li>实现窗口拖拽和调整大小</li>
+<li>添加固定位置功能</li>
+</ul>
+<h3 id="5-配置系统"><a href="#5-配置系统" class="headerlink" title="5. 配置系统"></a>5. 配置系统</h3><p>实现完整的配置管理：</p>
+<ul>
+<li>自定义保存路径</li>
+<li>开机自启动选项</li>
+<li>字体设置</li>
+<li>窗口位置记忆</li>
+</ul>
+<h3 id="6-项目重构与重命名"><a href="#6-项目重构与重命名" class="headerlink" title="6. 项目重构与重命名"></a>6. 项目重构与重命名</h3><p>将项目从 StickyNote 重命名为 MarkNote：</p>
+<ul>
+<li>更新所有相关文件名</li>
+<li>修改代码中的引用</li>
+<li>更新文档和说明</li>
+<li>调整 GitHub 仓库设置</li>
+</ul>
+<h2 id="技术难点与解决方案"><a href="#技术难点与解决方案" class="headerlink" title="技术难点与解决方案"></a>技术难点与解决方案</h2><h3 id="1-Markdown-渲染性能"><a href="#1-Markdown-渲染性能" class="headerlink" title="1. Markdown 渲染性能"></a>1. Markdown 渲染性能</h3><p><strong>问题</strong>: 实时渲染导致界面卡顿</p>
+<p><strong>解决方案</strong>: </p>
+<ul>
+<li>使用 QTimer 实现延迟渲染</li>
+<li>优化渲染逻辑</li>
+<li>添加缓存机制</li>
+</ul>
+<h3 id="2-数据持久化"><a href="#2-数据持久化" class="headerlink" title="2. 数据持久化"></a>2. 数据持久化</h3><p><strong>问题</strong>: 需要可靠的数据保存机制</p>
+<p><strong>解决方案</strong>:</p>
+<ul>
+<li>使用 INI 文件格式存储数据</li>
+<li>实现自动保存功能</li>
+<li>添加数据备份机制</li>
+</ul>
+<h3 id="3-系统托盘集成"><a href="#3-系统托盘集成" class="headerlink" title="3. 系统托盘集成"></a>3. 系统托盘集成</h3><p><strong>问题</strong>: 托盘图标管理复杂</p>
+<p><strong>解决方案</strong>:</p>
+<ul>
+<li>实现托盘菜单</li>
+<li>优化图标显示</li>
+<li>添加快捷操作</li>
+</ul>
+<h2 id="开发工具与效率"><a href="#开发工具与效率" class="headerlink" title="开发工具与效率"></a>开发工具与效率</h2><p>使用 Cursor IDE 进行开发，它提供了：</p>
+<ul>
+<li>AI 辅助编程</li>
+<li>智能代码补全</li>
+<li>实时代码分析</li>
+<li>快速重构工具</li>
+</ul>
+<h2 id="项目发布"><a href="#项目发布" class="headerlink" title="项目发布"></a>项目发布</h2><ol>
+<li>创建 GitHub 仓库</li>
+<li>编写详细文档</li>
+<li>打包发布</li>
+<li>持续维护和更新</li>
+</ol>
+<h2 id="未来展望"><a href="#未来展望" class="headerlink" title="未来展望"></a>未来展望</h2><p>计划添加的功能：</p>
+<ul>
+<li>多主题支持</li>
+<li>云同步</li>
+<li>快捷键自定义</li>
+<li>插件系统</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过这个项目，我不仅开发了一个实用的工具，也学到了很多：</p>
+<ul>
+<li>PyQt5 开发经验</li>
+<li>Python 项目结构</li>
+<li>Git 版本控制</li>
+<li>软件发布流程</li>
+</ul>
+<p>这个项目展示了从零开始开发一个完整桌面应用的全过程，也让我体会到了编程的乐趣。</p>
+<h2 id="项目链接"><a href="#项目链接" class="headerlink" title="项目链接"></a>项目链接</h2><ul>
+<li><p>GitHub: <a target="_blank" rel="noopener" href="https://github.com/xyooz/MarkNote">MarkNote</a><br>Releases: <a target="_blank" rel="noopener" href="https://github.com/xyooz/MarkNote/releases">下载页面</a></p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.2001.life/2025/03/16/2025-03-16-25/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="XY">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Code & Coffee">
+      <meta itemprop="description" content="记录 OpenClaw、AI、技术的折腾笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Code & Coffee">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/03/16/2025-03-16-25/" class="post-title-link" itemprop="url">Debian12/Ubuntu22.04 安装 Docker Docker-Compose</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-03-16 17:56:00" itemprop="dateCreated datePublished" datetime="2025-03-16T17:56:00+08:00">2025-03-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-02-06 17:55:36" itemprop="dateModified" datetime="2026-02-06T17:55:36+08:00">2026-02-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/" itemprop="url" rel="index"><span itemprop="name">默认分类</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><a target="_blank" rel="noopener" href="https://u.sb/debian-install-docker/">参考</a><br><em>也适用于 Debian 11 以及 Ubuntu 20.04, Ubuntu 22.04</em></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">apt update</span><br><span class="line">apt upgrade -y</span><br><span class="line">apt install curl vim wget gnupg dpkg apt-transport-https lsb-release ca-certificates</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -sS https://download.docker.com/linux/debian/gpg | gpg --dearmor &gt; /usr/share/keyrings/docker-ce.gpg</span><br><span class="line">echo &quot;deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-ce.gpg] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/debian $(lsb_release -sc) stable&quot; &gt; /etc/apt/sources.list.d/docker.list</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt update</span><br><span class="line">apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin</span><br></pre></td></tr></table></figure>
+
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.2001.life/2025/02/05/2025-02-05-61/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="XY">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Code & Coffee">
+      <meta itemprop="description" content="记录 OpenClaw、AI、技术的折腾笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Code & Coffee">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/02/05/2025-02-05-61/" class="post-title-link" itemprop="url">在服务器使用 Ollama 本地部署 DeepSeek-r1:8b 模型</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-02-05 01:10:00" itemprop="dateCreated datePublished" datetime="2025-02-05T01:10:00+08:00">2025-02-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-02-06 17:55:36" itemprop="dateModified" datetime="2026-02-06T17:55:36+08:00">2026-02-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/" itemprop="url" rel="index"><span itemprop="name">默认分类</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>本文记录在实验室服务器上部署本地大语言模型 <code>deepseek-r1:8b</code> 的完整过程。通过 <code>Ollama</code> 实现模型拉取和运行，限制 API 只能本地访问，同时集成 <code>OpenWebUI</code> 作为可视化前端，构建一个私密、安全、稳定的本地大模型平台。</p>
+</blockquote>
+<p>展示：<br><img src="https://images/typecho//2025/04/2731588404.png" alt="2025-04-09T17:10:17.png"><br>点击访问 <a target="_blank" rel="noopener" href="https://deepseek.seeu.eu.org/">Deepseek-r1:8b</a></p>
+<h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><p>实验室近期需要部署一个本地的大语言模型来进行代码生成类实验。考虑到以下几点：</p>
+<ul>
+<li>对话能力强，尤其偏向代码编写</li>
+<li>模型能运行在消费级或普通科研服务器（如 1～2 张 3090）</li>
+<li>安全性高，不暴露 API 给公网</li>
+<li>可通过 Web 界面直接访问模型</li>
+</ul>
+<p>最终选择使用：</p>
+<ul>
+<li>模型：<a target="_blank" rel="noopener" href="https://huggingface.co/deepseek-ai/deepseek-coder-7b-base"><code>deepseek-coder:7b</code></a></li>
+<li>后端：<a target="_blank" rel="noopener" href="https://ollama.com/"><code>Ollama</code></a></li>
+<li>前端：<a target="_blank" rel="noopener" href="https://github.com/open-webui/open-webui"><code>OpenWebUI</code></a></li>
+</ul>
+<hr>
+<h2 id="Ollama-安装与部署"><a href="#Ollama-安装与部署" class="headerlink" title="Ollama 安装与部署"></a>Ollama 安装与部署</h2><h3 id="1-安装-Ollama"><a href="#1-安装-Ollama" class="headerlink" title="1. 安装 Ollama"></a>1. 安装 Ollama</h3><p>Ollama 提供了简洁的 CLI 工具用于运行 LLM，本地下载即可运行。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Ubuntu / Debian</span></span><br><span class="line">curl -fsSL https://ollama.com/install.sh | sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证安装成功</span></span><br><span class="line">ollama --version</span><br></pre></td></tr></table></figure>
+<h3 id="2-拉取模型"><a href="#2-拉取模型" class="headerlink" title="2. 拉取模型"></a>2. 拉取模型</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ollama pull deepseek-r1:8b</span><br></pre></td></tr></table></figure>
+
+<h3 id="安全策略"><a href="#安全策略" class="headerlink" title="安全策略"></a>安全策略</h3><p>为了保证服务器安全，我们不对外暴露 Ollama API 接口，仅开放本地 localhost:11434，这样即使服务器有公网 IP，模型服务也不会被外部访问。</p>
+<h3 id="集成-OpenWebUI-前端界面"><a href="#集成-OpenWebUI-前端界面" class="headerlink" title="集成 OpenWebUI 前端界面"></a>集成 OpenWebUI 前端界面</h3><p>为了方便交互使用，部署开源的可视化前端：OpenWebUI，支持直接连接 Ollama。</p>
+<ol>
+<li>Docker 启动<br>官网命令：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 3000:8080 --gpus all --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:cuda</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>登录使用<br>实验室服务器打开 <a target="_blank" rel="noopener" href="http://localhost:3000/">http://localhost:3000</a> 即可访问 OpenWebUI，首次使用需注册用户账号，之后即可登录使用。</li>
+<li>域名访问<br>使用 Caddy 配置域名反向代理到 OpenWebUI 端口，实现通过域名访问，方便大家使用。Caddy 自动支持 HTTPS，基于 Go 编写，是一个非常好用的轻量网站服务。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deepseek.example.com &#123;</span><br><span class="line">    reverse_proxy localhost:3000</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p><img src="https://images/typecho//2025/04/2477342134.png" alt="2025-04-09T16:55:22.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">XY</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

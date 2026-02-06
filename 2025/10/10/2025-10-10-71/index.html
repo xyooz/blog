@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.2001.life","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="RocketMQ 消息队列什么是消息队列？消息队列顾名思义就是把消息放到一个队列里，从消息队列中获取消息的行为我们称之为消费，需要消费消息的消费者自行从消息队列中获取消息，那么就引出了消息队列的第一个特性——解耦。  解耦：如果没有消息队列：我们将服务A的消息发送给服务B和服务C，后续又新增了服务D需要服务A的消息，服务C不需要A的消息了，那么就需要对一个个服务进行具体的更改。在引入消息队列之后，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RocketMQ消息队列编排工作流">
+<meta property="og:url" content="https://blog.2001.life/2025/10/10/2025-10-10-71/index.html">
+<meta property="og:site_name" content="Code &amp; Coffee">
+<meta property="og:description" content="RocketMQ 消息队列什么是消息队列？消息队列顾名思义就是把消息放到一个队列里，从消息队列中获取消息的行为我们称之为消费，需要消费消息的消费者自行从消息队列中获取消息，那么就引出了消息队列的第一个特性——解耦。  解耦：如果没有消息队列：我们将服务A的消息发送给服务B和服务C，后续又新增了服务D需要服务A的消息，服务C不需要A的消息了，那么就需要对一个个服务进行具体的更改。在引入消息队列之后，">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://images/typecho//2025/10/2185089787.png">
+<meta property="og:image" content="https://images/typecho//2025/10/4172020056.png">
+<meta property="og:image" content="https://images/typecho//2025/10/3606436471.png">
+<meta property="article:published_time" content="2025-10-10T12:23:02.000Z">
+<meta property="article:modified_time" content="2026-02-06T09:55:36.439Z">
+<meta property="article:author" content="XY">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="Code &amp; Coffee">
+<meta property="article:tag" content="OpenClaw">
+<meta property="article:tag" content="技术博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://images/typecho//2025/10/2185089787.png">
+
+
+<link rel="canonical" href="https://blog.2001.life/2025/10/10/2025-10-10-71/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.2001.life/2025/10/10/2025-10-10-71/","path":"2025/10/10/2025-10-10-71/","title":"RocketMQ消息队列编排工作流"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>RocketMQ消息队列编排工作流 | Code & Coffee</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Code & Coffee</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">用咖啡驱动代码，用代码改变世界</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RocketMQ-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="nav-number">1.</span> <span class="nav-text">RocketMQ 消息队列</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%EF%BC%9F"><span class="nav-number">1.1.</span> <span class="nav-text">什么是消息队列？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%A0%E7%A7%8D%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="nav-number">1.2.</span> <span class="nav-text">几种消息队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RocketMQ"><span class="nav-number">1.3.</span> <span class="nav-text">RocketMQ</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E7%94%A8RocketMQ%EF%BC%9F"><span class="nav-number">1.4.</span> <span class="nav-text">为什么用RocketMQ？</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">XY</p>
+  <div class="site-description" itemprop="description">记录 OpenClaw、AI、技术的折腾笔记</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.2001.life/2025/10/10/2025-10-10-71/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="XY">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Code & Coffee">
+      <meta itemprop="description" content="记录 OpenClaw、AI、技术的折腾笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="RocketMQ消息队列编排工作流 | Code & Coffee">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          RocketMQ消息队列编排工作流
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-10-10 20:23:02" itemprop="dateCreated datePublished" datetime="2025-10-10T20:23:02+08:00">2025-10-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-02-06 17:55:36" itemprop="dateModified" datetime="2026-02-06T17:55:36+08:00">2026-02-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/" itemprop="url" rel="index"><span itemprop="name">默认分类</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="RocketMQ-消息队列"><a href="#RocketMQ-消息队列" class="headerlink" title="RocketMQ 消息队列"></a>RocketMQ 消息队列</h1><h2 id="什么是消息队列？"><a href="#什么是消息队列？" class="headerlink" title="什么是消息队列？"></a>什么是消息队列？</h2><p>消息队列顾名思义就是把消息放到一个队列里，从消息队列中获取消息的行为我们称之为<strong>消费</strong>，需要消费消息的消费者自行从消息队列中获取消息，那么就引出了消息队列的第一个特性——<strong>解耦</strong>。</p>
+<ol>
+<li><strong>解耦</strong>：如果没有消息队列：我们将服务A的消息发送给服务B和服务C，后续又新增了服务D需要服务A的消息，服务C不需要A的消息了，那么就需要对一个个服务进行具体的更改。在引入消息队列之后，我们只需要将消息丢到队列里，需要的自取就可以了，实现了服务的解耦。</li>
+</ol>
+<p>先放到队列里，有需要的服务自取消息，那么这种模式又有什么特性呢？——<strong>异步</strong>。<br>2. <strong>异步</strong>：许多提交材料返回结果的操作都具有异步的特性，为什么需要异步性呢，因为同步的操作太耗费时间了，提交–&gt;处理–&gt;返回，如果是需要处理的请求特别多，那么返回的时间还会大幅增加，没有必要让用户持续等待，我们完全可以在用户提交后异步处理，处理完成后再通知用户。</p>
+<pre><code>异步处理拆解为：**提交--&gt;已经提交，处理--&gt;处理完成，通知--&gt;通知完成**。三者中间通过消息队列串联起来就可以了，大大降低了每个请求的响应时间，提升了用户的体验。这就是消息队列的第二个用途，服务解耦。
+</code></pre>
+<p>异步意味着服务不必实时处理请求，那么这种模式又可以带来什么呢？——<strong>削峰</strong>。<br>3. <strong>削弱峰</strong>：当大量的请求涌入，这在生活中完全是可能的（秒杀、抢票等高并发场景），请求的波峰是无法避免的，同步的操作中服务器的负载也是随着请求而波动，但是异步操作使得我们可以根据服务器的能力均衡负载，<strong>请求存入消息队列–&gt;服务器根据自己能力从中消费请求</strong>，使得系统负载稳定，避免大幅波动，保障服务正常运行。</p>
+<h2 id="几种消息队列"><a href="#几种消息队列" class="headerlink" title="几种消息队列"></a>几种消息队列</h2><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>Kafka</th>
+<th>ActiveMQ</th>
+<th>RabbitMQ</th>
+<th>RocketMQ</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>功能支持</strong></td>
+<td>分布式、分区、高吞吐量、流处理、持久化</td>
+<td>JMS 支持、持久化、事务、消息过滤</td>
+<td>消息路由、插件机制、持久化、多种协议支持</td>
+<td>分布式、高吞吐量、事务、定时和延时消息、持久化</td>
+</tr>
+<tr>
+<td><strong>可用性</strong></td>
+<td>高（多副本机制、自动恢复）</td>
+<td>高（支持主从架构和多种持久化机制）</td>
+<td>高（镜像队列、集群模式）</td>
+<td>高（多副本机制、集群模式）</td>
+</tr>
+<tr>
+<td><strong>消息可靠性</strong></td>
+<td>高（数据复制、多副本）</td>
+<td>高（持久化存储、事务支持）</td>
+<td>高（确认机制、持久化存储）</td>
+<td>高（数据复制、多副本、持久化存储）</td>
+</tr>
+<tr>
+<td><strong>时效性</strong></td>
+<td>毫秒级（取决于配置和网络条件）</td>
+<td>毫秒级（取决于配置和网络条件）</td>
+<td>微秒级到毫秒级（取决于配置和网络条件）</td>
+<td>毫秒级（取决于配置和网络条件）</td>
+</tr>
+<tr>
+<td><strong>Topic 数量对吞吐量的影响</strong></td>
+<td>影响较大（分区机制带来管理和资源消耗）</td>
+<td>影响中等（队列管理开销）</td>
+<td>影响较小（高效的路由机制）</td>
+<td>影响中等（分区机制和管理开销）</td>
+</tr>
+<tr>
+<td><strong>单机吞吐量</strong></td>
+<td>高（百万级消息每秒）</td>
+<td>中等（十万级消息每秒）</td>
+<td>中等（十万级消息每秒）</td>
+<td>高（百万级消息每秒）</td>
+</tr>
+<tr>
+<td><strong>Client SDK</strong></td>
+<td>多语言（Java、Scala、Python 等）</td>
+<td>多语言（Java、C、C++ 等）</td>
+<td>多语言（Java、Erlang、.NET 等）</td>
+<td>多语言（Java、C++、Go 等）</td>
+</tr>
+</tbody></table>
+<ul>
+<li>其中Kafaka适合大数据领域的实时计算、日志采集场景，因为性能最高。</li>
+<li>对实时性有要求，不关心底层，用RabbitMQ即可。</li>
+<li>阿里的RocketMQ经历过618、双11等节点的考验，且具有丰富的教程，一般使用RocketMQ就可以。</li>
+</ul>
+<h2 id="RocketMQ"><a href="#RocketMQ" class="headerlink" title="RocketMQ"></a>RocketMQ</h2><p><img src="https://images/typecho//2025/10/2185089787.png" alt="2025-10-10T09:36:59.png">官网的RocketMQ部署模型图</p>
+<p>RocketMQ 四大核心组件</p>
+<table>
+<thead>
+<tr>
+<th>部署架构部分</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>生产者（Producer）</strong></td>
+<td>发布消息的角色。Producer 通过 MQ 的负载均衡模块选择相应的 Broker 集群队列进行消息投递，投递过程支持快速失败和重试机制。</td>
+</tr>
+<tr>
+<td><strong>消费者（Consumer）</strong></td>
+<td>消息消费的角色。<br> - 支持 <strong>推（push）</strong> 和 <strong>拉（pull）</strong> 两种模式对消息进行消费。<br> - 支持 <strong>集群模式</strong> 和 <strong>广播模式</strong> 两种消费方式。<br> - 提供 <strong>实时消息订阅机制</strong>，可满足大多数用户的需求。</td>
+</tr>
+<tr>
+<td><strong>名称服务器（NameServer）</strong></td>
+<td>NameServer 是一个轻量级的 <strong>Topic 路由注册中心</strong>，支持 Topic、Broker 的动态注册与发现。<br><br>主要包含两个功能：<br>① <strong>Broker 管理</strong>：NameServer 接受 Broker 集群的注册信息并保存下来，作为路由信息的基础数据，并提供心跳检测机制检查 Broker 存活状态。<br>② <strong>路由信息管理</strong>：每个 NameServer 都会保存整个 Broker 集群的路由信息和客户端（Producer、Consumer）可查询的队列信息。Producer 和 Consumer 可通过 NameServer 获取 Broker 集群的路由信息，从而完成消息投递与消费。<br><br>此外，NameServer 通常会有多个实例部署，各实例之间互不通信。Broker 会向每台 NameServer 注册自己的路由信息，每个 NameServer 都保存完整副本。当某个 NameServer 下线时，客户端仍可从其他 NameServer 获取路由数据，保证系统高可用。</td>
+</tr>
+<tr>
+<td><strong>代理服务器（Broker）</strong></td>
+<td>Broker 负责 <strong>消息的存储、投递、查询</strong>，并保证服务的高可用。<br><br> - NameServer 为无状态节点，而 <strong>Broker 是集群的核心存储节点</strong>。<br> - 支持 <strong>Master–Slave 架构</strong>，Broker 可分为 Master 与 Slave。一个 Master 可对应多个 Slave，但每个 Slave 只能对应一个 Master。<br> - Master 与 Slave 的对应关系通过相同的 <code>BrokerName</code> 标识，不同的 <code>BrokerId</code> 区分（<code>BrokerId=0</code> 表示 Master，非 0 表示 Slave）。<br> - 每个 Broker 节点独立存储数据，Master 节点也可以部署多个以实现更高吞吐与容灾能力。</td>
+</tr>
+</tbody></table>
+<p>RocketMQ 消息流转架构图<br><img src="https://images/typecho//2025/10/4172020056.png" alt="2025-10-10T09:47:04.png"></p>
+<p>RocketMQ 消息流转时序图<br><img src="https://images/typecho//2025/10/3606436471.png" alt="2025-10-10T09:54:58.png"></p>
+<h2 id="为什么用RocketMQ？"><a href="#为什么用RocketMQ？" class="headerlink" title="为什么用RocketMQ？"></a>为什么用RocketMQ？</h2><p>RocketMQ是一个天然的分布式组件，对于分布式微服务来说很好用。<br>业务场景对延时性要求不高，可以用RocketMQ。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/10/10/2025-10-10-70/" rel="prev" title="Redisson分布式锁避免重复提交任务">
+                  <i class="fa fa-angle-left"></i> Redisson分布式锁避免重复提交任务
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/10/11/2025-10-11-76/" rel="next" title="RocketMQ 应用：工作流和服务解耦">
+                  RocketMQ 应用：工作流和服务解耦 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">XY</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
