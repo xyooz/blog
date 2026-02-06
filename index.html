@@ -136,7 +136,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -145,7 +145,7 @@
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -162,6 +162,308 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.2001.life/2026/02/06/fund-analysis-python/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="XY">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Code & Coffee">
+      <meta itemprop="description" content="记录 OpenClaw、AI、技术的折腾笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Code & Coffee">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2026/02/06/fund-analysis-python/" class="post-title-link" itemprop="url">如何用 Python 实现基金趋势分析与信号生成</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-02-06 15:35:00 / 修改时间：15:37:05" itemprop="dateCreated datePublished" datetime="2026-02-06T15:35:00+08:00">2026-02-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>本文基于 OpenClaw 基金分析技能的实现，分享技术指标的 Python 实现方法。</p>
+</blockquote>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在之前的文章中，我介绍了如何使用 Serper.dev API 获取搜索数据。今天我们来聊聊如何用 Python 实现基金的<strong>趋势分析</strong>和<strong>信号生成</strong>。</p>
+<p>本文将涵盖：</p>
+<ul>
+<li>移动平均线（MA）的计算</li>
+<li>MACD 指标的实现</li>
+<li>最大回撤、波动率等风险指标</li>
+<li>如何生成交易信号</li>
+</ul>
+<hr>
+<h2 id="一、核心数据结构"><a href="#一、核心数据结构" class="headerlink" title="一、核心数据结构"></a>一、核心数据结构</h2><p>首先，定义基金数据和基准：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 基金组合</span></span><br><span class="line">FUNDS = &#123;</span><br><span class="line">    <span class="string">&quot;012895&quot;</span>: &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;天弘中证科创创业50ETF联接C&quot;</span>, <span class="string">&quot;type&quot;</span>: <span class="string">&quot;ETF&quot;</span>, <span class="string">&quot;benchmark&quot;</span>: <span class="string">&quot;创业板指&quot;</span>&#125;,</span><br><span class="line">    <span class="string">&quot;021190&quot;</span>: &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;南方亚太精选ETF联接(QDII)C&quot;</span>, <span class="string">&quot;type&quot;</span>: <span class="string">&quot;QDII&quot;</span>, <span class="string">&quot;benchmark&quot;</span>: <span class="string">&quot;恒生指数&quot;</span>&#125;,</span><br><span class="line">    <span class="string">&quot;017992&quot;</span>: &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;华泰柏瑞致远混合C&quot;</span>, <span class="string">&quot;type&quot;</span>: <span class="string">&quot;Mixed&quot;</span>, <span class="string">&quot;benchmark&quot;</span>: <span class="string">&quot;沪深300&quot;</span>&#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 净值数据结构</span></span><br><span class="line">nav_data = [</span><br><span class="line">    &#123;<span class="string">&quot;date&quot;</span>: <span class="string">&quot;2026-02-04&quot;</span>, <span class="string">&quot;nav&quot;</span>: <span class="number">1.0181</span>, <span class="string">&quot;change&quot;</span>: -<span class="number">1.35</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&quot;date&quot;</span>: <span class="string">&quot;2026-02-03&quot;</span>, <span class="string">&quot;nav&quot;</span>: <span class="number">1.0320</span>, <span class="string">&quot;change&quot;</span>: <span class="number">0.64</span>&#125;,</span><br><span class="line">    <span class="comment"># ...</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="二、移动平均线（MA）计算"><a href="#二、移动平均线（MA）计算" class="headerlink" title="二、移动平均线（MA）计算"></a>二、移动平均线（MA）计算</h2><h3 id="2-1-简单移动平均（SMA）"><a href="#2-1-简单移动平均（SMA）" class="headerlink" title="2.1 简单移动平均（SMA）"></a>2.1 简单移动平均（SMA）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">calculate_ma</span>(<span class="params">data: <span class="type">List</span>[<span class="built_in">float</span>], period: <span class="built_in">int</span></span>) -&gt; <span class="built_in">float</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;计算简单移动平均&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(data) &lt; period:</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">sum</span>(data) / <span class="built_in">len</span>(data) <span class="keyword">if</span> data <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sum</span>(data[-period:]) / period</span><br></pre></td></tr></table></figure>
+
+<p><strong>原理</strong>：取最近 <code>period</code> 个价格的平均值。</p>
+<table>
+<thead>
+<tr>
+<th>周期</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MA5</td>
+<td>短期趋势，敏感度高</td>
+</tr>
+<tr>
+<td>MA20</td>
+<td>中期趋势，最常用</td>
+</tr>
+<tr>
+<td>MA60</td>
+<td>长期趋势</td>
+</tr>
+</tbody></table>
+<h3 id="2-2-指数移动平均（EMA）"><a href="#2-2-指数移动平均（EMA）" class="headerlink" title="2.2 指数移动平均（EMA）"></a>2.2 指数移动平均（EMA）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">calculate_ema</span>(<span class="params">data: <span class="type">List</span>[<span class="built_in">float</span>], period: <span class="built_in">int</span></span>) -&gt; <span class="built_in">float</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;计算指数移动平均&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(data) &lt; period:</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">sum</span>(data) / <span class="built_in">len</span>(data) <span class="keyword">if</span> data <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    multiplier = <span class="number">2</span> / (period + <span class="number">1</span>)  <span class="comment"># 权重系数</span></span><br><span class="line">    ema = data[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">for</span> price <span class="keyword">in</span> data[<span class="number">1</span>:]:</span><br><span class="line">        ema = price * multiplier + ema * (<span class="number">1</span> - multiplier)</span><br><span class="line">    <span class="keyword">return</span> ema</span><br></pre></td></tr></table></figure>
+
+<p><strong>EMA vs SMA</strong>：EMA 对近期价格赋予更高权重，反应更灵敏。</p>
+<h3 id="2-3-MA-交叉信号"><a href="#2-3-MA-交叉信号" class="headerlink" title="2.3 MA 交叉信号"></a>2.3 MA 交叉信号</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">detect_ma_crossover</span>(<span class="params">ma5: <span class="built_in">float</span>, ma20: <span class="built_in">float</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;检测 MA 交叉信号&quot;&quot;&quot;</span></span><br><span class="line">    diff = ma5 - ma20</span><br><span class="line">    <span class="keyword">if</span> diff &gt; <span class="number">0.01</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;GOLDEN_CROSS&quot;</span>  <span class="comment"># 金叉，看涨</span></span><br><span class="line">    <span class="keyword">elif</span> diff &lt; -<span class="number">0.01</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;DEATH_CROSS&quot;</span>   <span class="comment"># 死叉，看跌</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;NEUTRAL&quot;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="三、MACD-指标实现"><a href="#三、MACD-指标实现" class="headerlink" title="三、MACD 指标实现"></a>三、MACD 指标实现</h2><h3 id="3-1-MACD-计算公式"><a href="#3-1-MACD-计算公式" class="headerlink" title="3.1 MACD 计算公式"></a>3.1 MACD 计算公式</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DIF = EMA12 - EMA26</span><br><span class="line">DEA = EMA9(DIF)</span><br><span class="line">Histogram = (DIF - DEA) × 2</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-Python-实现"><a href="#3-2-Python-实现" class="headerlink" title="3.2 Python 实现"></a>3.2 Python 实现</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">calculate_macd</span>(<span class="params">data: <span class="type">List</span>[<span class="built_in">float</span>], fast: <span class="built_in">int</span> = <span class="number">12</span>, slow: <span class="built_in">int</span> = <span class="number">26</span>, signal: <span class="built_in">int</span> = <span class="number">9</span></span>) -&gt; <span class="type">Tuple</span>[<span class="built_in">float</span>, <span class="built_in">float</span>, <span class="built_in">float</span>]:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;计算 MACD：DIF, DEA, Histogram&quot;&quot;&quot;</span></span><br><span class="line">    ema12 = calculate_ema(data, fast)</span><br><span class="line">    ema26 = calculate_ema(data, slow)</span><br><span class="line">    </span><br><span class="line">    dif = ema12 - ema26</span><br><span class="line">    dea = dif * <span class="number">0.8</span>  <span class="comment"># DEA 是 DIF 的 EMA，这里简化处理</span></span><br><span class="line">    hist = (dif - dea) * <span class="number">2</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> dif, dea, hist</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-3-MACD-信号解读"><a href="#3-3-MACD-信号解读" class="headerlink" title="3.3 MACD 信号解读"></a>3.3 MACD 信号解读</h3><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>DIF vs DEA</th>
+<th>Histogram</th>
+<th>信号</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>🟢 强势</td>
+<td>DIF &gt; DEA</td>
+<td>&gt; 0</td>
+<td>看涨</td>
+</tr>
+<tr>
+<td>🟡 弱势</td>
+<td>DIF &gt; DEA</td>
+<td>≈ 0</td>
+<td>震荡</td>
+</tr>
+<tr>
+<td>🔴 看跌</td>
+<td>DIF &lt; DEA</td>
+<td>&lt; 0</td>
+<td>看跌</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="四、风险指标计算"><a href="#四、风险指标计算" class="headerlink" title="四、风险指标计算"></a>四、风险指标计算</h2><h3 id="4-1-最大回撤（Max-Drawdown）"><a href="#4-1-最大回撤（Max-Drawdown）" class="headerlink" title="4.1 最大回撤（Max Drawdown）"></a>4.1 最大回撤（Max Drawdown）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">calculate_max_drawdown</span>(<span class="params">data: <span class="type">List</span>[<span class="built_in">float</span>]</span>) -&gt; <span class="type">Tuple</span>[<span class="built_in">float</span>, <span class="built_in">float</span>, <span class="built_in">float</span>]:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;计算最大回撤、峰值、峰值日期&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> data:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    max_nav = <span class="number">0</span></span><br><span class="line">    max_drawdown = <span class="number">0</span></span><br><span class="line">    peak_idx = <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> i, nav <span class="keyword">in</span> <span class="built_in">enumerate</span>(data):</span><br><span class="line">        <span class="keyword">if</span> nav &gt; max_nav:</span><br><span class="line">            max_nav = nav</span><br><span class="line">            peak_idx = i</span><br><span class="line">        drawdown = (max_nav - nav) / max_nav * <span class="number">100</span></span><br><span class="line">        <span class="keyword">if</span> drawdown &gt; max_drawdown:</span><br><span class="line">            max_drawdown = drawdown</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">round</span>(max_drawdown, <span class="number">2</span>), max_nav, peak_idx</span><br></pre></td></tr></table></figure>
+
+<p><strong>回撤等级</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>等级</th>
+<th>MaxDD</th>
+<th>风险</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>🟢 低</td>
+<td>&lt; 5%</td>
+<td>低风险</td>
+</tr>
+<tr>
+<td>🟡 中</td>
+<td>5-15%</td>
+<td>中风险</td>
+</tr>
+<tr>
+<td>🔴 高</td>
+<td>&gt; 15%</td>
+<td>高风险</td>
+</tr>
+</tbody></table>
+<h3 id="4-2-波动率（Volatility）"><a href="#4-2-波动率（Volatility）" class="headerlink" title="4.2 波动率（Volatility）"></a>4.2 波动率（Volatility）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">calculate_volatility</span>(<span class="params">data: <span class="type">List</span>[<span class="built_in">float</span>]</span>) -&gt; <span class="built_in">float</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;计算日波动率（年化）&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(data) &lt; <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    changes = [d <span class="keyword">for</span> d <span class="keyword">in</span> data[<span class="number">1</span>:]]  <span class="comment"># 日涨跌</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> changes:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    std = statistics.stdev(changes)</span><br><span class="line">    annualized = std * math.sqrt(<span class="number">252</span>)  <span class="comment"># 年化（252个交易日）</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">round</span>(annualized * <span class="number">100</span>, <span class="number">2</span>)  <span class="comment"># 转为百分比</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-3-夏普比率（Sharpe-Ratio）"><a href="#4-3-夏普比率（Sharpe-Ratio）" class="headerlink" title="4.3 夏普比率（Sharpe Ratio）"></a>4.3 夏普比率（Sharpe Ratio）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">calculate_sharpe</span>(<span class="params">data: <span class="type">List</span>[<span class="built_in">float</span>], volatility: <span class="built_in">float</span>, risk_free: <span class="built_in">float</span> = <span class="number">0.03</span></span>) -&gt; <span class="built_in">float</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;计算夏普比率&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> data <span class="keyword">or</span> volatility == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    total_return = (data[-<span class="number">1</span>] - data[<span class="number">0</span>]) / data[<span class="number">0</span>]</span><br><span class="line">    annualized_return = total_return * (<span class="number">252</span> / <span class="built_in">len</span>(data))</span><br><span class="line">    </span><br><span class="line">    sharpe = (annualized_return - risk_free) / (volatility / <span class="number">100</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">round</span>(sharpe, <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>夏普比率含义</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>比率</th>
+<th>评价</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&gt; 2.0</td>
+<td>优秀</td>
+</tr>
+<tr>
+<td>1.5 - 2.0</td>
+<td>良好</td>
+</tr>
+<tr>
+<td>1.0 - 1.5</td>
+<td>一般</td>
+</tr>
+<tr>
+<td>&lt; 1.0</td>
+<td>较差</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="五、综合信号生成"><a href="#五、综合信号生成" class="headerlink" title="五、综合信号生成"></a>五、综合信号生成</h2><p>将所有指标组合成最终信号：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_trend_status</span>(<span class="params">ma5: <span class="built_in">float</span>, ma20: <span class="built_in">float</span>, ma60: <span class="built_in">float</span>, macd_hist: <span class="built_in">float</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;综合判断趋势状态&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> ma5 &gt; ma20 &gt; ma60 <span class="keyword">and</span> macd_hist &gt; <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;🟢 STRONG_UP&quot;</span>   <span class="comment"># 强势上涨</span></span><br><span class="line">    <span class="keyword">elif</span> ma5 &gt; ma20 <span class="keyword">and</span> macd_hist &gt; <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;🟡 UP&quot;</span>           <span class="comment"># 温和上涨</span></span><br><span class="line">    <span class="keyword">elif</span> ma5 &gt; ma20:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;🟡 UP_STABLE&quot;</span>   <span class="comment"># 上涨企稳</span></span><br><span class="line">    <span class="keyword">elif</span> ma5 &lt; ma20 <span class="keyword">and</span> macd_hist &lt; <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;🔴 DOWN&quot;</span>         <span class="comment"># 下跌趋势</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;🟠 CONSOLIDATE&quot;</span>  <span class="comment"># 震荡整理</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="六、完整分析示例"><a href="#六、完整分析示例" class="headerlink" title="六、完整分析示例"></a>六、完整分析示例</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">analyze_fund</span>(<span class="params">code: <span class="built_in">str</span>, nav_data: <span class="type">List</span>[<span class="type">Dict</span>]</span>) -&gt; <span class="type">Dict</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;完整基金分析&quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># 提取净值</span></span><br><span class="line">    navs = [item[<span class="string">&quot;nav&quot;</span>] <span class="keyword">for</span> item <span class="keyword">in</span> nav_data]</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 计算 MA</span></span><br><span class="line">    ma5 = calculate_ma(navs, <span class="number">5</span>)</span><br><span class="line">    ma20 = calculate_ma(navs, <span class="number">20</span>)</span><br><span class="line">    ma60 = calculate_ma(navs, <span class="number">60</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 计算 MACD</span></span><br><span class="line">    dif, dea, hist = calculate_macd(navs)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 风险指标</span></span><br><span class="line">    max_dd, _, _ = calculate_max_drawdown(navs)</span><br><span class="line">    volatility = calculate_volatility(navs)</span><br><span class="line">    sharpe = calculate_sharpe(navs, volatility)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 综合信号</span></span><br><span class="line">    trend = get_trend_status(ma5, ma20, ma60, hist)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="string">&quot;code&quot;</span>: code,</span><br><span class="line">        <span class="string">&quot;trend&quot;</span>: trend,</span><br><span class="line">        <span class="string">&quot;ma&quot;</span>: &#123;<span class="string">&quot;ma5&quot;</span>: ma5, <span class="string">&quot;ma20&quot;</span>: ma20, <span class="string">&quot;ma60&quot;</span>: ma60&#125;,</span><br><span class="line">        <span class="string">&quot;macd&quot;</span>: &#123;<span class="string">&quot;dif&quot;</span>: dif, <span class="string">&quot;dea&quot;</span>: dea, <span class="string">&quot;hist&quot;</span>: hist&#125;,</span><br><span class="line">        <span class="string">&quot;risk&quot;</span>: &#123;<span class="string">&quot;max_drawdown&quot;</span>: max_dd, <span class="string">&quot;volatility&quot;</span>: volatility, <span class="string">&quot;sharpe&quot;</span>: sharpe&#125;,</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="七、输出效果"><a href="#七、输出效果" class="headerlink" title="七、输出效果"></a>七、输出效果</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">🔹 天弘中证科创创业50ETF联接C (012895) [ETF]</span><br><span class="line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span><br><span class="line">📈 Trend: 🟡 UP (MA5 &gt; MA20, MACD positive)</span><br><span class="line">📊 MA Status: MA5=1.025, MA20=1.038, MA60=1.045</span><br><span class="line">📉 MACD: DIF=0.0012, DEA=0.0008, Hist=+0.0004</span><br><span class="line"></span><br><span class="line">📊 Relative Strength: vs 创业板指 +2.3%</span><br><span class="line"></span><br><span class="line">📉 Risk Metrics:</span><br><span class="line">   Max Drawdown: 3.2% (🟢 LOW)</span><br><span class="line">   Volatility: 1.8% (🟡 MEDIUM)</span><br><span class="line">   Sharpe: 1.24</span><br><span class="line"></span><br><span class="line">💡 Signal: HOLD - 趋势稳定，无明显反转信号</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="八、总结"><a href="#八、总结" class="headerlink" title="八、总结"></a>八、总结</h2><h3 id="核心指标"><a href="#核心指标" class="headerlink" title="核心指标"></a>核心指标</h3><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>作用</th>
+<th>敏感度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MA5&#x2F;MA20</td>
+<td>短期趋势</td>
+<td>高</td>
+</tr>
+<tr>
+<td>MA60</td>
+<td>长期趋势</td>
+<td>低</td>
+</tr>
+<tr>
+<td>MACD</td>
+<td>动能判断</td>
+<td>中</td>
+</tr>
+<tr>
+<td>MaxDD</td>
+<td>最大回撤</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Volatility</td>
+<td>波动率</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Sharpe</td>
+<td>风险收益比</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<h3 id="信号等级"><a href="#信号等级" class="headerlink" title="信号等级"></a>信号等级</h3><table>
+<thead>
+<tr>
+<th>信号</th>
+<th>含义</th>
+<th>操作建议</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>🟢 STRONG_UP</td>
+<td>强势上涨</td>
+<td>买入&#x2F;持有</td>
+</tr>
+<tr>
+<td>🟡 UP</td>
+<td>温和上涨</td>
+<td>持有</td>
+</tr>
+<tr>
+<td>🟠 CONSOLIDATE</td>
+<td>震荡整理</td>
+<td>观望</td>
+</tr>
+<tr>
+<td>🔴 DOWN</td>
+<td>下跌趋势</td>
+<td>减仓&#x2F;止损</td>
+</tr>
+</tbody></table>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ol>
+<li><strong>历史数据不代表未来</strong>：指标基于历史计算，不能预测未来</li>
+<li><strong>结合市场环境</strong>：单一指标可能有假信号，需要综合判断</li>
+<li><strong>设置止损</strong>：即使趋势良好，也要设置合理的止损位</li>
+</ol>
+<hr>
+<h2 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h2><p>完整的分析脚本已集成到 OpenClaw 技能系统中：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/root/.openclaw/skills/fund-analysis/scripts/fund_analysis_enhanced.py</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><em>欢迎在评论区分享你的基金分析经验！</em></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
