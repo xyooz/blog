@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.2001.life","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="记录 OpenClaw、AI、技术的折腾笔记">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Code &amp; Coffee">
+<meta property="og:url" content="https://blog.2001.life/index.html">
+<meta property="og:site_name" content="Code &amp; Coffee">
+<meta property="og:description" content="记录 OpenClaw、AI、技术的折腾笔记">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="XY">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="Code &amp; Coffee">
+<meta property="article:tag" content="OpenClaw">
+<meta property="article:tag" content="技术博客">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.2001.life/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"index.html","title":""}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Code & Coffee</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Code & Coffee</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">用咖啡驱动代码，用代码改变世界</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">XY</p>
+  <div class="site-description" itemprop="description">记录 OpenClaw、AI、技术的折腾笔记</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.2001.life/2026/02/06/serper-api-guide/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="XY">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Code & Coffee">
+      <meta itemprop="description" content="记录 OpenClaw、AI、技术的折腾笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Code & Coffee">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2026/02/06/serper-api-guide/" class="post-title-link" itemprop="url">Serper.dev 免费 Google 搜索 API 使用指南</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-02-06 13:50:00 / 修改时间：13:54:09" itemprop="dateCreated datePublished" datetime="2026-02-06T13:50:00+08:00">2026-02-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>本文首发于 2026-02-06</p>
+</blockquote>
+<h2 id="为什么需要-Serper？"><a href="#为什么需要-Serper？" class="headerlink" title="为什么需要 Serper？"></a>为什么需要 Serper？</h2><p>在开发 AI 助手或自动化脚本时，经常需要获取搜索引擎结果。常见的方案有：</p>
+<table>
+<thead>
+<tr>
+<th>服务</th>
+<th>特点</th>
+<th>限制</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Google Custom Search</td>
+<td>官方但复杂</td>
+<td>需要配置 Search Console</td>
+</tr>
+<tr>
+<td>Brave Search</td>
+<td>新兴选择</td>
+<td>免费额度有限</td>
+</tr>
+<tr>
+<td><strong>Serper.dev</strong></td>
+<td>Google 结果，<strong>免费 2500 次</strong></td>
+<td>额度用完后收费</td>
+</tr>
+</tbody></table>
+<p>对于个人项目或小规模使用，<strong>Serper 2500 次免费额度足够用很久</strong>。</p>
+<hr>
+<h2 id="Serper-简介"><a href="#Serper-简介" class="headerlink" title="Serper 简介"></a>Serper 简介</h2><p>Serper.dev 是一个提供 Google 搜索结果 API 的服务：</p>
+<ul>
+<li>✅ 无需信用卡，<strong>免费 2500 次查询</strong></li>
+<li>✅ 返回结构化 JSON</li>
+<li>✅ 支持搜索、图片、新闻、地点、自动补全</li>
+<li>✅ 响应速度快</li>
+</ul>
+<h3 id="免费额度"><a href="#免费额度" class="headerlink" title="免费额度"></a>免费额度</h3><table>
+<thead>
+<tr>
+<th>套餐</th>
+<th>价格</th>
+<th>额度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Free</td>
+<td><strong>免费</strong></td>
+<td>2,500 次</td>
+</tr>
+<tr>
+<td>Pro</td>
+<td>$50&#x2F;月</td>
+<td>10,000 次</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="快速上手"><a href="#快速上手" class="headerlink" title="快速上手"></a>快速上手</h2><h3 id="1-获取-API-Key"><a href="#1-获取-API-Key" class="headerlink" title="1. 获取 API Key"></a>1. 获取 API Key</h3><p>访问 <a target="_blank" rel="noopener" href="https://serper.dev/">https://serper.dev</a> 注册账号，免费获取 API Key。</p>
+<h3 id="2-基础用法（cURL）"><a href="#2-基础用法（cURL）" class="headerlink" title="2. 基础用法（cURL）"></a>2. 基础用法（cURL）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置 API Key</span></span><br><span class="line"><span class="built_in">export</span> SERPER_API_KEY=<span class="string">&quot;你的API密钥&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 网页搜索</span></span><br><span class="line">curl <span class="string">&quot;https://google.serper.dev/search?q=OpenClaw&quot;</span> \</span><br><span class="line">  -H <span class="string">&quot;X-API-Key: <span class="variable">$SERPER_API_KEY</span>&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-响应示例"><a href="#3-响应示例" class="headerlink" title="3. 响应示例"></a>3. 响应示例</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;searchParameters&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;q&quot;</span><span class="punctuation">:</span> <span class="string">&quot;OpenClaw&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;search&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;engine&quot;</span><span class="punctuation">:</span> <span class="string">&quot;google&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;organic&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;title&quot;</span><span class="punctuation">:</span> <span class="string">&quot;OpenClaw - AI Assistant&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;url&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://github.com/openclaw/openclaw&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;snippet&quot;</span><span class="punctuation">:</span> <span class="string">&quot;OpenClaw is an AI assistant that runs on your machine...&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;domain&quot;</span><span class="punctuation">:</span> <span class="string">&quot;github.com&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;position&quot;</span><span class="punctuation">:</span> <span class="number">1</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;credits&quot;</span><span class="punctuation">:</span> <span class="number">1</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Python-示例"><a href="#Python-示例" class="headerlink" title="Python 示例"></a>Python 示例</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">SERPER_API_KEY = <span class="string">&quot;你的API密钥&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">search</span>(<span class="params">query, num=<span class="number">10</span></span>):</span><br><span class="line">    url = <span class="string">&quot;https://google.serper.dev/search&quot;</span></span><br><span class="line">    params = &#123;<span class="string">&quot;q&quot;</span>: query, <span class="string">&quot;num&quot;</span>: num&#125;</span><br><span class="line">    headers = &#123;<span class="string">&quot;X-API-Key&quot;</span>: SERPER_API_KEY&#125;</span><br><span class="line">    </span><br><span class="line">    response = requests.get(url, params=params, headers=headers)</span><br><span class="line">    <span class="keyword">return</span> response.json()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用</span></span><br><span class="line">results = search(<span class="string">&quot;基金行情 今日&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> r <span class="keyword">in</span> results[<span class="string">&quot;organic&quot;</span>]:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;r[<span class="string">&#x27;position&#x27;</span>]&#125;</span>. <span class="subst">&#123;r[<span class="string">&#x27;title&#x27;</span>]&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;   <span class="subst">&#123;r[<span class="string">&#x27;url&#x27;</span>]&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="进阶：支持多种搜索类型"><a href="#进阶：支持多种搜索类型" class="headerlink" title="进阶：支持多种搜索类型"></a>进阶：支持多种搜索类型</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">SERPER_API_KEY = <span class="string">&quot;你的API密钥&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">serper_search</span>(<span class="params">query, search_type=<span class="string">&quot;search&quot;</span>, num=<span class="number">10</span></span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;通用搜索接口&quot;&quot;&quot;</span></span><br><span class="line">    endpoints = &#123;</span><br><span class="line">        <span class="string">&quot;search&quot;</span>: <span class="string">&quot;https://google.serper.dev/search&quot;</span>,</span><br><span class="line">        <span class="string">&quot;images&quot;</span>: <span class="string">&quot;https://google.serper.dev/images&quot;</span>,</span><br><span class="line">        <span class="string">&quot;news&quot;</span>: <span class="string">&quot;https://google.serper.dev/news&quot;</span>,</span><br><span class="line">        <span class="string">&quot;places&quot;</span>: <span class="string">&quot;https://google.serper.dev/places&quot;</span>,</span><br><span class="line">        <span class="string">&quot;autocomplete&quot;</span>: <span class="string">&quot;https://google.serper.dev/autocomplete&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    url = endpoints.get(search_type, endpoints[<span class="string">&quot;search&quot;</span>])</span><br><span class="line">    params = &#123;<span class="string">&quot;q&quot;</span>: query, <span class="string">&quot;num&quot;</span>: num&#125;</span><br><span class="line">    headers = &#123;<span class="string">&quot;X-API-Key&quot;</span>: SERPER_API_KEY&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> requests.get(url, params=params, headers=headers).json()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用</span></span><br><span class="line">images = serper_search(<span class="string">&quot;可爱猫咪&quot;</span>, search_type=<span class="string">&quot;images&quot;</span>, num=<span class="number">5</span>)</span><br><span class="line">news = serper_search(<span class="string">&quot;AI 新闻&quot;</span>, search_type=<span class="string">&quot;news&quot;</span>, num=<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h2><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>q</code></td>
+<td>搜索关键词</td>
+<td>必填</td>
+</tr>
+<tr>
+<td><code>gl</code></td>
+<td>国家代码</td>
+<td>US</td>
+</tr>
+<tr>
+<td><code>hl</code></td>
+<td>语言代码</td>
+<td>en</td>
+</tr>
+<tr>
+<td><code>num</code></td>
+<td>返回数量</td>
+<td>10</td>
+</tr>
+<tr>
+<td><code>safe</code></td>
+<td>安全搜索</td>
+<td>on</td>
+</tr>
+</tbody></table>
+<p>示例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl <span class="string">&quot;https://google.serper.dev/search?q=Python&amp;gl=US&amp;hl=en&amp;num=5&quot;</span> \</span><br><span class="line">  -H <span class="string">&quot;X-API-Key: <span class="variable">$SERPER_API_KEY</span>&quot;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="在-OpenClaw-中使用"><a href="#在-OpenClaw-中使用" class="headerlink" title="在 OpenClaw 中使用"></a>在 OpenClaw 中使用</h2><p>OpenClaw 是一个本地运行的 AI 助手，可以通过以下方式集成 Serper：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 设置环境变量</span></span><br><span class="line"><span class="built_in">export</span> SERPER_API_KEY=<span class="string">&quot;你的API密钥&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 使用 serper skill 进行搜索</span></span><br><span class="line">/root/.openclaw/skills/serper/scripts/search.sh <span class="string">&quot;今日基金行情&quot;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="替代方案对比"><a href="#替代方案对比" class="headerlink" title="替代方案对比"></a>替代方案对比</h2><table>
+<thead>
+<tr>
+<th>服务</th>
+<th>免费额度</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Serper</strong></td>
+<td>2,500 次</td>
+<td>Google 结果准</td>
+</tr>
+<tr>
+<td>DuckDuckGo API</td>
+<td>无限</td>
+<td>完全免费但结果一般</td>
+</tr>
+<tr>
+<td>Brave Search</td>
+<td>有限</td>
+<td>需要申请</td>
+</tr>
+<tr>
+<td><strong>LangSearch</strong></td>
+<td>无限</td>
+<td>免费，支持 Rerank</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Serper.dev 是一个适合个人开发者和小型项目的搜索 API：</p>
+<ol>
+<li><strong>免费 2500 次</strong>，无需信用卡</li>
+<li><strong>Google 质量</strong>，结果准确</li>
+<li><strong>使用简单</strong>，返回 JSON</li>
+<li><strong>响应快速</strong>，适合实时应用</li>
+</ol>
+<p>对于大多数个人项目来说，2500 次免费额度已经足够用很久了。即使用完，升级到付费版（$50&#x2F;月）也比自建爬虫省心。</p>
+<hr>
+<p><strong>参考链接：</strong></p>
+<ul>
+<li>官网：<a target="_blank" rel="noopener" href="https://serper.dev/">https://serper.dev</a></li>
+<li>文档：<a target="_blank" rel="noopener" href="https://serper.dev/docs">https://serper.dev/docs</a></li>
+<li>注册：<a target="_blank" rel="noopener" href="https://serper.dev/signup">https://serper.dev/signup</a></li>
+</ul>
+<hr>
+<p><em>欢迎在评论区分享你的使用经验！</em></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.2001.life/2026/02/06/OpenClaw-%E6%A6%82%E8%A7%88%E4%B8%8E%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="XY">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Code & Coffee">
+      <meta itemprop="description" content="记录 OpenClaw、AI、技术的折腾笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Code & Coffee">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2026/02/06/OpenClaw-%E6%A6%82%E8%A7%88%E4%B8%8E%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD/" class="post-title-link" itemprop="url">OpenClaw 概览与核心功能 - 你的 AI 助手网关</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-02-06 01:20:00 / 修改时间：01:21:40" itemprop="dateCreated datePublished" datetime="2026-02-06T01:20:00+08:00">2026-02-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="OpenClaw-概览与核心功能-你的-AI-助手网关"><a href="#OpenClaw-概览与核心功能-你的-AI-助手网关" class="headerlink" title="OpenClaw 概览与核心功能 - 你的 AI 助手网关"></a>OpenClaw 概览与核心功能 - 你的 AI 助手网关</h1><h2 id="什么是-OpenClaw？"><a href="#什么是-OpenClaw？" class="headerlink" title="什么是 OpenClaw？"></a>什么是 OpenClaw？</h2><p>OpenClaw 是一个<strong>开源的 AI 助手网关</strong>，连接聊天平台与 AI Agent。</p>
+<h3 id="核心理念"><a href="#核心理念" class="headerlink" title="核心理念"></a>核心理念</h3><ul>
+<li>🤖 <strong>多平台支持</strong>：Telegram、WhatsApp、Discord、iMessage 等</li>
+<li>🧠 <strong>Agent 能力</strong>：集成 Claude Code、Pi 等编程 Agent</li>
+<li>🔌 <strong>Skills 扩展</strong>：通过 Skills 扩展功能</li>
+<li>🔒 <strong>本地部署</strong>：数据完全掌握在自己手中</li>
+</ul>
+<h3 id="解决的问题"><a href="#解决的问题" class="headerlink" title="解决的问题"></a>解决的问题</h3><table>
+<thead>
+<tr>
+<th>问题</th>
+<th>OpenClaw 方案</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>不方便对话</td>
+<td>Telegram 随时随地聊天</td>
+</tr>
+<tr>
+<td>记忆丢失</td>
+<td>QMD 向量记忆系统</td>
+</tr>
+<tr>
+<td>工具单一</td>
+<td>Skills 扩展生态</td>
+</tr>
+<tr>
+<td>隐私泄露</td>
+<td>完全本地部署</td>
+</tr>
+</tbody></table>
+<h2 id="架构设计"><a href="#架构设计" class="headerlink" title="架构设计"></a>架构设计</h2><h3 id="核心组件"><a href="#核心组件" class="headerlink" title="核心组件"></a>核心组件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">┌─────────────┐</span><br><span class="line">│  Telegram   │</span><br><span class="line">│  WhatsApp  │  ← 聊天平台</span><br><span class="line">│  Discord   │</span><br><span class="line">└──────┬──────┘</span><br><span class="line">       │</span><br><span class="line">       ▼</span><br><span class="line">┌─────────────┐</span><br><span class="line">│  Gateway    │  ← 统一网关</span><br><span class="line">└──────┬──────┘</span><br><span class="line">       │</span><br><span class="line">       ▼</span><br><span class="line">┌─────────────┐</span><br><span class="line">│   Agent     │  ← AI 能力</span><br><span class="line">│  Skills     │</span><br><span class="line">└──────┬──────┘</span><br><span class="line">       │</span><br><span class="line">       ▼</span><br><span class="line">┌─────────────┐</span><br><span class="line">│  Memory     │  ← 记忆系统 (QMD)</span><br><span class="line">└─────────────┘</span><br></pre></td></tr></table></figure>
+
+<h3 id="关键概念"><a href="#关键概念" class="headerlink" title="关键概念"></a>关键概念</h3><h4 id="Gateway"><a href="#Gateway" class="headerlink" title="Gateway"></a>Gateway</h4><p>网关是 OpenClaw 的核心，负责：</p>
+<ul>
+<li><strong>会话管理</strong>：多用户、多会话</li>
+<li><strong>路由分发</strong>：消息路由到对应 Agent</li>
+<li><strong>通道连接</strong>：连接各种聊天平台</li>
+<li><strong>认证授权</strong>：Token、密码验证</li>
+</ul>
+<h4 id="Agent"><a href="#Agent" class="headerlink" title="Agent"></a>Agent</h4><p>Agent 提供 AI 能力：</p>
+<table>
+<thead>
+<tr>
+<th>Agent</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Pi</strong></td>
+<td>友好对话，适合日常使用</td>
+</tr>
+<tr>
+<td><strong>Claude Code</strong></td>
+<td>编程能力强，适合开发者</td>
+</tr>
+<tr>
+<td><strong>自定义</strong></td>
+<td>可集成其他 LLM</td>
+</tr>
+</tbody></table>
+<h4 id="Skills"><a href="#Skills" class="headerlink" title="Skills"></a>Skills</h4><p>Skills 是功能扩展：</p>
+<table>
+<thead>
+<tr>
+<th>分类</th>
+<th>Skills</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>💬 通讯</td>
+<td>discord, slack, imsg, bird</td>
+</tr>
+<tr>
+<td>🍎 Apple</td>
+<td>apple-notes, things-mac</td>
+</tr>
+<tr>
+<td>🎵 音乐</td>
+<td>spotify-player</td>
+</tr>
+<tr>
+<td>🔧 开发</td>
+<td>github, coding-agent</td>
+</tr>
+<tr>
+<td>🛠️ 工具</td>
+<td>weather, healthcheck</td>
+</tr>
+</tbody></table>
+<h2 id="核心功能"><a href="#核心功能" class="headerlink" title="核心功能"></a>核心功能</h2><h3 id="1-多平台集成"><a href="#1-多平台集成" class="headerlink" title="1. 多平台集成"></a>1. 多平台集成</h3><h4 id="Telegram-配置"><a href="#Telegram-配置" class="headerlink" title="Telegram 配置"></a>Telegram 配置</h4><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;channels&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;telegram&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;token&quot;</span><span class="punctuation">:</span> <span class="string">&quot;your-bot-token&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;allowFrom&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;user-id-1&quot;</span><span class="punctuation">,</span> <span class="string">&quot;user-id-2&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;groups&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;*&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;requireMention&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="多账号支持"><a href="#多账号支持" class="headerlink" title="多账号支持"></a>多账号支持</h4><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;agents&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;list&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">      <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;id&quot;</span><span class="punctuation">:</span> <span class="string">&quot;assistant&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;AI 助手&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;channels&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;telegram&quot;</span><span class="punctuation">]</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;id&quot;</span><span class="punctuation">:</span> <span class="string">&quot;coder&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;编程助手&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;channels&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;discord&quot;</span><span class="punctuation">]</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-Agent-系统"><a href="#2-Agent-系统" class="headerlink" title="2. Agent 系统"></a>2. Agent 系统</h3><h4 id="Agent-配置"><a href="#Agent-配置" class="headerlink" title="Agent 配置"></a>Agent 配置</h4><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;agents&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;default&quot;</span><span class="punctuation">:</span> <span class="string">&quot;pi&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;list&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">      <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;id&quot;</span><span class="punctuation">:</span> <span class="string">&quot;pi&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;provider&quot;</span><span class="punctuation">:</span> <span class="string">&quot;pi&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;model&quot;</span><span class="punctuation">:</span> <span class="string">&quot;sonnet-4-2-2025-01-21&quot;</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;id&quot;</span><span class="punctuation">:</span> <span class="string">&quot;coder&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;provider&quot;</span><span class="punctuation">:</span> <span class="string">&quot;anthropic&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;model&quot;</span><span class="punctuation">:</span> <span class="string">&quot;claude-code&quot;</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="MCP-集成"><a href="#MCP-集成" class="headerlink" title="MCP 集成"></a>MCP 集成</h4><p>OpenClaw 支持 MCP (Model Context Protocol)：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;mcp&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;servers&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;filesystem&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;npx&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;-y&quot;</span><span class="punctuation">,</span> <span class="string">&quot;@modelcontextprotocol/server-filesystem&quot;</span><span class="punctuation">,</span> <span class="string">&quot;/path&quot;</span><span class="punctuation">]</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-QMD-向量记忆"><a href="#3-QMD-向量记忆" class="headerlink" title="3. QMD 向量记忆"></a>3. QMD 向量记忆</h3><p>QMD 是 OpenClaw 的记忆系统：</p>
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;memory&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;backend&quot;</span><span class="punctuation">:</span> <span class="string">&quot;qmd&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;qmd&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;includeDefaultMemory&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;update&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;interval&quot;</span><span class="punctuation">:</span> <span class="string">&quot;5m&quot;</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;limits&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;maxResults&quot;</span><span class="punctuation">:</span> <span class="number">6</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;timeoutMs&quot;</span><span class="punctuation">:</span> <span class="number">4000</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h4><table>
+<thead>
+<tr>
+<th>功能</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>全文搜索</td>
+<td><code>qmd search</code></td>
+</tr>
+<tr>
+<td>向量搜索</td>
+<td><code>qmd vsearch</code></td>
+</tr>
+<tr>
+<td>混合搜索</td>
+<td><code>qmd query</code></td>
+</tr>
+</tbody></table>
+<h3 id="4-Tools-工具集"><a href="#4-Tools-工具集" class="headerlink" title="4. Tools 工具集"></a>4. Tools 工具集</h3><p>OpenClaw 内置丰富的 Tools：</p>
+<table>
+<thead>
+<tr>
+<th>分类</th>
+<th>工具</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>🖥️</td>
+<td>browser</td>
+<td>浏览器控制</td>
+</tr>
+<tr>
+<td>📝</td>
+<td>read&#x2F;write&#x2F;edit</td>
+<td>文件操作</td>
+</tr>
+<tr>
+<td>🔧</td>
+<td>exec</td>
+<td>命令执行</td>
+</tr>
+<tr>
+<td>🔍</td>
+<td>web_search</td>
+<td>网络搜索</td>
+</tr>
+<tr>
+<td>📊</td>
+<td>cron</td>
+<td>定时任务</td>
+</tr>
+<tr>
+<td>🌐</td>
+<td>nodes</td>
+<td>节点管理</td>
+</tr>
+</tbody></table>
+<h3 id="5-安全性"><a href="#5-安全性" class="headerlink" title="5. 安全性"></a>5. 安全性</h3><h4 id="认证配置"><a href="#认证配置" class="headerlink" title="认证配置"></a>认证配置</h4><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;gateway&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;auth&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;mode&quot;</span><span class="punctuation">:</span> <span class="string">&quot;token&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;token&quot;</span><span class="punctuation">:</span> <span class="string">&quot;your-secret-token&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="工具权限"><a href="#工具权限" class="headerlink" title="工具权限"></a>工具权限</h4><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;tools&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;allow&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;read&quot;</span><span class="punctuation">,</span> <span class="string">&quot;write&quot;</span><span class="punctuation">,</span> <span class="string">&quot;browser&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;deny&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;exec&quot;</span><span class="punctuation">]</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="部署方式"><a href="#部署方式" class="headerlink" title="部署方式"></a>部署方式</h2><h3 id="方式-1：VPS-部署（推荐）"><a href="#方式-1：VPS-部署（推荐）" class="headerlink" title="方式 1：VPS 部署（推荐）"></a>方式 1：VPS 部署（推荐）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装</span></span><br><span class="line">npm install -g openclaw</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动</span></span><br><span class="line">openclaw gateway</span><br><span class="line"></span><br><span class="line"><span class="comment"># 后台运行</span></span><br><span class="line"><span class="built_in">nohup</span> openclaw gateway &gt; /var/log/openclaw.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+
+<h3 id="方式-2：Docker-部署"><a href="#方式-2：Docker-部署" class="headerlink" title="方式 2：Docker 部署"></a>方式 2：Docker 部署</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># docker-compose.yml</span></span><br><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.8&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">openclaw:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">openclaw/openclaw</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">~/.openclaw:/root/.openclaw</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;18789:18789&quot;</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="方式-3：源码部署"><a href="#方式-3：源码部署" class="headerlink" title="方式 3：源码部署"></a>方式 3：源码部署</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/openclaw/openclaw.git</span><br><span class="line"><span class="built_in">cd</span> openclaw</span><br><span class="line">npm install</span><br><span class="line">npm run build</span><br><span class="line">node dist/entry.js gateway</span><br></pre></td></tr></table></figure>
+
+<h2 id="Skills-生态"><a href="#Skills-生态" class="headerlink" title="Skills 生态"></a>Skills 生态</h2><h3 id="官方-Skills"><a href="#官方-Skills" class="headerlink" title="官方 Skills"></a>官方 Skills</h3><table>
+<thead>
+<tr>
+<th>分类</th>
+<th>Skills</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>💬 通讯</td>
+<td>discord, slack, imsg, bird</td>
+</tr>
+<tr>
+<td>🔧 开发</td>
+<td>github, coding-agent, mcporter</td>
+</tr>
+<tr>
+<td>🍎 Apple</td>
+<td>apple-notes, things-mac, bear-notes</td>
+</tr>
+<tr>
+<td>🎵 媒体</td>
+<td>spotify-player, songsee</td>
+</tr>
+<tr>
+<td>🛠️ 工具</td>
+<td>weather, healthcheck, qmd</td>
+</tr>
+</tbody></table>
+<h3 id="安装-Skills"><a href="#安装-Skills" class="headerlink" title="安装 Skills"></a>安装 Skills</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过 OpenClaw CLI</span></span><br><span class="line">openclaw skills install github</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或手动安装</span></span><br><span class="line"><span class="built_in">cd</span> /path/to/openclaw/skills</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/tobi/qmd.git</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><h3 id="场景-1：个人-AI-助手"><a href="#场景-1：个人-AI-助手" class="headerlink" title="场景 1：个人 AI 助手"></a>场景 1：个人 AI 助手</h3><ul>
+<li>Telegram 随时对话</li>
+<li>记住你的偏好和习惯</li>
+<li>帮你管理日程</li>
+</ul>
+<h3 id="场景-2：编程助手"><a href="#场景-2：编程助手" class="headerlink" title="场景 2：编程助手"></a>场景 2：编程助手</h3><ul>
+<li>Claude Code 集成</li>
+<li>GitHub PR Review</li>
+<li>代码审查和优化</li>
+</ul>
+<h3 id="场景-3：运维工具箱"><a href="#场景-3：运维工具箱" class="headerlink" title="场景 3：运维工具箱"></a>场景 3：运维工具箱</h3><ul>
+<li>VPS 健康检查</li>
+<li>自动备份</li>
+<li>定时任务</li>
+</ul>
+<h2 id="性能与优化"><a href="#性能与优化" class="headerlink" title="性能与优化"></a>性能与优化</h2><h3 id="系统要求"><a href="#系统要求" class="headerlink" title="系统要求"></a>系统要求</h3><table>
+<thead>
+<tr>
+<th>配置</th>
+<th>最低</th>
+<th>推荐</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>内存</td>
+<td>1GB</td>
+<td>2GB+</td>
+</tr>
+<tr>
+<td>CPU</td>
+<td>1 核</td>
+<td>2 核</td>
+</tr>
+<tr>
+<td>存储</td>
+<td>10GB</td>
+<td>20GB+</td>
+</tr>
+</tbody></table>
+<h3 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h3><h4 id="1-Swap-配置"><a href="#1-Swap-配置" class="headerlink" title="1. Swap 配置"></a>1. Swap 配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建 4GB Swap</span></span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/zero of=/swapfile bs=1M count=4096</span><br><span class="line">mkswap /swapfile</span><br><span class="line">swapon /swapfile</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-内存限制"><a href="#2-内存限制" class="headerlink" title="2. 内存限制"></a>2. 内存限制</h4><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;agents&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;defaults&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;maxMemory&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2g&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="Q-如何备份？"><a href="#Q-如何备份？" class="headerlink" title="Q: 如何备份？"></a>Q: 如何备份？</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 备份配置</span></span><br><span class="line"><span class="built_in">cp</span> -r ~/.openclaw ~/backup-openclaw-$(<span class="built_in">date</span> +%Y%m%d)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 备份数据</span></span><br><span class="line"><span class="built_in">cp</span> -r ~/.cache/qmd ~/backup-qmd-$(<span class="built_in">date</span> +%Y%m%d)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Q-Agent-没响应？"><a href="#Q-Agent-没响应？" class="headerlink" title="Q: Agent 没响应？"></a>Q: Agent 没响应？</h3><ol>
+<li>检查 API Key 配置</li>
+<li>查看日志 <code>openclaw logs</code></li>
+<li>重启 Gateway <code>openclaw gateway restart</code></li>
+</ol>
+<h3 id="Q-内存不足？"><a href="#Q-内存不足？" class="headerlink" title="Q: 内存不足？"></a>Q: 内存不足？</h3><ol>
+<li>添加 Swap</li>
+<li>降低并发数</li>
+<li>关闭不需要的 Skills</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>OpenClaw 是一个强大的 AI 助手网关：</p>
+<ul>
+<li>✅ <strong>多平台</strong>：Telegram、Discord 等</li>
+<li>✅ <strong>强 Agent</strong>：Pi、Claude Code</li>
+<li>✅ <strong>好记忆</strong>：QMD 向量检索</li>
+<li>✅ <strong>易扩展</strong>：Skills 生态</li>
+<li>✅ <strong>够安全</strong>：本地部署</li>
+</ul>
+<p><strong>让 AI 助手随时随地为你服务！</strong></p>
+<hr>
+<p><strong>Tags</strong>: OpenClaw, AI, Telegram, Agent, Gateway, Skills, QMD</p>
+<p><strong>系列文章</strong>：</p>
+<ul>
+<li><a href="./OpenClaw-%E6%8A%98%E8%85%BE%E8%AE%B0">OpenClaw 折腾记</a></li>
+<li><a href="./QMD-%E5%90%91%E9%87%8F%E8%AE%B0%E5%BF%86%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95">QMD 向量记忆高级用法</a></li>
+<li>OpenClaw 概览与核心功能 ✅</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.2001.life/2026/02/06/QMD-%E5%90%91%E9%87%8F%E8%AE%B0%E5%BF%86%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="XY">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Code & Coffee">
+      <meta itemprop="description" content="记录 OpenClaw、AI、技术的折腾笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Code & Coffee">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2026/02/06/QMD-%E5%90%91%E9%87%8F%E8%AE%B0%E5%BF%86%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/" class="post-title-link" itemprop="url">QMD 向量记忆高级用法 - 打造你的第二大脑</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-02-06 01:15:00 / 修改时间：01:16:09" itemprop="dateCreated datePublished" datetime="2026-02-06T01:15:00+08:00">2026-02-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="QMD-向量记忆高级用法-打造你的第二大脑"><a href="#QMD-向量记忆高级用法-打造你的第二大脑" class="headerlink" title="QMD 向量记忆高级用法 - 打造你的第二大脑"></a>QMD 向量记忆高级用法 - 打造你的第二大脑</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在信息爆炸的时代，如何高效检索信息成为关键。QMD (Quick Markdown) 不仅仅是一个搜索工具，它是你的<strong>第二大脑</strong>。</p>
+<h2 id="什么是向量检索？"><a href="#什么是向量检索？" class="headerlink" title="什么是向量检索？"></a>什么是向量检索？</h2><h3 id="传统搜索-vs-向量搜索"><a href="#传统搜索-vs-向量搜索" class="headerlink" title="传统搜索 vs 向量搜索"></a>传统搜索 vs 向量搜索</h3><table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>传统搜索 (BM25)</th>
+<th>向量搜索</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>原理</td>
+<td>关键词匹配</td>
+<td>语义理解</td>
+</tr>
+<tr>
+<td>能力</td>
+<td>精确匹配</td>
+<td>模糊理解</td>
+</tr>
+<tr>
+<td>速度</td>
+<td>快</td>
+<td>稍慢</td>
+</tr>
+<tr>
+<td>场景</td>
+<td>专业术语</td>
+<td>日常表达</td>
+</tr>
+</tbody></table>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">搜索: &quot;我的投资基金表现如何&quot;</span><br><span class="line"></span><br><span class="line">BM25 结果: 匹配 &quot;基金&quot; 关键词的文章</span><br><span class="line">向量搜索: 理解语义，找到所有关于投资、收益、持仓的文章</span><br></pre></td></tr></table></figure>
+
+<h2 id="OpenClaw-QMD-配置"><a href="#OpenClaw-QMD-配置" class="headerlink" title="OpenClaw QMD 配置"></a>OpenClaw QMD 配置</h2><h3 id="基础配置"><a href="#基础配置" class="headerlink" title="基础配置"></a>基础配置</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;memory&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;backend&quot;</span><span class="punctuation">:</span> <span class="string">&quot;qmd&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;qmd&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;includeDefaultMemory&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;update&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;interval&quot;</span><span class="punctuation">:</span> <span class="string">&quot;5m&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;debounceMs&quot;</span><span class="punctuation">:</span> <span class="number">15000</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;limits&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;maxResults&quot;</span><span class="punctuation">:</span> <span class="number">6</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;timeoutMs&quot;</span><span class="punctuation">:</span> <span class="number">4000</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="命令行用法"><a href="#命令行用法" class="headerlink" title="命令行用法"></a>命令行用法</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 全文搜索 (BM25)</span></span><br><span class="line">qmd search <span class="string">&quot;基金 持仓&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 向量相似度搜索</span></span><br><span class="line">qmd vsearch <span class="string">&quot;我的投资偏好&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 混合搜索 (推荐)</span></span><br><span class="line">qmd query <span class="string">&quot;最近买了什么股票&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定集合搜索</span></span><br><span class="line">qmd query <span class="string">&quot;工作安排&quot;</span> -c memory</span><br><span class="line"></span><br><span class="line"><span class="comment"># JSON 格式输出</span></span><br><span class="line">qmd query <span class="string">&quot;项目进度&quot;</span> --json</span><br></pre></td></tr></table></figure>
+
+<h2 id="实战场景"><a href="#实战场景" class="headerlink" title="实战场景"></a>实战场景</h2><h3 id="场景-1：快速回顾对话"><a href="#场景-1：快速回顾对话" class="headerlink" title="场景 1：快速回顾对话"></a>场景 1：快速回顾对话</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ qmd query &quot;昨天讨论的 AI 项目&quot;</span><br><span class="line"></span><br><span class="line">结果:</span><br><span class="line">- 匹配度 85%: 2026-02-04.md - AI Agent 测试记录</span><br><span class="line">- 匹配度 72%: 项目计划.md - Agent 集成方案</span><br></pre></td></tr></table></figure>
+
+<h3 id="场景-2：跨时间检索"><a href="#场景-2：跨时间检索" class="headerlink" title="场景 2：跨时间检索"></a>场景 2：跨时间检索</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 搜索所有关于 &quot;投资&quot; 的记录</span></span><br><span class="line">qmd search <span class="string">&quot;投资&quot;</span> --all</span><br><span class="line"></span><br><span class="line"><span class="comment"># 搜索最近一个月的记录</span></span><br><span class="line">qmd query <span class="string">&quot;基金走势&quot;</span> --min-score 0.5</span><br></pre></td></tr></table></figure>
+
+<h3 id="场景-3：精准定位"><a href="#场景-3：精准定位" class="headerlink" title="场景 3：精准定位"></a>场景 3：精准定位</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取完整文档</span></span><br><span class="line">qmd get qmd://memory/2026-02-05.md</span><br><span class="line"></span><br><span class="line"><span class="comment"># 多文档获取</span></span><br><span class="line">qmd multi-get <span class="string">&quot;qmd://memory/*.md&quot;</span> --json</span><br></pre></td></tr></table></figure>
+
+<h2 id="高级技巧"><a href="#高级技巧" class="headerlink" title="高级技巧"></a>高级技巧</h2><h3 id="1-优化检索质量"><a href="#1-优化检索质量" class="headerlink" title="1. 优化检索质量"></a>1. 优化检索质量</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 提高相似度阈值，过滤低质量结果</span></span><br><span class="line">qmd query <span class="string">&quot;关键词&quot;</span> --min-score 0.7</span><br><span class="line"></span><br><span class="line"><span class="comment"># 扩大搜索范围</span></span><br><span class="line">qmd query <span class="string">&quot;内容&quot;</span> -n 10</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-集合管理"><a href="#2-集合管理" class="headerlink" title="2. 集合管理"></a>2. 集合管理</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看所有集合</span></span><br><span class="line">qmd collection list</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建新集合</span></span><br><span class="line">qmd collection add /path/to/notes --name my-notes</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除集合</span></span><br><span class="line">qmd collection remove old-notes</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-索引维护"><a href="#3-索引维护" class="headerlink" title="3. 索引维护"></a>3. 索引维护</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 强制重新索引</span></span><br><span class="line">qmd update --pull</span><br><span class="line"></span><br><span class="line"><span class="comment"># 清理无用数据</span></span><br><span class="line">qmd cleanup</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看索引状态</span></span><br><span class="line">qmd status</span><br></pre></td></tr></table></figure>
+
+<h2 id="QMD-工作原理"><a href="#QMD-工作原理" class="headerlink" title="QMD 工作原理"></a>QMD 工作原理</h2><h3 id="向量嵌入模型"><a href="#向量嵌入模型" class="headerlink" title="向量嵌入模型"></a>向量嵌入模型</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Embedding 模型: embeddinggemma-300M-Q8_0</span><br><span class="line">- 轻量级模型，适合 VPS</span><br><span class="line">- 300M 参数</span><br><span class="line">- 本地运行，不依赖外部 API</span><br></pre></td></tr></table></figure>
+
+<h3 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~/.cache/qmd/index.sqlite</span><br><span class="line">- 向量索引</span><br><span class="line">- BM25 索引</span><br><span class="line">- 元数据</span><br></pre></td></tr></table></figure>
+
+<h2 id="与-OpenClaw-集成"><a href="#与-OpenClaw-集成" class="headerlink" title="与 OpenClaw 集成"></a>与 OpenClaw 集成</h2><h3 id="配置-memory-core"><a href="#配置-memory-core" class="headerlink" title="配置 memory-core"></a>配置 memory-core</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;memory&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;backend&quot;</span><span class="punctuation">:</span> <span class="string">&quot;qmd&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;memory-core&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;enabled&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="可用工具"><a href="#可用工具" class="headerlink" title="可用工具"></a>可用工具</h3><table>
+<thead>
+<tr>
+<th>工具</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>memory_search</code></td>
+<td>QMD 搜索</td>
+</tr>
+<tr>
+<td><code>memory_get</code></td>
+<td>获取记忆内容</td>
+</tr>
+<tr>
+<td><code>memory_list</code></td>
+<td>列出所有记忆</td>
+</tr>
+</tbody></table>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="Q-向量搜索崩溃"><a href="#Q-向量搜索崩溃" class="headerlink" title="Q: 向量搜索崩溃"></a>Q: 向量搜索崩溃</h3><p><strong>问题</strong>: Bun 1.3.8 + node-llama-cpp 兼容问题</p>
+<p><strong>解决</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 方案1: 使用 BM25</span></span><br><span class="line">qmd search <span class="string">&quot;关键词&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 方案2: 重装 QMD</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/tobi/qmd.git</span><br><span class="line"><span class="built_in">cd</span> qmd &amp;&amp; bun install</span><br></pre></td></tr></table></figure>
+
+<h3 id="Q-搜索结果不准确"><a href="#Q-搜索结果不准确" class="headerlink" title="Q: 搜索结果不准确"></a>Q: 搜索结果不准确</h3><p><strong>解决</strong>:</p>
+<ol>
+<li>增加文档数量</li>
+<li>提高检索阈值</li>
+<li>使用混合搜索 <code>query</code> 而非单一 <code>search</code></li>
+</ol>
+<h3 id="Q-索引过大"><a href="#Q-索引过大" class="headerlink" title="Q: 索引过大"></a>Q: 索引过大</h3><p><strong>解决</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 清理无用数据</span></span><br><span class="line">qmd cleanup</span><br><span class="line"></span><br><span class="line"><span class="comment"># 移除不需要的集合</span></span><br><span class="line">qmd collection remove unused-collection</span><br></pre></td></tr></table></figure>
+
+<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><h3 id="1-命名规范"><a href="#1-命名规范" class="headerlink" title="1. 命名规范"></a>1. 命名规范</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 推荐命名</span><br><span class="line">2026-02-06-项目计划.md</span><br><span class="line">2026-02-05-投资笔记.md</span><br><span class="line">对话-2026-02-04-AI讨论.md</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-内容结构"><a href="#2-内容结构" class="headerlink" title="2. 内容结构"></a>2. 内容结构</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 标题</span></span><br><span class="line"></span><br><span class="line"><span class="section">## 关键信息</span></span><br><span class="line"><span class="bullet">-</span> 时间</span><br><span class="line"><span class="bullet">-</span> 人物</span><br><span class="line"><span class="bullet">-</span> 地点</span><br><span class="line"></span><br><span class="line"><span class="section">## 详细内容</span></span><br><span class="line"></span><br><span class="line"><span class="section">## 结论/行动项</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-定期维护"><a href="#3-定期维护" class="headerlink" title="3. 定期维护"></a>3. 定期维护</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 每周执行</span></span><br><span class="line">qmd update  <span class="comment"># 更新索引</span></span><br><span class="line">qmd cleanup  <span class="comment"># 清理垃圾</span></span><br><span class="line">qmd status  <span class="comment"># 检查状态</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>QMD + OpenClaw 让我实现了：</p>
+<ul>
+<li>✅ <strong>精准检索</strong>：不用记住文件名，记住关键词就行</li>
+<li>✅ <strong>语义理解</strong>：用自然语言搜索</li>
+<li>✅ <strong>完全本地</strong>：数据在自己手里</li>
+<li>✅ <strong>零成本</strong>：不需要外部 API</li>
+</ul>
+<p><strong>你的第二大脑，从 QMD 开始！</strong></p>
+<hr>
+<p><strong>Tags</strong>: QMD, 向量检索, 语义搜索, OpenClaw, AI, 知识管理</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.2001.life/2026/02/06/OpenClaw-%E6%8A%98%E8%85%BE%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="XY">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Code & Coffee">
+      <meta itemprop="description" content="记录 OpenClaw、AI、技术的折腾笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Code & Coffee">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2026/02/06/OpenClaw-%E6%8A%98%E8%85%BE%E8%AE%B0/" class="post-title-link" itemprop="url">OpenClaw 折腾记 - 从 Telegram AI 助手到向量记忆系统</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-02-06 00:57:00 / 修改时间：00:58:43" itemprop="dateCreated datePublished" datetime="2026-02-06T00:57:00+08:00">2026-02-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="OpenClaw-折腾记-从-Telegram-AI-助手到向量记忆系统"><a href="#OpenClaw-折腾记-从-Telegram-AI-助手到向量记忆系统" class="headerlink" title="OpenClaw 折腾记 - 从 Telegram AI 助手到向量记忆系统"></a>OpenClaw 折腾记 - 从 Telegram AI 助手到向量记忆系统</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>作为一个热爱折腾的普通人，我一直在寻找一个能够随时随地与 AI 对话解决方案。直到发现了 OpenClaw —— 一个开源的 AI 助手框架。</p>
+<h2 id="什么是-OpenClaw？"><a href="#什么是-OpenClaw？" class="headerlink" title="什么是 OpenClaw？"></a>什么是 OpenClaw？</h2><p>OpenClaw 是一个开源的 AI 助手网关，具有以下特点：</p>
+<ul>
+<li><strong>多平台支持</strong>：Telegram、WhatsApp、Discord、iMessage 等</li>
+<li><strong>Agent 能力</strong>：集成 Claude Code、Pi 等编程 Agent</li>
+<li><strong>本地化部署</strong>：数据完全掌握在自己手中</li>
+<li><strong>可扩展性</strong>：通过 Skills 扩展功能</li>
+</ul>
+<p>我的使用场景：</p>
+<ol>
+<li>📱 在手机上通过 Telegram 与 AI 对话</li>
+<li>🧠 QMD 向量记忆系统，精准检索</li>
+<li>📊 基金数据自动追踪</li>
+<li>🛠️ VPS 运维工具箱</li>
+</ol>
+<hr>
+<h2 id="第一章：QMD-向量记忆系统配置"><a href="#第一章：QMD-向量记忆系统配置" class="headerlink" title="第一章：QMD 向量记忆系统配置"></a>第一章：QMD 向量记忆系统配置</h2><p>OpenClaw 最新版内置了 QMD 支持，这是一个强大的语义搜索工具。</p>
+<h3 id="配置步骤"><a href="#配置步骤" class="headerlink" title="配置步骤"></a>配置步骤</h3><ol>
+<li>修改 <code>~/.openclaw/openclaw.json</code>：</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;memory&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;backend&quot;</span><span class="punctuation">:</span> <span class="string">&quot;qmd&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;qmd&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;includeDefaultMemory&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;update&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;interval&quot;</span><span class="punctuation">:</span> <span class="string">&quot;5m&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;debounceMs&quot;</span><span class="punctuation">:</span> <span class="number">15000</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;limits&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;maxResults&quot;</span><span class="punctuation">:</span> <span class="number">6</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;timeoutMs&quot;</span><span class="punctuation">:</span> <span class="number">4000</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>使用命令：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 全文搜索 (BM25)</span></span><br><span class="line">qmd search <span class="string">&quot;基金&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 向量搜索</span></span><br><span class="line">qmd vsearch <span class="string">&quot;我的投资偏好&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 混合搜索</span></span><br><span class="line">qmd query <span class="string">&quot;持仓基金走势&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="🐛-遇到的问题：Bun-兼容问题"><a href="#🐛-遇到的问题：Bun-兼容问题" class="headerlink" title="🐛 遇到的问题：Bun 兼容问题"></a>🐛 遇到的问题：Bun 兼容问题</h3><blockquote>
+<p><strong>问题现象</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">panic: Segmentation fault at address 0x7FCF86E3E840</span><br><span class="line">Peak: 6.58GB | Machine: 10.42GB</span><br></pre></td></tr></table></figure></blockquote>
+<p><strong>解决方案</strong>：</p>
+<p>最终解决方案：<strong>手动从源码安装 QMD</strong>，并保持 Bun 1.3.8。</p>
+<hr>
+<h2 id="第二章：基金数据自动追踪"><a href="#第二章：基金数据自动追踪" class="headerlink" title="第二章：基金数据自动追踪"></a>第二章：基金数据自动追踪</h2><h3 id="部署方案"><a href="#部署方案" class="headerlink" title="部署方案"></a>部署方案</h3><ol>
+<li><p>创建数据获取脚本</p>
+</li>
+<li><p>配置定时任务：</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># crontab -e</span></span><br><span class="line">0 15 * * * <span class="built_in">cd</span> /root/.openclaw &amp;&amp; python3 scripts/fetch_fund_nav.py</span><br></pre></td></tr></table></figure>
+
+<h3 id="数据展示"><a href="#数据展示" class="headerlink" title="数据展示"></a>数据展示</h3><p>通过 OpenClaw 的 QMD 搜索，可以快速检索历史数据。</p>
+<hr>
+<h2 id="第三章：VPS-优化"><a href="#第三章：VPS-优化" class="headerlink" title="第三章：VPS 优化"></a>第三章：VPS 优化</h2><h3 id="添加-Swap-空间"><a href="#添加-Swap-空间" class="headerlink" title="添加 Swap 空间"></a>添加 Swap 空间</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建 4GB Swap 文件</span></span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/zero of=/swapfile bs=1M count=4096</span><br><span class="line">mkswap /swapfile</span><br><span class="line">swapon /swapfile</span><br><span class="line"></span><br><span class="line"><span class="comment"># 永久生效</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;/swapfile none swap sw 0 0&quot;</span> &gt;&gt; /etc/fstab</span><br></pre></td></tr></table></figure>
+
+<p>效果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Mem:           9.7Gi       692Mi       5.3Gi</span><br><span class="line">Swap:          4.0Gi          0B       4.0Gi</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="第四章：Hexo-博客部署"><a href="#第四章：Hexo-博客部署" class="headerlink" title="第四章：Hexo 博客部署"></a>第四章：Hexo 博客部署</h2><h3 id="部署步骤"><a href="#部署步骤" class="headerlink" title="部署步骤"></a>部署步骤</h3><ol>
+<li>安装 Node.js 和 Hexo：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 nvm 安装</span></span><br><span class="line">curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash</span><br><span class="line">nvm install --lts</span><br><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>初始化博客：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo init /var/www/blog</span><br><span class="line"><span class="built_in">cd</span> /var/www/blog</span><br><span class="line">hexo theme next</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>配置 Caddy 自动 HTTPS：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">blog.2001.life &#123;</span><br><span class="line">    root * /var/www/blog/public</span><br><span class="line">    file_server</span><br><span class="line">    encode gzip</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过这段时间的折腾，我获得了：</p>
+<ol>
+<li>✅ <strong>随时可用的 AI 助手</strong> - Telegram 随时对话</li>
+<li>✅ <strong>精准的记忆系统</strong> - QMD 向量检索</li>
+<li>✅ <strong>自动化的基金追踪</strong> - 每日净值数据</li>
+<li>✅ <strong>安全的 VPS 配置</strong> - Swap + SSH 加固</li>
+<li>✅ <strong>独立的博客系统</strong> - Hexo + Caddy 自动 HTTPS</li>
+</ol>
+<p><strong>心得</strong>：</p>
+<ul>
+<li>遇到问题不要慌，善用搜索和社区资源</li>
+<li>保留原始配置，备份是关键</li>
+<li>记录过程，既是总结也是分享</li>
+</ul>
+<hr>
+<p><strong>Tags</strong>: OpenClaw, AI, Telegram, QMD, Hexo, VPS</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.2001.life/2026/02/06/hello-world/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="XY">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Code & Coffee">
+      <meta itemprop="description" content="记录 OpenClaw、AI、技术的折腾笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Code & Coffee">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2026/02/06/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2026-02-06 00:25:03" itemprop="dateCreated datePublished" datetime="2026-02-06T00:25:03+08:00">2026-02-06</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">XY</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

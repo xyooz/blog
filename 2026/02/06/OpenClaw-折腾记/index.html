@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.2001.life","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="OpenClaw 折腾记 - 从 Telegram AI 助手到向量记忆系统前言作为一个热爱折腾的普通人，我一直在寻找一个能够随时随地与 AI 对话解决方案。直到发现了 OpenClaw —— 一个开源的 AI 助手框架。 什么是 OpenClaw？OpenClaw 是一个开源的 AI 助手网关，具有以下特点：  多平台支持：Telegram、WhatsApp、Discord、iMessage 等">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenClaw 折腾记 - 从 Telegram AI 助手到向量记忆系统">
+<meta property="og:url" content="https://blog.2001.life/2026/02/06/OpenClaw-%E6%8A%98%E8%85%BE%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Code &amp; Coffee">
+<meta property="og:description" content="OpenClaw 折腾记 - 从 Telegram AI 助手到向量记忆系统前言作为一个热爱折腾的普通人，我一直在寻找一个能够随时随地与 AI 对话解决方案。直到发现了 OpenClaw —— 一个开源的 AI 助手框架。 什么是 OpenClaw？OpenClaw 是一个开源的 AI 助手网关，具有以下特点：  多平台支持：Telegram、WhatsApp、Discord、iMessage 等">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-02-05T16:57:00.000Z">
+<meta property="article:modified_time" content="2026-02-05T16:58:43.018Z">
+<meta property="article:author" content="XY">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="OpenClaw">
+<meta property="article:tag" content="QMD">
+<meta property="article:tag" content="Telegram">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.2001.life/2026/02/06/OpenClaw-%E6%8A%98%E8%85%BE%E8%AE%B0/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.2001.life/2026/02/06/OpenClaw-%E6%8A%98%E8%85%BE%E8%AE%B0/","path":"2026/02/06/OpenClaw-折腾记/","title":"OpenClaw 折腾记 - 从 Telegram AI 助手到向量记忆系统"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>OpenClaw 折腾记 - 从 Telegram AI 助手到向量记忆系统 | Code & Coffee</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Code & Coffee</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">用咖啡驱动代码，用代码改变世界</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#OpenClaw-%E6%8A%98%E8%85%BE%E8%AE%B0-%E4%BB%8E-Telegram-AI-%E5%8A%A9%E6%89%8B%E5%88%B0%E5%90%91%E9%87%8F%E8%AE%B0%E5%BF%86%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.</span> <span class="nav-text">OpenClaw 折腾记 - 从 Telegram AI 助手到向量记忆系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-OpenClaw%EF%BC%9F"><span class="nav-number">1.2.</span> <span class="nav-text">什么是 OpenClaw？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0%EF%BC%9AQMD-%E5%90%91%E9%87%8F%E8%AE%B0%E5%BF%86%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE"><span class="nav-number">1.3.</span> <span class="nav-text">第一章：QMD 向量记忆系统配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.3.1.</span> <span class="nav-text">配置步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%90%9B-%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9ABun-%E5%85%BC%E5%AE%B9%E9%97%AE%E9%A2%98"><span class="nav-number">1.3.2.</span> <span class="nav-text">🐛 遇到的问题：Bun 兼容问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0%EF%BC%9A%E5%9F%BA%E9%87%91%E6%95%B0%E6%8D%AE%E8%87%AA%E5%8A%A8%E8%BF%BD%E8%B8%AA"><span class="nav-number">1.4.</span> <span class="nav-text">第二章：基金数据自动追踪</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E6%96%B9%E6%A1%88"><span class="nav-number">1.4.1.</span> <span class="nav-text">部署方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%B1%95%E7%A4%BA"><span class="nav-number">1.4.2.</span> <span class="nav-text">数据展示</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0%EF%BC%9AVPS-%E4%BC%98%E5%8C%96"><span class="nav-number">1.5.</span> <span class="nav-text">第三章：VPS 优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0-Swap-%E7%A9%BA%E9%97%B4"><span class="nav-number">1.5.1.</span> <span class="nav-text">添加 Swap 空间</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0%EF%BC%9AHexo-%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2"><span class="nav-number">1.6.</span> <span class="nav-text">第四章：Hexo 博客部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.6.1.</span> <span class="nav-text">部署步骤</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.7.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">XY</p>
+  <div class="site-description" itemprop="description">记录 OpenClaw、AI、技术的折腾笔记</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.2001.life/2026/02/06/OpenClaw-%E6%8A%98%E8%85%BE%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="XY">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Code & Coffee">
+      <meta itemprop="description" content="记录 OpenClaw、AI、技术的折腾笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="OpenClaw 折腾记 - 从 Telegram AI 助手到向量记忆系统 | Code & Coffee">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          OpenClaw 折腾记 - 从 Telegram AI 助手到向量记忆系统
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-02-06 00:57:00 / 修改时间：00:58:43" itemprop="dateCreated datePublished" datetime="2026-02-06T00:57:00+08:00">2026-02-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="OpenClaw-折腾记-从-Telegram-AI-助手到向量记忆系统"><a href="#OpenClaw-折腾记-从-Telegram-AI-助手到向量记忆系统" class="headerlink" title="OpenClaw 折腾记 - 从 Telegram AI 助手到向量记忆系统"></a>OpenClaw 折腾记 - 从 Telegram AI 助手到向量记忆系统</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>作为一个热爱折腾的普通人，我一直在寻找一个能够随时随地与 AI 对话解决方案。直到发现了 OpenClaw —— 一个开源的 AI 助手框架。</p>
+<h2 id="什么是-OpenClaw？"><a href="#什么是-OpenClaw？" class="headerlink" title="什么是 OpenClaw？"></a>什么是 OpenClaw？</h2><p>OpenClaw 是一个开源的 AI 助手网关，具有以下特点：</p>
+<ul>
+<li><strong>多平台支持</strong>：Telegram、WhatsApp、Discord、iMessage 等</li>
+<li><strong>Agent 能力</strong>：集成 Claude Code、Pi 等编程 Agent</li>
+<li><strong>本地化部署</strong>：数据完全掌握在自己手中</li>
+<li><strong>可扩展性</strong>：通过 Skills 扩展功能</li>
+</ul>
+<p>我的使用场景：</p>
+<ol>
+<li>📱 在手机上通过 Telegram 与 AI 对话</li>
+<li>🧠 QMD 向量记忆系统，精准检索</li>
+<li>📊 基金数据自动追踪</li>
+<li>🛠️ VPS 运维工具箱</li>
+</ol>
+<hr>
+<h2 id="第一章：QMD-向量记忆系统配置"><a href="#第一章：QMD-向量记忆系统配置" class="headerlink" title="第一章：QMD 向量记忆系统配置"></a>第一章：QMD 向量记忆系统配置</h2><p>OpenClaw 最新版内置了 QMD 支持，这是一个强大的语义搜索工具。</p>
+<h3 id="配置步骤"><a href="#配置步骤" class="headerlink" title="配置步骤"></a>配置步骤</h3><ol>
+<li>修改 <code>~/.openclaw/openclaw.json</code>：</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;memory&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;backend&quot;</span><span class="punctuation">:</span> <span class="string">&quot;qmd&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;qmd&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;includeDefaultMemory&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;update&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;interval&quot;</span><span class="punctuation">:</span> <span class="string">&quot;5m&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;debounceMs&quot;</span><span class="punctuation">:</span> <span class="number">15000</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;limits&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;maxResults&quot;</span><span class="punctuation">:</span> <span class="number">6</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;timeoutMs&quot;</span><span class="punctuation">:</span> <span class="number">4000</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>使用命令：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 全文搜索 (BM25)</span></span><br><span class="line">qmd search <span class="string">&quot;基金&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 向量搜索</span></span><br><span class="line">qmd vsearch <span class="string">&quot;我的投资偏好&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 混合搜索</span></span><br><span class="line">qmd query <span class="string">&quot;持仓基金走势&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="🐛-遇到的问题：Bun-兼容问题"><a href="#🐛-遇到的问题：Bun-兼容问题" class="headerlink" title="🐛 遇到的问题：Bun 兼容问题"></a>🐛 遇到的问题：Bun 兼容问题</h3><blockquote>
+<p><strong>问题现象</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">panic: Segmentation fault at address 0x7FCF86E3E840</span><br><span class="line">Peak: 6.58GB | Machine: 10.42GB</span><br></pre></td></tr></table></figure></blockquote>
+<p><strong>解决方案</strong>：</p>
+<p>最终解决方案：<strong>手动从源码安装 QMD</strong>，并保持 Bun 1.3.8。</p>
+<hr>
+<h2 id="第二章：基金数据自动追踪"><a href="#第二章：基金数据自动追踪" class="headerlink" title="第二章：基金数据自动追踪"></a>第二章：基金数据自动追踪</h2><h3 id="部署方案"><a href="#部署方案" class="headerlink" title="部署方案"></a>部署方案</h3><ol>
+<li><p>创建数据获取脚本</p>
+</li>
+<li><p>配置定时任务：</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># crontab -e</span></span><br><span class="line">0 15 * * * <span class="built_in">cd</span> /root/.openclaw &amp;&amp; python3 scripts/fetch_fund_nav.py</span><br></pre></td></tr></table></figure>
+
+<h3 id="数据展示"><a href="#数据展示" class="headerlink" title="数据展示"></a>数据展示</h3><p>通过 OpenClaw 的 QMD 搜索，可以快速检索历史数据。</p>
+<hr>
+<h2 id="第三章：VPS-优化"><a href="#第三章：VPS-优化" class="headerlink" title="第三章：VPS 优化"></a>第三章：VPS 优化</h2><h3 id="添加-Swap-空间"><a href="#添加-Swap-空间" class="headerlink" title="添加 Swap 空间"></a>添加 Swap 空间</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建 4GB Swap 文件</span></span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/zero of=/swapfile bs=1M count=4096</span><br><span class="line">mkswap /swapfile</span><br><span class="line">swapon /swapfile</span><br><span class="line"></span><br><span class="line"><span class="comment"># 永久生效</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;/swapfile none swap sw 0 0&quot;</span> &gt;&gt; /etc/fstab</span><br></pre></td></tr></table></figure>
+
+<p>效果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Mem:           9.7Gi       692Mi       5.3Gi</span><br><span class="line">Swap:          4.0Gi          0B       4.0Gi</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="第四章：Hexo-博客部署"><a href="#第四章：Hexo-博客部署" class="headerlink" title="第四章：Hexo 博客部署"></a>第四章：Hexo 博客部署</h2><h3 id="部署步骤"><a href="#部署步骤" class="headerlink" title="部署步骤"></a>部署步骤</h3><ol>
+<li>安装 Node.js 和 Hexo：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 nvm 安装</span></span><br><span class="line">curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash</span><br><span class="line">nvm install --lts</span><br><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>初始化博客：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo init /var/www/blog</span><br><span class="line"><span class="built_in">cd</span> /var/www/blog</span><br><span class="line">hexo theme next</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>配置 Caddy 自动 HTTPS：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">blog.2001.life &#123;</span><br><span class="line">    root * /var/www/blog/public</span><br><span class="line">    file_server</span><br><span class="line">    encode gzip</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过这段时间的折腾，我获得了：</p>
+<ol>
+<li>✅ <strong>随时可用的 AI 助手</strong> - Telegram 随时对话</li>
+<li>✅ <strong>精准的记忆系统</strong> - QMD 向量检索</li>
+<li>✅ <strong>自动化的基金追踪</strong> - 每日净值数据</li>
+<li>✅ <strong>安全的 VPS 配置</strong> - Swap + SSH 加固</li>
+<li>✅ <strong>独立的博客系统</strong> - Hexo + Caddy 自动 HTTPS</li>
+</ol>
+<p><strong>心得</strong>：</p>
+<ul>
+<li>遇到问题不要慌，善用搜索和社区资源</li>
+<li>保留原始配置，备份是关键</li>
+<li>记录过程，既是总结也是分享</li>
+</ul>
+<hr>
+<p><strong>Tags</strong>: OpenClaw, AI, Telegram, QMD, Hexo, VPS</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/OpenClaw/" rel="tag"># OpenClaw</a>
+              <a href="/tags/AI/" rel="tag"># AI</a>
+              <a href="/tags/Telegram/" rel="tag"># Telegram</a>
+              <a href="/tags/QMD/" rel="tag"># QMD</a>
+              <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/02/06/hello-world/" rel="prev" title="Hello World">
+                  <i class="fa fa-angle-left"></i> Hello World
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2026/02/06/QMD-%E5%90%91%E9%87%8F%E8%AE%B0%E5%BF%86%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/" rel="next" title="QMD 向量记忆高级用法 - 打造你的第二大脑">
+                  QMD 向量记忆高级用法 - 打造你的第二大脑 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">XY</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

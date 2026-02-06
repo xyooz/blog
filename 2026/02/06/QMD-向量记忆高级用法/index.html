@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.2001.life","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="QMD 向量记忆高级用法 - 打造你的第二大脑前言在信息爆炸的时代，如何高效检索信息成为关键。QMD (Quick Markdown) 不仅仅是一个搜索工具，它是你的第二大脑。 什么是向量检索？传统搜索 vs 向量搜索   对比项 传统搜索 (BM25) 向量搜索    原理 关键词匹配 语义理解   能力 精确匹配 模糊理解   速度 快 稍慢   场景 专业术语 日常表达   示例1234搜索">
+<meta property="og:type" content="article">
+<meta property="og:title" content="QMD 向量记忆高级用法 - 打造你的第二大脑">
+<meta property="og:url" content="https://blog.2001.life/2026/02/06/QMD-%E5%90%91%E9%87%8F%E8%AE%B0%E5%BF%86%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/index.html">
+<meta property="og:site_name" content="Code &amp; Coffee">
+<meta property="og:description" content="QMD 向量记忆高级用法 - 打造你的第二大脑前言在信息爆炸的时代，如何高效检索信息成为关键。QMD (Quick Markdown) 不仅仅是一个搜索工具，它是你的第二大脑。 什么是向量检索？传统搜索 vs 向量搜索   对比项 传统搜索 (BM25) 向量搜索    原理 关键词匹配 语义理解   能力 精确匹配 模糊理解   速度 快 稍慢   场景 专业术语 日常表达   示例1234搜索">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-02-05T17:15:00.000Z">
+<meta property="article:modified_time" content="2026-02-05T17:16:09.854Z">
+<meta property="article:author" content="XY">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="OpenClaw">
+<meta property="article:tag" content="QMD">
+<meta property="article:tag" content="向量检索">
+<meta property="article:tag" content="语义搜索">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.2001.life/2026/02/06/QMD-%E5%90%91%E9%87%8F%E8%AE%B0%E5%BF%86%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.2001.life/2026/02/06/QMD-%E5%90%91%E9%87%8F%E8%AE%B0%E5%BF%86%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/","path":"2026/02/06/QMD-向量记忆高级用法/","title":"QMD 向量记忆高级用法 - 打造你的第二大脑"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>QMD 向量记忆高级用法 - 打造你的第二大脑 | Code & Coffee</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Code & Coffee</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">用咖啡驱动代码，用代码改变世界</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#QMD-%E5%90%91%E9%87%8F%E8%AE%B0%E5%BF%86%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95-%E6%89%93%E9%80%A0%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%BA%8C%E5%A4%A7%E8%84%91"><span class="nav-number">1.</span> <span class="nav-text">QMD 向量记忆高级用法 - 打造你的第二大脑</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%A3%80%E7%B4%A2%EF%BC%9F"><span class="nav-number">1.2.</span> <span class="nav-text">什么是向量检索？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E7%BB%9F%E6%90%9C%E7%B4%A2-vs-%E5%90%91%E9%87%8F%E6%90%9C%E7%B4%A2"><span class="nav-number">1.2.1.</span> <span class="nav-text">传统搜索 vs 向量搜索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.2.2.</span> <span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OpenClaw-QMD-%E9%85%8D%E7%BD%AE"><span class="nav-number">1.3.</span> <span class="nav-text">OpenClaw QMD 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE"><span class="nav-number">1.3.1.</span> <span class="nav-text">基础配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%94%A8%E6%B3%95"><span class="nav-number">1.3.2.</span> <span class="nav-text">命令行用法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E6%88%98%E5%9C%BA%E6%99%AF"><span class="nav-number">1.4.</span> <span class="nav-text">实战场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF-1%EF%BC%9A%E5%BF%AB%E9%80%9F%E5%9B%9E%E9%A1%BE%E5%AF%B9%E8%AF%9D"><span class="nav-number">1.4.1.</span> <span class="nav-text">场景 1：快速回顾对话</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF-2%EF%BC%9A%E8%B7%A8%E6%97%B6%E9%97%B4%E6%A3%80%E7%B4%A2"><span class="nav-number">1.4.2.</span> <span class="nav-text">场景 2：跨时间检索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF-3%EF%BC%9A%E7%B2%BE%E5%87%86%E5%AE%9A%E4%BD%8D"><span class="nav-number">1.4.3.</span> <span class="nav-text">场景 3：精准定位</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7"><span class="nav-number">1.5.</span> <span class="nav-text">高级技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%BC%98%E5%8C%96%E6%A3%80%E7%B4%A2%E8%B4%A8%E9%87%8F"><span class="nav-number">1.5.1.</span> <span class="nav-text">1. 优化检索质量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E9%9B%86%E5%90%88%E7%AE%A1%E7%90%86"><span class="nav-number">1.5.2.</span> <span class="nav-text">2. 集合管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%B4%A2%E5%BC%95%E7%BB%B4%E6%8A%A4"><span class="nav-number">1.5.3.</span> <span class="nav-text">3. 索引维护</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#QMD-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">1.6.</span> <span class="nav-text">QMD 工作原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%91%E9%87%8F%E5%B5%8C%E5%85%A5%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.6.1.</span> <span class="nav-text">向量嵌入模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8"><span class="nav-number">1.6.2.</span> <span class="nav-text">数据存储</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8E-OpenClaw-%E9%9B%86%E6%88%90"><span class="nav-number">1.7.</span> <span class="nav-text">与 OpenClaw 集成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-memory-core"><span class="nav-number">1.7.1.</span> <span class="nav-text">配置 memory-core</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E7%94%A8%E5%B7%A5%E5%85%B7"><span class="nav-number">1.7.2.</span> <span class="nav-text">可用工具</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-number">1.8.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-%E5%90%91%E9%87%8F%E6%90%9C%E7%B4%A2%E5%B4%A9%E6%BA%83"><span class="nav-number">1.8.1.</span> <span class="nav-text">Q: 向量搜索崩溃</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-%E6%90%9C%E7%B4%A2%E7%BB%93%E6%9E%9C%E4%B8%8D%E5%87%86%E7%A1%AE"><span class="nav-number">1.8.2.</span> <span class="nav-text">Q: 搜索结果不准确</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-%E7%B4%A2%E5%BC%95%E8%BF%87%E5%A4%A7"><span class="nav-number">1.8.3.</span> <span class="nav-text">Q: 索引过大</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-number">1.9.</span> <span class="nav-text">最佳实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83"><span class="nav-number">1.9.1.</span> <span class="nav-text">1. 命名规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%86%85%E5%AE%B9%E7%BB%93%E6%9E%84"><span class="nav-number">1.9.2.</span> <span class="nav-text">2. 内容结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%AE%9A%E6%9C%9F%E7%BB%B4%E6%8A%A4"><span class="nav-number">1.9.3.</span> <span class="nav-text">3. 定期维护</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.10.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">XY</p>
+  <div class="site-description" itemprop="description">记录 OpenClaw、AI、技术的折腾笔记</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.2001.life/2026/02/06/QMD-%E5%90%91%E9%87%8F%E8%AE%B0%E5%BF%86%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="XY">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Code & Coffee">
+      <meta itemprop="description" content="记录 OpenClaw、AI、技术的折腾笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="QMD 向量记忆高级用法 - 打造你的第二大脑 | Code & Coffee">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          QMD 向量记忆高级用法 - 打造你的第二大脑
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-02-06 01:15:00 / 修改时间：01:16:09" itemprop="dateCreated datePublished" datetime="2026-02-06T01:15:00+08:00">2026-02-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="QMD-向量记忆高级用法-打造你的第二大脑"><a href="#QMD-向量记忆高级用法-打造你的第二大脑" class="headerlink" title="QMD 向量记忆高级用法 - 打造你的第二大脑"></a>QMD 向量记忆高级用法 - 打造你的第二大脑</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在信息爆炸的时代，如何高效检索信息成为关键。QMD (Quick Markdown) 不仅仅是一个搜索工具，它是你的<strong>第二大脑</strong>。</p>
+<h2 id="什么是向量检索？"><a href="#什么是向量检索？" class="headerlink" title="什么是向量检索？"></a>什么是向量检索？</h2><h3 id="传统搜索-vs-向量搜索"><a href="#传统搜索-vs-向量搜索" class="headerlink" title="传统搜索 vs 向量搜索"></a>传统搜索 vs 向量搜索</h3><table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>传统搜索 (BM25)</th>
+<th>向量搜索</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>原理</td>
+<td>关键词匹配</td>
+<td>语义理解</td>
+</tr>
+<tr>
+<td>能力</td>
+<td>精确匹配</td>
+<td>模糊理解</td>
+</tr>
+<tr>
+<td>速度</td>
+<td>快</td>
+<td>稍慢</td>
+</tr>
+<tr>
+<td>场景</td>
+<td>专业术语</td>
+<td>日常表达</td>
+</tr>
+</tbody></table>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">搜索: &quot;我的投资基金表现如何&quot;</span><br><span class="line"></span><br><span class="line">BM25 结果: 匹配 &quot;基金&quot; 关键词的文章</span><br><span class="line">向量搜索: 理解语义，找到所有关于投资、收益、持仓的文章</span><br></pre></td></tr></table></figure>
+
+<h2 id="OpenClaw-QMD-配置"><a href="#OpenClaw-QMD-配置" class="headerlink" title="OpenClaw QMD 配置"></a>OpenClaw QMD 配置</h2><h3 id="基础配置"><a href="#基础配置" class="headerlink" title="基础配置"></a>基础配置</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;memory&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;backend&quot;</span><span class="punctuation">:</span> <span class="string">&quot;qmd&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;qmd&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;includeDefaultMemory&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;update&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;interval&quot;</span><span class="punctuation">:</span> <span class="string">&quot;5m&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;debounceMs&quot;</span><span class="punctuation">:</span> <span class="number">15000</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;limits&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;maxResults&quot;</span><span class="punctuation">:</span> <span class="number">6</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;timeoutMs&quot;</span><span class="punctuation">:</span> <span class="number">4000</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="命令行用法"><a href="#命令行用法" class="headerlink" title="命令行用法"></a>命令行用法</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 全文搜索 (BM25)</span></span><br><span class="line">qmd search <span class="string">&quot;基金 持仓&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 向量相似度搜索</span></span><br><span class="line">qmd vsearch <span class="string">&quot;我的投资偏好&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 混合搜索 (推荐)</span></span><br><span class="line">qmd query <span class="string">&quot;最近买了什么股票&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定集合搜索</span></span><br><span class="line">qmd query <span class="string">&quot;工作安排&quot;</span> -c memory</span><br><span class="line"></span><br><span class="line"><span class="comment"># JSON 格式输出</span></span><br><span class="line">qmd query <span class="string">&quot;项目进度&quot;</span> --json</span><br></pre></td></tr></table></figure>
+
+<h2 id="实战场景"><a href="#实战场景" class="headerlink" title="实战场景"></a>实战场景</h2><h3 id="场景-1：快速回顾对话"><a href="#场景-1：快速回顾对话" class="headerlink" title="场景 1：快速回顾对话"></a>场景 1：快速回顾对话</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ qmd query &quot;昨天讨论的 AI 项目&quot;</span><br><span class="line"></span><br><span class="line">结果:</span><br><span class="line">- 匹配度 85%: 2026-02-04.md - AI Agent 测试记录</span><br><span class="line">- 匹配度 72%: 项目计划.md - Agent 集成方案</span><br></pre></td></tr></table></figure>
+
+<h3 id="场景-2：跨时间检索"><a href="#场景-2：跨时间检索" class="headerlink" title="场景 2：跨时间检索"></a>场景 2：跨时间检索</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 搜索所有关于 &quot;投资&quot; 的记录</span></span><br><span class="line">qmd search <span class="string">&quot;投资&quot;</span> --all</span><br><span class="line"></span><br><span class="line"><span class="comment"># 搜索最近一个月的记录</span></span><br><span class="line">qmd query <span class="string">&quot;基金走势&quot;</span> --min-score 0.5</span><br></pre></td></tr></table></figure>
+
+<h3 id="场景-3：精准定位"><a href="#场景-3：精准定位" class="headerlink" title="场景 3：精准定位"></a>场景 3：精准定位</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取完整文档</span></span><br><span class="line">qmd get qmd://memory/2026-02-05.md</span><br><span class="line"></span><br><span class="line"><span class="comment"># 多文档获取</span></span><br><span class="line">qmd multi-get <span class="string">&quot;qmd://memory/*.md&quot;</span> --json</span><br></pre></td></tr></table></figure>
+
+<h2 id="高级技巧"><a href="#高级技巧" class="headerlink" title="高级技巧"></a>高级技巧</h2><h3 id="1-优化检索质量"><a href="#1-优化检索质量" class="headerlink" title="1. 优化检索质量"></a>1. 优化检索质量</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 提高相似度阈值，过滤低质量结果</span></span><br><span class="line">qmd query <span class="string">&quot;关键词&quot;</span> --min-score 0.7</span><br><span class="line"></span><br><span class="line"><span class="comment"># 扩大搜索范围</span></span><br><span class="line">qmd query <span class="string">&quot;内容&quot;</span> -n 10</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-集合管理"><a href="#2-集合管理" class="headerlink" title="2. 集合管理"></a>2. 集合管理</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看所有集合</span></span><br><span class="line">qmd collection list</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建新集合</span></span><br><span class="line">qmd collection add /path/to/notes --name my-notes</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除集合</span></span><br><span class="line">qmd collection remove old-notes</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-索引维护"><a href="#3-索引维护" class="headerlink" title="3. 索引维护"></a>3. 索引维护</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 强制重新索引</span></span><br><span class="line">qmd update --pull</span><br><span class="line"></span><br><span class="line"><span class="comment"># 清理无用数据</span></span><br><span class="line">qmd cleanup</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看索引状态</span></span><br><span class="line">qmd status</span><br></pre></td></tr></table></figure>
+
+<h2 id="QMD-工作原理"><a href="#QMD-工作原理" class="headerlink" title="QMD 工作原理"></a>QMD 工作原理</h2><h3 id="向量嵌入模型"><a href="#向量嵌入模型" class="headerlink" title="向量嵌入模型"></a>向量嵌入模型</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Embedding 模型: embeddinggemma-300M-Q8_0</span><br><span class="line">- 轻量级模型，适合 VPS</span><br><span class="line">- 300M 参数</span><br><span class="line">- 本地运行，不依赖外部 API</span><br></pre></td></tr></table></figure>
+
+<h3 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~/.cache/qmd/index.sqlite</span><br><span class="line">- 向量索引</span><br><span class="line">- BM25 索引</span><br><span class="line">- 元数据</span><br></pre></td></tr></table></figure>
+
+<h2 id="与-OpenClaw-集成"><a href="#与-OpenClaw-集成" class="headerlink" title="与 OpenClaw 集成"></a>与 OpenClaw 集成</h2><h3 id="配置-memory-core"><a href="#配置-memory-core" class="headerlink" title="配置 memory-core"></a>配置 memory-core</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;memory&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;backend&quot;</span><span class="punctuation">:</span> <span class="string">&quot;qmd&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;memory-core&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;enabled&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="可用工具"><a href="#可用工具" class="headerlink" title="可用工具"></a>可用工具</h3><table>
+<thead>
+<tr>
+<th>工具</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>memory_search</code></td>
+<td>QMD 搜索</td>
+</tr>
+<tr>
+<td><code>memory_get</code></td>
+<td>获取记忆内容</td>
+</tr>
+<tr>
+<td><code>memory_list</code></td>
+<td>列出所有记忆</td>
+</tr>
+</tbody></table>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="Q-向量搜索崩溃"><a href="#Q-向量搜索崩溃" class="headerlink" title="Q: 向量搜索崩溃"></a>Q: 向量搜索崩溃</h3><p><strong>问题</strong>: Bun 1.3.8 + node-llama-cpp 兼容问题</p>
+<p><strong>解决</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 方案1: 使用 BM25</span></span><br><span class="line">qmd search <span class="string">&quot;关键词&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 方案2: 重装 QMD</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/tobi/qmd.git</span><br><span class="line"><span class="built_in">cd</span> qmd &amp;&amp; bun install</span><br></pre></td></tr></table></figure>
+
+<h3 id="Q-搜索结果不准确"><a href="#Q-搜索结果不准确" class="headerlink" title="Q: 搜索结果不准确"></a>Q: 搜索结果不准确</h3><p><strong>解决</strong>:</p>
+<ol>
+<li>增加文档数量</li>
+<li>提高检索阈值</li>
+<li>使用混合搜索 <code>query</code> 而非单一 <code>search</code></li>
+</ol>
+<h3 id="Q-索引过大"><a href="#Q-索引过大" class="headerlink" title="Q: 索引过大"></a>Q: 索引过大</h3><p><strong>解决</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 清理无用数据</span></span><br><span class="line">qmd cleanup</span><br><span class="line"></span><br><span class="line"><span class="comment"># 移除不需要的集合</span></span><br><span class="line">qmd collection remove unused-collection</span><br></pre></td></tr></table></figure>
+
+<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><h3 id="1-命名规范"><a href="#1-命名规范" class="headerlink" title="1. 命名规范"></a>1. 命名规范</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 推荐命名</span><br><span class="line">2026-02-06-项目计划.md</span><br><span class="line">2026-02-05-投资笔记.md</span><br><span class="line">对话-2026-02-04-AI讨论.md</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-内容结构"><a href="#2-内容结构" class="headerlink" title="2. 内容结构"></a>2. 内容结构</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 标题</span></span><br><span class="line"></span><br><span class="line"><span class="section">## 关键信息</span></span><br><span class="line"><span class="bullet">-</span> 时间</span><br><span class="line"><span class="bullet">-</span> 人物</span><br><span class="line"><span class="bullet">-</span> 地点</span><br><span class="line"></span><br><span class="line"><span class="section">## 详细内容</span></span><br><span class="line"></span><br><span class="line"><span class="section">## 结论/行动项</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-定期维护"><a href="#3-定期维护" class="headerlink" title="3. 定期维护"></a>3. 定期维护</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 每周执行</span></span><br><span class="line">qmd update  <span class="comment"># 更新索引</span></span><br><span class="line">qmd cleanup  <span class="comment"># 清理垃圾</span></span><br><span class="line">qmd status  <span class="comment"># 检查状态</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>QMD + OpenClaw 让我实现了：</p>
+<ul>
+<li>✅ <strong>精准检索</strong>：不用记住文件名，记住关键词就行</li>
+<li>✅ <strong>语义理解</strong>：用自然语言搜索</li>
+<li>✅ <strong>完全本地</strong>：数据在自己手里</li>
+<li>✅ <strong>零成本</strong>：不需要外部 API</li>
+</ul>
+<p><strong>你的第二大脑，从 QMD 开始！</strong></p>
+<hr>
+<p><strong>Tags</strong>: QMD, 向量检索, 语义搜索, OpenClaw, AI, 知识管理</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/OpenClaw/" rel="tag"># OpenClaw</a>
+              <a href="/tags/AI/" rel="tag"># AI</a>
+              <a href="/tags/QMD/" rel="tag"># QMD</a>
+              <a href="/tags/%E5%90%91%E9%87%8F%E6%A3%80%E7%B4%A2/" rel="tag"># 向量检索</a>
+              <a href="/tags/%E8%AF%AD%E4%B9%89%E6%90%9C%E7%B4%A2/" rel="tag"># 语义搜索</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/02/06/OpenClaw-%E6%8A%98%E8%85%BE%E8%AE%B0/" rel="prev" title="OpenClaw 折腾记 - 从 Telegram AI 助手到向量记忆系统">
+                  <i class="fa fa-angle-left"></i> OpenClaw 折腾记 - 从 Telegram AI 助手到向量记忆系统
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2026/02/06/OpenClaw-%E6%A6%82%E8%A7%88%E4%B8%8E%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD/" rel="next" title="OpenClaw 概览与核心功能 - 你的 AI 助手网关">
+                  OpenClaw 概览与核心功能 - 你的 AI 助手网关 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">XY</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
