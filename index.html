@@ -136,16 +136,16 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -162,6 +162,180 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.2001.life/2026/02/10/OpenClaw-Memory-Search-%E6%9C%AC%E5%9C%B0Embedding%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="XY">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Code & Coffee">
+      <meta itemprop="description" content="记录 OpenClaw、AI、技术的折腾笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Code & Coffee">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2026/02/10/OpenClaw-Memory-Search-%E6%9C%AC%E5%9C%B0Embedding%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">OpenClaw Memory Search 配置优化 - 本地 Embedding 方案</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-02-10 01:44:00 / 修改时间：01:44:59" itemprop="dateCreated datePublished" datetime="2026-02-10T01:44:00+08:00">2026-02-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">技术笔记</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在使用 OpenClaw 作为日常助手时，Memory Search（记忆检索）是一个核心功能。近期在配置过程中遇到了一些问题，记录一下解决方案。</p>
+<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><h3 id="1-QMD-Backend-超时"><a href="#1-QMD-Backend-超时" class="headerlink" title="1. QMD Backend 超时"></a>1. QMD Backend 超时</h3><p>OpenClaw 支持使用 <a target="_blank" rel="noopener" href="https://github.com/tobi/qmd">QMD</a> 作为记忆后端，但在 VPS 环境中遇到性能问题：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qmd query ... timed out after 4000ms</span><br></pre></td></tr></table></figure>
+
+<p><strong>原因分析</strong>：</p>
+<ul>
+<li>QMD 每次执行都重新加载模型（冷启动）</li>
+<li>模型文件总计 2.1GB：<ul>
+<li>embeddinggemma-300M: 314MB</li>
+<li>qwen3-reranker-0.6b: 610MB</li>
+<li>qmd-query-expansion-1.7B: 1.2GB</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-memory-search-工具报错"><a href="#2-memory-search-工具报错" class="headerlink" title="2. memory_search 工具报错"></a>2. memory_search 工具报错</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">No API key found for provider &quot;openai&quot;</span><br><span class="line">memory_search tool disabled</span><br></pre></td></tr></table></figure>
+
+<p>尝试使用 memory_search 工具时，系统要求配置 OpenAI API Key，但实际上我希望能用本地方案。</p>
+<h2 id="解决方案：本地-Embedding"><a href="#解决方案：本地-Embedding" class="headerlink" title="解决方案：本地 Embedding"></a>解决方案：本地 Embedding</h2><p>查阅 <a target="_blank" rel="noopener" href="https://docs.openclaw.ai/concepts/memory">OpenClaw 官方文档</a> 后，发现可以配置 <code>memorySearch.provider = &quot;local&quot;</code> 使用本地 embedding 模型。</p>
+<h3 id="最终配置"><a href="#最终配置" class="headerlink" title="最终配置"></a>最终配置</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;agents&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;defaults&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;memorySearch&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;provider&quot;</span><span class="punctuation">:</span> <span class="string">&quot;local&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;local&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;modelPath&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hf:ggml-org/embeddinggemma-300M-GGUF/embeddinggemma-300M-Q8_0.gguf&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;fallback&quot;</span><span class="punctuation">:</span> <span class="string">&quot;none&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;query&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;hybrid&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;enabled&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;vectorWeight&quot;</span><span class="punctuation">:</span> <span class="number">0.7</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;textWeight&quot;</span><span class="punctuation">:</span> <span class="number">0.3</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;candidateMultiplier&quot;</span><span class="punctuation">:</span> <span class="number">4</span></span><br><span class="line">          <span class="punctuation">&#125;</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;cache&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;enabled&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;maxEntries&quot;</span><span class="punctuation">:</span> <span class="number">50000</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="配置说明"><a href="#配置说明" class="headerlink" title="配置说明"></a>配置说明</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>provider</code></td>
+<td><code>local</code></td>
+<td>使用本地 embedding</td>
+</tr>
+<tr>
+<td><code>modelPath</code></td>
+<td>embeddinggemma-300M</td>
+<td>本地 GGUF 模型</td>
+</tr>
+<tr>
+<td><code>hybrid.enabled</code></td>
+<td><code>true</code></td>
+<td>启用混合检索</td>
+</tr>
+<tr>
+<td><code>vectorWeight</code></td>
+<td><code>0.7</code></td>
+<td>向量检索权重 70%</td>
+</tr>
+<tr>
+<td><code>textWeight</code></td>
+<td><code>0.3</code></td>
+<td>文本检索权重 30%</td>
+</tr>
+<tr>
+<td><code>cache.enabled</code></td>
+<td><code>true</code></td>
+<td>启用缓存</td>
+</tr>
+<tr>
+<td><code>maxEntries</code></td>
+<td><code>50000</code></td>
+<td>最大缓存条目</td>
+</tr>
+</tbody></table>
+<h2 id="混合检索原理"><a href="#混合检索原理" class="headerlink" title="混合检索原理"></a>混合检索原理</h2><h3 id="向量检索（Vector-Search）"><a href="#向量检索（Vector-Search）" class="headerlink" title="向量检索（Vector Search）"></a>向量检索（Vector Search）</h3><ul>
+<li>使用语义相似度匹配</li>
+<li>找到意思相近但用词不同的内容</li>
+<li>例如：搜索”基金”能找到”持仓”</li>
+</ul>
+<h3 id="文本检索（BM25）"><a href="#文本检索（BM25）" class="headerlink" title="文本检索（BM25）"></a>文本检索（BM25）</h3><ul>
+<li>关键词精确匹配</li>
+<li>适合匹配代码、ID 等</li>
+<li>例如：搜索”012895”能找到基金代码</li>
+</ul>
+<h3 id="融合策略"><a href="#融合策略" class="headerlink" title="融合策略"></a>融合策略</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">最终分数 = 0.7 × 向量分数 + 0.3 × 文本分数</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 搜索&quot;基金 持仓&quot;</span></span><br><span class="line">$ memory_search(<span class="string">&quot;基金 持仓&quot;</span>)</span><br><span class="line"></span><br><span class="line">结果：</span><br><span class="line">1. memory/2026-02-05.md (39%) - 基金组合状态表</span><br><span class="line">2. MEMORY.md (38%) - 长期记忆-持仓基金</span><br></pre></td></tr></table></figure>
+
+<h2 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h2><ol>
+<li><strong>完全免费</strong> - 不需要 OpenAI&#x2F;Voyage&#x2F;Gemini API Key</li>
+<li><strong>隐私安全</strong> - 所有数据本地处理</li>
+<li><strong>响应快速</strong> - 首次加载后有缓存</li>
+<li><strong>混合检索</strong> - 结合语义和关键词匹配</li>
+</ol>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
+<li>模型文件已缓存：<code>~/.node-llama-cpp/models/hf_ggml-org_embeddinggemma-300M-Q8_0.gguf</code></li>
+<li>QMD Backend 暂时保留配置（等待官方修复冷启动问题）</li>
+<li>memory_search 会自动回退到本地 embedding</li>
+</ul>
+<h2 id="相关-Issue"><a href="#相关-Issue" class="headerlink" title="相关 Issue"></a>相关 Issue</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/openclaw/openclaw/issues/12752">QMD query command is slow due to model cold start</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/openclaw/openclaw/issues/11308">QMD Memory Backend: Systemic Issues Requiring Comprehensive Fix</a></li>
+</ul>
+<h2 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h2><ul>
+<li><strong>2026-02-10</strong>: 完成本地 embedding 配置</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1826,91 +2000,6 @@
 <blockquote>
 <p>RAG 让模型不止会“说”，还能“查”与“懂”。</p>
 </blockquote>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://blog.2001.life/2025/10/11/2025-10-11-76/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="XY">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Code & Coffee">
-      <meta itemprop="description" content="记录 OpenClaw、AI、技术的折腾笔记">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | Code & Coffee">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2025/10/11/2025-10-11-76/" class="post-title-link" itemprop="url">RocketMQ 应用：工作流和服务解耦</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2025-10-11 00:36:01" itemprop="dateCreated datePublished" datetime="2025-10-11T00:36:01+08:00">2025-10-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-02-06 17:55:36" itemprop="dateModified" datetime="2026-02-06T17:55:36+08:00">2026-02-06</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/" itemprop="url" rel="index"><span itemprop="name">默认分类</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="RocketMQ应用：工作流和服务解耦"><a href="#RocketMQ应用：工作流和服务解耦" class="headerlink" title="RocketMQ应用：工作流和服务解耦"></a>RocketMQ应用：工作流和服务解耦</h1><p><img src="https://images/typecho//2025/10/1922781609.png" alt="2025-10-10T12:44:13.png"><br>整个工作流程由 <code>Workflow</code> 服务调度，其他微服务都订阅了与自己任务相关的主题，主题的消息由Workflow的producer发送，同时Workflow也监听其他微服务返回的结果，由返回的结果触发对应的producer。</p>
 
       
     </div>
