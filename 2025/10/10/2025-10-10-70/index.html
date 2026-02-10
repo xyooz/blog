@@ -17,27 +17,27 @@
   
   <meta name="theme-color" content="#2f4154">
   <meta name="author" content="XY">
-  <meta name="keywords" content="OpenClaw,AI,技术博客,Code &amp; Coffee">
+  <meta name="keywords" content="OpenClaw,AI,技术博客,Ctrl+S">
   
     <meta name="description" content="Redisson 分布式锁避免重复提交任务为什么要引入 分布式锁 ？在本地锁场景下，已经能够解决本地服务下多线程竞争资源的同步问题，但是在分布式的场景下，服务A对资源x加锁，而服务B不受服务A的限制，若此时服务B也去访问资源B，就会出现数据不一致的问题，导致服务出错。 分布式锁分布式锁是分布式集群场景下共享的一种锁机制，保证了不同服务下的互斥性，任意时刻，只有一个客户端可以持有锁。特性：  互斥性">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Redisson分布式锁避免重复提交任务">
 <meta property="og:url" content="https://blog.2001.life/2025/10/10/2025-10-10-70/index.html">
-<meta property="og:site_name" content="Code &amp; Coffee">
+<meta property="og:site_name" content="Ctrl+S | 保存习惯">
 <meta property="og:description" content="Redisson 分布式锁避免重复提交任务为什么要引入 分布式锁 ？在本地锁场景下，已经能够解决本地服务下多线程竞争资源的同步问题，但是在分布式的场景下，服务A对资源x加锁，而服务B不受服务A的限制，若此时服务B也去访问资源B，就会出现数据不一致的问题，导致服务出错。 分布式锁分布式锁是分布式集群场景下共享的一种锁机制，保证了不同服务下的互斥性，任意时刻，只有一个客户端可以持有锁。特性：  互斥性">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-10-10T08:03:27.000Z">
 <meta property="article:modified_time" content="2026-02-06T09:55:36.439Z">
 <meta property="article:author" content="XY">
 <meta property="article:tag" content="AI">
-<meta property="article:tag" content="Code &amp; Coffee">
+<meta property="article:tag" content="Ctrl+S">
 <meta property="article:tag" content="OpenClaw">
 <meta property="article:tag" content="技术博客">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>Redisson分布式锁避免重复提交任务 - Code &amp; Coffee</title>
+  <title>Redisson分布式锁避免重复提交任务 - Ctrl+S | 保存习惯</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -101,7 +101,7 @@
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
-      <strong>Code &amp; Coffee</strong>
+      <strong>Ctrl+S | 保存习惯</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
