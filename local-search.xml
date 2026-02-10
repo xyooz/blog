@@ -477,6 +477,25 @@
   
   
   <entry>
+    <title>解决 Git 错误：gnutls_handshake() failed</title>
+    <link href="/2024/08/12/2024-08-12-20/"/>
+    <url>/2024/08/12/2024-08-12-20/</url>
+    
+    <content type="html"><![CDATA[<p>更新 Git 版本：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">apt-get update<br>apt-get install git<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>网站运维</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>宝塔面板编译安装MySQL弹出最低内存限制</title>
     <link href="/2024/07/25/2024-07-25-6/"/>
     <url>/2024/07/25/2024-07-25-6/</url>
