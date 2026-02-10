@@ -1,25 +1,24 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
 
-<link rel="stylesheet" href="/css/main.css">
-
-
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
-
-<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.2001.life","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="XY">
+  <meta name="keywords" content="OpenClaw,AI,技术博客,Code &amp; Coffee">
+  
     <meta name="description" content="本文基于 OpenClaw 基金分析技能的实现，分享技术指标的 Python 实现方法。  前言在之前的文章中，我介绍了如何使用 Serper.dev API 获取搜索数据。今天我们来聊聊如何用 Python 实现基金的趋势分析和信号生成。 本文将涵盖：  移动平均线（MA）的计算 MACD 指标的实现 最大回撤、波动率等风险指标 如何生成交易信号   零、真实数据获取使用东方财富 API 获取">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何用 Python 实现基金趋势分析与信号生成">
@@ -35,199 +34,253 @@
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="基金分析">
 <meta property="article:tag" content="技术指标">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>如何用 Python 实现基金趋势分析与信号生成 - Code &amp; Coffee</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
 
-<link rel="canonical" href="https://blog.2001.life/2026/02/06/fund-analysis-python/">
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.2001.life/2026/02/06/fund-analysis-python/","path":"2026/02/06/fund-analysis-python/","title":"如何用 Python 实现基金趋势分析与信号生成"}</script>
 
-<script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>如何用 Python 实现基金趋势分析与信号生成 | Code & Coffee</title>
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
   
 
 
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.2001.life","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
-
-
-
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
-<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
-
-  
-
-
-
-
-
-
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
   
 
 
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
+<body>
+  
 
-  <noscript>
-    <link rel="stylesheet" href="/css/noscript.css">
-  </noscript>
-</head>
+  <header>
+    
 
-<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
-  <div class="headband"></div>
-
-  <main class="main">
-    <div class="column">
-      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏" role="button">
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <i class="logo-line"></i>
-      <p class="site-title">Code & Coffee</p>
-      <i class="logo-line"></i>
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
     </a>
-      <p class="site-subtitle" itemprop="description">用咖啡驱动代码，用代码改变世界</p>
-  </div>
 
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger" aria-label="搜索" role="button">
-    </div>
-  </div>
-</div>
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
 
-
-
-
-
-
-
-</header>
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
         
-  
-  <aside class="sidebar">
-
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
-      <ul class="sidebar-nav">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
       </ul>
-
-      <div class="sidebar-panel-container">
-        <!--noindex-->
-        <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%B6%E3%80%81%E7%9C%9F%E5%AE%9E%E6%95%B0%E6%8D%AE%E8%8E%B7%E5%8F%96"><span class="nav-number">2.</span> <span class="nav-text">零、真实数据获取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%A0%B8%E5%BF%83%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">3.</span> <span class="nav-text">一、核心数据结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%A7%BB%E5%8A%A8%E5%B9%B3%E5%9D%87%E7%BA%BF%EF%BC%88MA%EF%BC%89%E8%AE%A1%E7%AE%97"><span class="nav-number">4.</span> <span class="nav-text">二、移动平均线（MA）计算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E7%AE%80%E5%8D%95%E7%A7%BB%E5%8A%A8%E5%B9%B3%E5%9D%87%EF%BC%88SMA%EF%BC%89"><span class="nav-number">4.1.</span> <span class="nav-text">2.1 简单移动平均（SMA）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E6%8C%87%E6%95%B0%E7%A7%BB%E5%8A%A8%E5%B9%B3%E5%9D%87%EF%BC%88EMA%EF%BC%89"><span class="nav-number">4.2.</span> <span class="nav-text">2.2 指数移动平均（EMA）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-MA-%E4%BA%A4%E5%8F%89%E4%BF%A1%E5%8F%B7"><span class="nav-number">4.3.</span> <span class="nav-text">2.3 MA 交叉信号</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81MACD-%E6%8C%87%E6%A0%87%E5%AE%9E%E7%8E%B0"><span class="nav-number">5.</span> <span class="nav-text">三、MACD 指标实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-MACD-%E8%AE%A1%E7%AE%97%E5%85%AC%E5%BC%8F"><span class="nav-number">5.1.</span> <span class="nav-text">3.1 MACD 计算公式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-Python-%E5%AE%9E%E7%8E%B0"><span class="nav-number">5.2.</span> <span class="nav-text">3.2 Python 实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-MACD-%E4%BF%A1%E5%8F%B7%E8%A7%A3%E8%AF%BB"><span class="nav-number">5.3.</span> <span class="nav-text">3.3 MACD 信号解读</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E9%A3%8E%E9%99%A9%E6%8C%87%E6%A0%87%E8%AE%A1%E7%AE%97"><span class="nav-number">6.</span> <span class="nav-text">四、风险指标计算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E6%9C%80%E5%A4%A7%E5%9B%9E%E6%92%A4%EF%BC%88Max-Drawdown%EF%BC%89"><span class="nav-number">6.1.</span> <span class="nav-text">4.1 最大回撤（Max Drawdown）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E6%B3%A2%E5%8A%A8%E7%8E%87%EF%BC%88Volatility%EF%BC%89"><span class="nav-number">6.2.</span> <span class="nav-text">4.2 波动率（Volatility）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-%E5%A4%8F%E6%99%AE%E6%AF%94%E7%8E%87%EF%BC%88Sharpe-Ratio%EF%BC%89"><span class="nav-number">6.3.</span> <span class="nav-text">4.3 夏普比率（Sharpe Ratio）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E7%BB%BC%E5%90%88%E4%BF%A1%E5%8F%B7%E7%94%9F%E6%88%90"><span class="nav-number">7.</span> <span class="nav-text">五、综合信号生成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%AE%8C%E6%95%B4%E5%88%86%E6%9E%90%E7%A4%BA%E4%BE%8B"><span class="nav-number">8.</span> <span class="nav-text">六、完整分析示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E8%BE%93%E5%87%BA%E6%95%88%E6%9E%9C"><span class="nav-number">9.</span> <span class="nav-text">七、输出效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E7%9C%9F%E5%AE%9E%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%95%88%E6%9E%9C"><span class="nav-number">10.</span> <span class="nav-text">七、真实数据分析效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB%E3%80%81%E6%80%BB%E7%BB%93"><span class="nav-number">11.</span> <span class="nav-text">八、总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%8C%87%E6%A0%87"><span class="nav-number">11.1.</span> <span class="nav-text">核心指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7%E7%AD%89%E7%BA%A7"><span class="nav-number">11.2.</span> <span class="nav-text">信号等级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">11.3.</span> <span class="nav-text">注意事项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81"><span class="nav-number">12.</span> <span class="nav-text">参考代码</span></a></li></ol></div>
-        </div>
-        <!--/noindex-->
-
-        <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">XY</p>
-  <div class="site-description" itemprop="description">记录 OpenClaw、AI、技术的折腾笔记</div>
-</div>
-<div class="site-state-wrap animated">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-        <a href="/archives/">
-          <span class="site-state-item-count">24</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">5</span>
-        <span class="site-state-item-name">分类</span>
-      </div>
-      <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">22</span>
-        <span class="site-state-item-name">标签</span>
-      </div>
-  </nav>
-</div>
-
-        </div>
-      </div>
     </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="如何用 Python 实现基金趋势分析与信号生成"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-02-06 15:35" pubdate>
+          2026年2月6日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.1k 字
+        
+      </span>
+    
 
     
-  </aside>
-
-
-    </div>
-
-    <div class="main-inner post posts-expand">
-
-
-  
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.2001.life/2026/02/06/fund-analysis-python/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="XY">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Code & Coffee">
-      <meta itemprop="description" content="记录 OpenClaw、AI、技术的折腾笔记">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="如何用 Python 实现基金趋势分析与信号生成 | Code & Coffee">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          如何用 Python 实现基金趋势分析与信号生成
-        </h1>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          18 分钟
+        
       </span>
-      <span class="post-meta-item-text">发表于</span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
       
 
-      <time title="创建时间：2026-02-06 15:35:00 / 修改时间：15:44:19" itemprop="dateCreated datePublished" datetime="2026-02-06T15:35:00+08:00">2026-02-06</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
 
-  
-</div>
+    </div>
 
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody"><blockquote>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">如何用 Python 实现基金趋势分析与信号生成</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <blockquote>
 <p>本文基于 OpenClaw 基金分析技能的实现，分享技术指标的 Python 实现方法。</p>
 </blockquote>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在之前的文章中，我介绍了如何使用 Serper.dev API 获取搜索数据。今天我们来聊聊如何用 Python 实现基金的<strong>趋势分析</strong>和<strong>信号生成</strong>。</p>
@@ -240,7 +293,7 @@
 </ul>
 <hr>
 <h2 id="零、真实数据获取"><a href="#零、真实数据获取" class="headerlink" title="零、真实数据获取"></a>零、真实数据获取</h2><p>使用东方财富 API 获取基金历史净值：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime, timedelta</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_fund_history</span>(<span class="params">fund_code: <span class="built_in">str</span>, days: <span class="built_in">int</span> = <span class="number">60</span></span>) -&gt; <span class="type">List</span>[<span class="type">Dict</span>]:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;获取基金历史净值 - 真实数据&quot;&quot;&quot;</span></span><br><span class="line">    url = <span class="string">&quot;http://api.fund.eastmoney.com/f10/lsjz&quot;</span></span><br><span class="line">    end_date = datetime.now().strftime(<span class="string">&quot;%Y-%m-%d&quot;</span>)</span><br><span class="line">    start_date = (datetime.now() - timedelta(days=days+<span class="number">30</span>)).strftime(<span class="string">&quot;%Y-%m-%d&quot;</span>)</span><br><span class="line">    </span><br><span class="line">    params = &#123;</span><br><span class="line">        <span class="string">&quot;fundCode&quot;</span>: fund_code,</span><br><span class="line">        <span class="string">&quot;pageIndex&quot;</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="string">&quot;pageSize&quot;</span>: days,</span><br><span class="line">        <span class="string">&quot;startDate&quot;</span>: start_date,</span><br><span class="line">        <span class="string">&quot;endDate&quot;</span>: end_date,</span><br><span class="line">        <span class="string">&quot;_&quot;</span>: <span class="built_in">int</span>(time.time() * <span class="number">1000</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    headers = &#123;</span><br><span class="line">        <span class="string">&quot;User-Agent&quot;</span>: <span class="string">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Referer&quot;</span>: <span class="string">f&quot;http://fund.eastmoney.com/jjjz_<span class="subst">&#123;fund_code&#125;</span>.html&quot;</span>,</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        r = requests.get(url, params=params, headers=headers, timeout=<span class="number">15</span>)</span><br><span class="line">        <span class="keyword">if</span> r.status_code == <span class="number">200</span>:</span><br><span class="line">            data = r.json()</span><br><span class="line">            <span class="keyword">if</span> data.get(<span class="string">&quot;Data&quot;</span>):</span><br><span class="line">                records = data[<span class="string">&quot;Data&quot;</span>].get(<span class="string">&quot;LSJZList&quot;</span>, [])</span><br><span class="line">                <span class="comment"># 解析为标准格式</span></span><br><span class="line">                <span class="keyword">return</span> [&#123;</span><br><span class="line">                    <span class="string">&quot;date&quot;</span>: r[<span class="string">&quot;FSRQ&quot;</span>],</span><br><span class="line">                    <span class="string">&quot;nav&quot;</span>: <span class="built_in">float</span>(r[<span class="string">&quot;DWJZ&quot;</span>]),</span><br><span class="line">                    <span class="string">&quot;change&quot;</span>: <span class="built_in">float</span>(r[<span class="string">&quot;JZZZL&quot;</span>])</span><br><span class="line">                &#125; <span class="keyword">for</span> r <span class="keyword">in</span> records]</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Error fetching <span class="subst">&#123;fund_code&#125;</span>: <span class="subst">&#123;e&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> []</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">from</span> datetime <span class="hljs-keyword">import</span> datetime, timedelta<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_fund_history</span>(<span class="hljs-params">fund_code: <span class="hljs-built_in">str</span>, days: <span class="hljs-built_in">int</span> = <span class="hljs-number">60</span></span>) -&gt; <span class="hljs-type">List</span>[<span class="hljs-type">Dict</span>]:<br>    <span class="hljs-string">&quot;&quot;&quot;获取基金历史净值 - 真实数据&quot;&quot;&quot;</span><br>    url = <span class="hljs-string">&quot;http://api.fund.eastmoney.com/f10/lsjz&quot;</span><br>    end_date = datetime.now().strftime(<span class="hljs-string">&quot;%Y-%m-%d&quot;</span>)<br>    start_date = (datetime.now() - timedelta(days=days+<span class="hljs-number">30</span>)).strftime(<span class="hljs-string">&quot;%Y-%m-%d&quot;</span>)<br>    <br>    params = &#123;<br>        <span class="hljs-string">&quot;fundCode&quot;</span>: fund_code,<br>        <span class="hljs-string">&quot;pageIndex&quot;</span>: <span class="hljs-number">1</span>,<br>        <span class="hljs-string">&quot;pageSize&quot;</span>: days,<br>        <span class="hljs-string">&quot;startDate&quot;</span>: start_date,<br>        <span class="hljs-string">&quot;endDate&quot;</span>: end_date,<br>        <span class="hljs-string">&quot;_&quot;</span>: <span class="hljs-built_in">int</span>(time.time() * <span class="hljs-number">1000</span>)<br>    &#125;<br>    headers = &#123;<br>        <span class="hljs-string">&quot;User-Agent&quot;</span>: <span class="hljs-string">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36&quot;</span>,<br>        <span class="hljs-string">&quot;Referer&quot;</span>: <span class="hljs-string">f&quot;http://fund.eastmoney.com/jjjz_<span class="hljs-subst">&#123;fund_code&#125;</span>.html&quot;</span>,<br>    &#125;<br>    <br>    <span class="hljs-keyword">try</span>:<br>        r = requests.get(url, params=params, headers=headers, timeout=<span class="hljs-number">15</span>)<br>        <span class="hljs-keyword">if</span> r.status_code == <span class="hljs-number">200</span>:<br>            data = r.json()<br>            <span class="hljs-keyword">if</span> data.get(<span class="hljs-string">&quot;Data&quot;</span>):<br>                records = data[<span class="hljs-string">&quot;Data&quot;</span>].get(<span class="hljs-string">&quot;LSJZList&quot;</span>, [])<br>                <span class="hljs-comment"># 解析为标准格式</span><br>                <span class="hljs-keyword">return</span> [&#123;<br>                    <span class="hljs-string">&quot;date&quot;</span>: r[<span class="hljs-string">&quot;FSRQ&quot;</span>],<br>                    <span class="hljs-string">&quot;nav&quot;</span>: <span class="hljs-built_in">float</span>(r[<span class="hljs-string">&quot;DWJZ&quot;</span>]),<br>                    <span class="hljs-string">&quot;change&quot;</span>: <span class="hljs-built_in">float</span>(r[<span class="hljs-string">&quot;JZZZL&quot;</span>])<br>                &#125; <span class="hljs-keyword">for</span> r <span class="hljs-keyword">in</span> records]<br>    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Error fetching <span class="hljs-subst">&#123;fund_code&#125;</span>: <span class="hljs-subst">&#123;e&#125;</span>&quot;</span>)<br>    <span class="hljs-keyword">return</span> []<br></code></pre></td></tr></table></figure>
 
 <p><strong>API 返回字段</strong>：</p>
 <table>
@@ -268,20 +321,20 @@
 </tr>
 </tbody></table>
 <p><strong>使用示例</strong>：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取 60 天历史数据</span></span><br><span class="line">data = get_fund_history(<span class="string">&quot;012895&quot;</span>, days=<span class="number">60</span>)</span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> data[:<span class="number">5</span>]:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;item[<span class="string">&#x27;date&#x27;</span>]&#125;</span>: <span class="subst">&#123;item[<span class="string">&#x27;nav&#x27;</span>]&#125;</span> (<span class="subst">&#123;item[<span class="string">&#x27;change&#x27;</span>]&#125;</span>%)&quot;</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 获取 60 天历史数据</span><br>data = get_fund_history(<span class="hljs-string">&quot;012895&quot;</span>, days=<span class="hljs-number">60</span>)<br><span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> data[:<span class="hljs-number">5</span>]:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;item[<span class="hljs-string">&#x27;date&#x27;</span>]&#125;</span>: <span class="hljs-subst">&#123;item[<span class="hljs-string">&#x27;nav&#x27;</span>]&#125;</span> (<span class="hljs-subst">&#123;item[<span class="hljs-string">&#x27;change&#x27;</span>]&#125;</span>%)&quot;</span>)<br></code></pre></td></tr></table></figure>
 
 <p><strong>输出示例</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">2026-02-05: 0.9993 (-1.85%)</span><br><span class="line">2026-02-04: 1.0181 (-1.35%)</span><br><span class="line">2026-02-03: 1.0320 (0.64%)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs subunit">2026<span class="hljs-string">-02</span><span class="hljs-string">-05</span>: 0.9993 (<span class="hljs-string">-1</span>.85%)<br>2026<span class="hljs-string">-02</span><span class="hljs-string">-04</span>: 1.0181 (<span class="hljs-string">-1</span>.35%)<br>2026<span class="hljs-string">-02</span><span class="hljs-string">-03</span>: 1.0320 (0.64%)<br>...<br></code></pre></td></tr></table></figure>
 
 <blockquote>
 <p>⚠️ 注意：东方财富 API 可能有访问频率限制，建议设置合理的请求间隔。</p>
 </blockquote>
 <hr>
 <h2 id="一、核心数据结构"><a href="#一、核心数据结构" class="headerlink" title="一、核心数据结构"></a>一、核心数据结构</h2><p>首先，定义基金数据和基准：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 基金组合</span></span><br><span class="line">FUNDS = &#123;</span><br><span class="line">    <span class="string">&quot;012895&quot;</span>: &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;天弘中证科创创业50ETF联接C&quot;</span>, <span class="string">&quot;type&quot;</span>: <span class="string">&quot;ETF&quot;</span>, <span class="string">&quot;benchmark&quot;</span>: <span class="string">&quot;创业板指&quot;</span>&#125;,</span><br><span class="line">    <span class="string">&quot;021190&quot;</span>: &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;南方亚太精选ETF联接(QDII)C&quot;</span>, <span class="string">&quot;type&quot;</span>: <span class="string">&quot;QDII&quot;</span>, <span class="string">&quot;benchmark&quot;</span>: <span class="string">&quot;恒生指数&quot;</span>&#125;,</span><br><span class="line">    <span class="string">&quot;017992&quot;</span>: &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;华泰柏瑞致远混合C&quot;</span>, <span class="string">&quot;type&quot;</span>: <span class="string">&quot;Mixed&quot;</span>, <span class="string">&quot;benchmark&quot;</span>: <span class="string">&quot;沪深300&quot;</span>&#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 净值数据结构</span></span><br><span class="line">nav_data = [</span><br><span class="line">    &#123;<span class="string">&quot;date&quot;</span>: <span class="string">&quot;2026-02-04&quot;</span>, <span class="string">&quot;nav&quot;</span>: <span class="number">1.0181</span>, <span class="string">&quot;change&quot;</span>: -<span class="number">1.35</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&quot;date&quot;</span>: <span class="string">&quot;2026-02-03&quot;</span>, <span class="string">&quot;nav&quot;</span>: <span class="number">1.0320</span>, <span class="string">&quot;change&quot;</span>: <span class="number">0.64</span>&#125;,</span><br><span class="line">    <span class="comment"># ...</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 基金组合</span><br>FUNDS = &#123;<br>    <span class="hljs-string">&quot;012895&quot;</span>: &#123;<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;天弘中证科创创业50ETF联接C&quot;</span>, <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;ETF&quot;</span>, <span class="hljs-string">&quot;benchmark&quot;</span>: <span class="hljs-string">&quot;创业板指&quot;</span>&#125;,<br>    <span class="hljs-string">&quot;021190&quot;</span>: &#123;<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;南方亚太精选ETF联接(QDII)C&quot;</span>, <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;QDII&quot;</span>, <span class="hljs-string">&quot;benchmark&quot;</span>: <span class="hljs-string">&quot;恒生指数&quot;</span>&#125;,<br>    <span class="hljs-string">&quot;017992&quot;</span>: &#123;<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;华泰柏瑞致远混合C&quot;</span>, <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;Mixed&quot;</span>, <span class="hljs-string">&quot;benchmark&quot;</span>: <span class="hljs-string">&quot;沪深300&quot;</span>&#125;,<br>&#125;<br><br><span class="hljs-comment"># 净值数据结构</span><br>nav_data = [<br>    &#123;<span class="hljs-string">&quot;date&quot;</span>: <span class="hljs-string">&quot;2026-02-04&quot;</span>, <span class="hljs-string">&quot;nav&quot;</span>: <span class="hljs-number">1.0181</span>, <span class="hljs-string">&quot;change&quot;</span>: -<span class="hljs-number">1.35</span>&#125;,<br>    &#123;<span class="hljs-string">&quot;date&quot;</span>: <span class="hljs-string">&quot;2026-02-03&quot;</span>, <span class="hljs-string">&quot;nav&quot;</span>: <span class="hljs-number">1.0320</span>, <span class="hljs-string">&quot;change&quot;</span>: <span class="hljs-number">0.64</span>&#125;,<br>    <span class="hljs-comment"># ...</span><br>]<br></code></pre></td></tr></table></figure>
 
 <hr>
-<h2 id="二、移动平均线（MA）计算"><a href="#二、移动平均线（MA）计算" class="headerlink" title="二、移动平均线（MA）计算"></a>二、移动平均线（MA）计算</h2><h3 id="2-1-简单移动平均（SMA）"><a href="#2-1-简单移动平均（SMA）" class="headerlink" title="2.1 简单移动平均（SMA）"></a>2.1 简单移动平均（SMA）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">calculate_ma</span>(<span class="params">data: <span class="type">List</span>[<span class="built_in">float</span>], period: <span class="built_in">int</span></span>) -&gt; <span class="built_in">float</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;计算简单移动平均&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(data) &lt; period:</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">sum</span>(data) / <span class="built_in">len</span>(data) <span class="keyword">if</span> data <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sum</span>(data[-period:]) / period</span><br></pre></td></tr></table></figure>
+<h2 id="二、移动平均线（MA）计算"><a href="#二、移动平均线（MA）计算" class="headerlink" title="二、移动平均线（MA）计算"></a>二、移动平均线（MA）计算</h2><h3 id="2-1-简单移动平均（SMA）"><a href="#2-1-简单移动平均（SMA）" class="headerlink" title="2.1 简单移动平均（SMA）"></a>2.1 简单移动平均（SMA）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_ma</span>(<span class="hljs-params">data: <span class="hljs-type">List</span>[<span class="hljs-built_in">float</span>], period: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">float</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;计算简单移动平均&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(data) &lt; period:<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">sum</span>(data) / <span class="hljs-built_in">len</span>(data) <span class="hljs-keyword">if</span> data <span class="hljs-keyword">else</span> <span class="hljs-number">0</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">sum</span>(data[-period:]) / period<br></code></pre></td></tr></table></figure>
 
 <p><strong>原理</strong>：取最近 <code>period</code> 个价格的平均值。</p>
 <table>
@@ -304,15 +357,15 @@
 <td>长期趋势</td>
 </tr>
 </tbody></table>
-<h3 id="2-2-指数移动平均（EMA）"><a href="#2-2-指数移动平均（EMA）" class="headerlink" title="2.2 指数移动平均（EMA）"></a>2.2 指数移动平均（EMA）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">calculate_ema</span>(<span class="params">data: <span class="type">List</span>[<span class="built_in">float</span>], period: <span class="built_in">int</span></span>) -&gt; <span class="built_in">float</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;计算指数移动平均&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(data) &lt; period:</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">sum</span>(data) / <span class="built_in">len</span>(data) <span class="keyword">if</span> data <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    multiplier = <span class="number">2</span> / (period + <span class="number">1</span>)  <span class="comment"># 权重系数</span></span><br><span class="line">    ema = data[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">for</span> price <span class="keyword">in</span> data[<span class="number">1</span>:]:</span><br><span class="line">        ema = price * multiplier + ema * (<span class="number">1</span> - multiplier)</span><br><span class="line">    <span class="keyword">return</span> ema</span><br></pre></td></tr></table></figure>
+<h3 id="2-2-指数移动平均（EMA）"><a href="#2-2-指数移动平均（EMA）" class="headerlink" title="2.2 指数移动平均（EMA）"></a>2.2 指数移动平均（EMA）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_ema</span>(<span class="hljs-params">data: <span class="hljs-type">List</span>[<span class="hljs-built_in">float</span>], period: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">float</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;计算指数移动平均&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(data) &lt; period:<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">sum</span>(data) / <span class="hljs-built_in">len</span>(data) <span class="hljs-keyword">if</span> data <span class="hljs-keyword">else</span> <span class="hljs-number">0</span><br>    <br>    multiplier = <span class="hljs-number">2</span> / (period + <span class="hljs-number">1</span>)  <span class="hljs-comment"># 权重系数</span><br>    ema = data[<span class="hljs-number">0</span>]<br>    <span class="hljs-keyword">for</span> price <span class="hljs-keyword">in</span> data[<span class="hljs-number">1</span>:]:<br>        ema = price * multiplier + ema * (<span class="hljs-number">1</span> - multiplier)<br>    <span class="hljs-keyword">return</span> ema<br></code></pre></td></tr></table></figure>
 
 <p><strong>EMA vs SMA</strong>：EMA 对近期价格赋予更高权重，反应更灵敏。</p>
-<h3 id="2-3-MA-交叉信号"><a href="#2-3-MA-交叉信号" class="headerlink" title="2.3 MA 交叉信号"></a>2.3 MA 交叉信号</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">detect_ma_crossover</span>(<span class="params">ma5: <span class="built_in">float</span>, ma20: <span class="built_in">float</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;检测 MA 交叉信号&quot;&quot;&quot;</span></span><br><span class="line">    diff = ma5 - ma20</span><br><span class="line">    <span class="keyword">if</span> diff &gt; <span class="number">0.01</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;GOLDEN_CROSS&quot;</span>  <span class="comment"># 金叉，看涨</span></span><br><span class="line">    <span class="keyword">elif</span> diff &lt; -<span class="number">0.01</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;DEATH_CROSS&quot;</span>   <span class="comment"># 死叉，看跌</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;NEUTRAL&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-3-MA-交叉信号"><a href="#2-3-MA-交叉信号" class="headerlink" title="2.3 MA 交叉信号"></a>2.3 MA 交叉信号</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">detect_ma_crossover</span>(<span class="hljs-params">ma5: <span class="hljs-built_in">float</span>, ma20: <span class="hljs-built_in">float</span></span>) -&gt; <span class="hljs-built_in">str</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;检测 MA 交叉信号&quot;&quot;&quot;</span><br>    diff = ma5 - ma20<br>    <span class="hljs-keyword">if</span> diff &gt; <span class="hljs-number">0.01</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;GOLDEN_CROSS&quot;</span>  <span class="hljs-comment"># 金叉，看涨</span><br>    <span class="hljs-keyword">elif</span> diff &lt; -<span class="hljs-number">0.01</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;DEATH_CROSS&quot;</span>   <span class="hljs-comment"># 死叉，看跌</span><br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;NEUTRAL&quot;</span><br></code></pre></td></tr></table></figure>
 
 <hr>
-<h2 id="三、MACD-指标实现"><a href="#三、MACD-指标实现" class="headerlink" title="三、MACD 指标实现"></a>三、MACD 指标实现</h2><h3 id="3-1-MACD-计算公式"><a href="#3-1-MACD-计算公式" class="headerlink" title="3.1 MACD 计算公式"></a>3.1 MACD 计算公式</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DIF = EMA12 - EMA26</span><br><span class="line">DEA = EMA9(DIF)</span><br><span class="line">Histogram = (DIF - DEA) × 2</span><br></pre></td></tr></table></figure>
+<h2 id="三、MACD-指标实现"><a href="#三、MACD-指标实现" class="headerlink" title="三、MACD 指标实现"></a>三、MACD 指标实现</h2><h3 id="3-1-MACD-计算公式"><a href="#3-1-MACD-计算公式" class="headerlink" title="3.1 MACD 计算公式"></a>3.1 MACD 计算公式</h3><figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs abnf"><span class="hljs-attribute">DIF</span> <span class="hljs-operator">=</span> EMA12 - EMA26<br><span class="hljs-attribute">DEA</span> <span class="hljs-operator">=</span> EMA9(DIF)<br><span class="hljs-attribute">Histogram</span> <span class="hljs-operator">=</span> (DIF - DEA) × <span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
 
-<h3 id="3-2-Python-实现"><a href="#3-2-Python-实现" class="headerlink" title="3.2 Python 实现"></a>3.2 Python 实现</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">calculate_macd</span>(<span class="params">data: <span class="type">List</span>[<span class="built_in">float</span>], fast: <span class="built_in">int</span> = <span class="number">12</span>, slow: <span class="built_in">int</span> = <span class="number">26</span>, signal: <span class="built_in">int</span> = <span class="number">9</span></span>) -&gt; <span class="type">Tuple</span>[<span class="built_in">float</span>, <span class="built_in">float</span>, <span class="built_in">float</span>]:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;计算 MACD：DIF, DEA, Histogram&quot;&quot;&quot;</span></span><br><span class="line">    ema12 = calculate_ema(data, fast)</span><br><span class="line">    ema26 = calculate_ema(data, slow)</span><br><span class="line">    </span><br><span class="line">    dif = ema12 - ema26</span><br><span class="line">    dea = dif * <span class="number">0.8</span>  <span class="comment"># DEA 是 DIF 的 EMA，这里简化处理</span></span><br><span class="line">    hist = (dif - dea) * <span class="number">2</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> dif, dea, hist</span><br></pre></td></tr></table></figure>
+<h3 id="3-2-Python-实现"><a href="#3-2-Python-实现" class="headerlink" title="3.2 Python 实现"></a>3.2 Python 实现</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_macd</span>(<span class="hljs-params">data: <span class="hljs-type">List</span>[<span class="hljs-built_in">float</span>], fast: <span class="hljs-built_in">int</span> = <span class="hljs-number">12</span>, slow: <span class="hljs-built_in">int</span> = <span class="hljs-number">26</span>, signal: <span class="hljs-built_in">int</span> = <span class="hljs-number">9</span></span>) -&gt; <span class="hljs-type">Tuple</span>[<span class="hljs-built_in">float</span>, <span class="hljs-built_in">float</span>, <span class="hljs-built_in">float</span>]:<br>    <span class="hljs-string">&quot;&quot;&quot;计算 MACD：DIF, DEA, Histogram&quot;&quot;&quot;</span><br>    ema12 = calculate_ema(data, fast)<br>    ema26 = calculate_ema(data, slow)<br>    <br>    dif = ema12 - ema26<br>    dea = dif * <span class="hljs-number">0.8</span>  <span class="hljs-comment"># DEA 是 DIF 的 EMA，这里简化处理</span><br>    hist = (dif - dea) * <span class="hljs-number">2</span><br>    <br>    <span class="hljs-keyword">return</span> dif, dea, hist<br></code></pre></td></tr></table></figure>
 
 <h3 id="3-3-MACD-信号解读"><a href="#3-3-MACD-信号解读" class="headerlink" title="3.3 MACD 信号解读"></a>3.3 MACD 信号解读</h3><table>
 <thead>
@@ -343,7 +396,7 @@
 </tr>
 </tbody></table>
 <hr>
-<h2 id="四、风险指标计算"><a href="#四、风险指标计算" class="headerlink" title="四、风险指标计算"></a>四、风险指标计算</h2><h3 id="4-1-最大回撤（Max-Drawdown）"><a href="#4-1-最大回撤（Max-Drawdown）" class="headerlink" title="4.1 最大回撤（Max Drawdown）"></a>4.1 最大回撤（Max Drawdown）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">calculate_max_drawdown</span>(<span class="params">data: <span class="type">List</span>[<span class="built_in">float</span>]</span>) -&gt; <span class="type">Tuple</span>[<span class="built_in">float</span>, <span class="built_in">float</span>, <span class="built_in">float</span>]:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;计算最大回撤、峰值、峰值日期&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> data:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    max_nav = <span class="number">0</span></span><br><span class="line">    max_drawdown = <span class="number">0</span></span><br><span class="line">    peak_idx = <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> i, nav <span class="keyword">in</span> <span class="built_in">enumerate</span>(data):</span><br><span class="line">        <span class="keyword">if</span> nav &gt; max_nav:</span><br><span class="line">            max_nav = nav</span><br><span class="line">            peak_idx = i</span><br><span class="line">        drawdown = (max_nav - nav) / max_nav * <span class="number">100</span></span><br><span class="line">        <span class="keyword">if</span> drawdown &gt; max_drawdown:</span><br><span class="line">            max_drawdown = drawdown</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">round</span>(max_drawdown, <span class="number">2</span>), max_nav, peak_idx</span><br></pre></td></tr></table></figure>
+<h2 id="四、风险指标计算"><a href="#四、风险指标计算" class="headerlink" title="四、风险指标计算"></a>四、风险指标计算</h2><h3 id="4-1-最大回撤（Max-Drawdown）"><a href="#4-1-最大回撤（Max-Drawdown）" class="headerlink" title="4.1 最大回撤（Max Drawdown）"></a>4.1 最大回撤（Max Drawdown）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_max_drawdown</span>(<span class="hljs-params">data: <span class="hljs-type">List</span>[<span class="hljs-built_in">float</span>]</span>) -&gt; <span class="hljs-type">Tuple</span>[<span class="hljs-built_in">float</span>, <span class="hljs-built_in">float</span>, <span class="hljs-built_in">float</span>]:<br>    <span class="hljs-string">&quot;&quot;&quot;计算最大回撤、峰值、峰值日期&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> data:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span><br>    <br>    max_nav = <span class="hljs-number">0</span><br>    max_drawdown = <span class="hljs-number">0</span><br>    peak_idx = <span class="hljs-number">0</span><br>    <br>    <span class="hljs-keyword">for</span> i, nav <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(data):<br>        <span class="hljs-keyword">if</span> nav &gt; max_nav:<br>            max_nav = nav<br>            peak_idx = i<br>        drawdown = (max_nav - nav) / max_nav * <span class="hljs-number">100</span><br>        <span class="hljs-keyword">if</span> drawdown &gt; max_drawdown:<br>            max_drawdown = drawdown<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">round</span>(max_drawdown, <span class="hljs-number">2</span>), max_nav, peak_idx<br></code></pre></td></tr></table></figure>
 
 <p><strong>回撤等级</strong>：</p>
 <table>
@@ -370,9 +423,9 @@
 <td>高风险</td>
 </tr>
 </tbody></table>
-<h3 id="4-2-波动率（Volatility）"><a href="#4-2-波动率（Volatility）" class="headerlink" title="4.2 波动率（Volatility）"></a>4.2 波动率（Volatility）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">calculate_volatility</span>(<span class="params">data: <span class="type">List</span>[<span class="built_in">float</span>]</span>) -&gt; <span class="built_in">float</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;计算日波动率（年化）&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(data) &lt; <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    changes = [d <span class="keyword">for</span> d <span class="keyword">in</span> data[<span class="number">1</span>:]]  <span class="comment"># 日涨跌</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> changes:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    std = statistics.stdev(changes)</span><br><span class="line">    annualized = std * math.sqrt(<span class="number">252</span>)  <span class="comment"># 年化（252个交易日）</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">round</span>(annualized * <span class="number">100</span>, <span class="number">2</span>)  <span class="comment"># 转为百分比</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-2-波动率（Volatility）"><a href="#4-2-波动率（Volatility）" class="headerlink" title="4.2 波动率（Volatility）"></a>4.2 波动率（Volatility）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_volatility</span>(<span class="hljs-params">data: <span class="hljs-type">List</span>[<span class="hljs-built_in">float</span>]</span>) -&gt; <span class="hljs-built_in">float</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;计算日波动率（年化）&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(data) &lt; <span class="hljs-number">2</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>    <br>    changes = [d <span class="hljs-keyword">for</span> d <span class="hljs-keyword">in</span> data[<span class="hljs-number">1</span>:]]  <span class="hljs-comment"># 日涨跌</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> changes:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>    <br>    std = statistics.stdev(changes)<br>    annualized = std * math.sqrt(<span class="hljs-number">252</span>)  <span class="hljs-comment"># 年化（252个交易日）</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">round</span>(annualized * <span class="hljs-number">100</span>, <span class="hljs-number">2</span>)  <span class="hljs-comment"># 转为百分比</span><br></code></pre></td></tr></table></figure>
 
-<h3 id="4-3-夏普比率（Sharpe-Ratio）"><a href="#4-3-夏普比率（Sharpe-Ratio）" class="headerlink" title="4.3 夏普比率（Sharpe Ratio）"></a>4.3 夏普比率（Sharpe Ratio）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">calculate_sharpe</span>(<span class="params">data: <span class="type">List</span>[<span class="built_in">float</span>], volatility: <span class="built_in">float</span>, risk_free: <span class="built_in">float</span> = <span class="number">0.03</span></span>) -&gt; <span class="built_in">float</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;计算夏普比率&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> data <span class="keyword">or</span> volatility == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    total_return = (data[-<span class="number">1</span>] - data[<span class="number">0</span>]) / data[<span class="number">0</span>]</span><br><span class="line">    annualized_return = total_return * (<span class="number">252</span> / <span class="built_in">len</span>(data))</span><br><span class="line">    </span><br><span class="line">    sharpe = (annualized_return - risk_free) / (volatility / <span class="number">100</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">round</span>(sharpe, <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="4-3-夏普比率（Sharpe-Ratio）"><a href="#4-3-夏普比率（Sharpe-Ratio）" class="headerlink" title="4.3 夏普比率（Sharpe Ratio）"></a>4.3 夏普比率（Sharpe Ratio）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_sharpe</span>(<span class="hljs-params">data: <span class="hljs-type">List</span>[<span class="hljs-built_in">float</span>], volatility: <span class="hljs-built_in">float</span>, risk_free: <span class="hljs-built_in">float</span> = <span class="hljs-number">0.03</span></span>) -&gt; <span class="hljs-built_in">float</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;计算夏普比率&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> data <span class="hljs-keyword">or</span> volatility == <span class="hljs-number">0</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>    <br>    total_return = (data[-<span class="hljs-number">1</span>] - data[<span class="hljs-number">0</span>]) / data[<span class="hljs-number">0</span>]<br>    annualized_return = total_return * (<span class="hljs-number">252</span> / <span class="hljs-built_in">len</span>(data))<br>    <br>    sharpe = (annualized_return - risk_free) / (volatility / <span class="hljs-number">100</span>)<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">round</span>(sharpe, <span class="hljs-number">2</span>)<br></code></pre></td></tr></table></figure>
 
 <p><strong>夏普比率含义</strong>：</p>
 <table>
@@ -401,17 +454,17 @@
 </tbody></table>
 <hr>
 <h2 id="五、综合信号生成"><a href="#五、综合信号生成" class="headerlink" title="五、综合信号生成"></a>五、综合信号生成</h2><p>将所有指标组合成最终信号：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_trend_status</span>(<span class="params">ma5: <span class="built_in">float</span>, ma20: <span class="built_in">float</span>, ma60: <span class="built_in">float</span>, macd_hist: <span class="built_in">float</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;综合判断趋势状态&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> ma5 &gt; ma20 &gt; ma60 <span class="keyword">and</span> macd_hist &gt; <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;🟢 STRONG_UP&quot;</span>   <span class="comment"># 强势上涨</span></span><br><span class="line">    <span class="keyword">elif</span> ma5 &gt; ma20 <span class="keyword">and</span> macd_hist &gt; <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;🟡 UP&quot;</span>           <span class="comment"># 温和上涨</span></span><br><span class="line">    <span class="keyword">elif</span> ma5 &gt; ma20:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;🟡 UP_STABLE&quot;</span>   <span class="comment"># 上涨企稳</span></span><br><span class="line">    <span class="keyword">elif</span> ma5 &lt; ma20 <span class="keyword">and</span> macd_hist &lt; <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;🔴 DOWN&quot;</span>         <span class="comment"># 下跌趋势</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;🟠 CONSOLIDATE&quot;</span>  <span class="comment"># 震荡整理</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_trend_status</span>(<span class="hljs-params">ma5: <span class="hljs-built_in">float</span>, ma20: <span class="hljs-built_in">float</span>, ma60: <span class="hljs-built_in">float</span>, macd_hist: <span class="hljs-built_in">float</span></span>) -&gt; <span class="hljs-built_in">str</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;综合判断趋势状态&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">if</span> ma5 &gt; ma20 &gt; ma60 <span class="hljs-keyword">and</span> macd_hist &gt; <span class="hljs-number">0</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;🟢 STRONG_UP&quot;</span>   <span class="hljs-comment"># 强势上涨</span><br>    <span class="hljs-keyword">elif</span> ma5 &gt; ma20 <span class="hljs-keyword">and</span> macd_hist &gt; <span class="hljs-number">0</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;🟡 UP&quot;</span>           <span class="hljs-comment"># 温和上涨</span><br>    <span class="hljs-keyword">elif</span> ma5 &gt; ma20:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;🟡 UP_STABLE&quot;</span>   <span class="hljs-comment"># 上涨企稳</span><br>    <span class="hljs-keyword">elif</span> ma5 &lt; ma20 <span class="hljs-keyword">and</span> macd_hist &lt; <span class="hljs-number">0</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;🔴 DOWN&quot;</span>         <span class="hljs-comment"># 下跌趋势</span><br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;🟠 CONSOLIDATE&quot;</span>  <span class="hljs-comment"># 震荡整理</span><br></code></pre></td></tr></table></figure>
 
 <hr>
-<h2 id="六、完整分析示例"><a href="#六、完整分析示例" class="headerlink" title="六、完整分析示例"></a>六、完整分析示例</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">analyze_fund</span>(<span class="params">code: <span class="built_in">str</span>, nav_data: <span class="type">List</span>[<span class="type">Dict</span>]</span>) -&gt; <span class="type">Dict</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;完整基金分析&quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># 提取净值</span></span><br><span class="line">    navs = [item[<span class="string">&quot;nav&quot;</span>] <span class="keyword">for</span> item <span class="keyword">in</span> nav_data]</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 计算 MA</span></span><br><span class="line">    ma5 = calculate_ma(navs, <span class="number">5</span>)</span><br><span class="line">    ma20 = calculate_ma(navs, <span class="number">20</span>)</span><br><span class="line">    ma60 = calculate_ma(navs, <span class="number">60</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 计算 MACD</span></span><br><span class="line">    dif, dea, hist = calculate_macd(navs)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 风险指标</span></span><br><span class="line">    max_dd, _, _ = calculate_max_drawdown(navs)</span><br><span class="line">    volatility = calculate_volatility(navs)</span><br><span class="line">    sharpe = calculate_sharpe(navs, volatility)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 综合信号</span></span><br><span class="line">    trend = get_trend_status(ma5, ma20, ma60, hist)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="string">&quot;code&quot;</span>: code,</span><br><span class="line">        <span class="string">&quot;trend&quot;</span>: trend,</span><br><span class="line">        <span class="string">&quot;ma&quot;</span>: &#123;<span class="string">&quot;ma5&quot;</span>: ma5, <span class="string">&quot;ma20&quot;</span>: ma20, <span class="string">&quot;ma60&quot;</span>: ma60&#125;,</span><br><span class="line">        <span class="string">&quot;macd&quot;</span>: &#123;<span class="string">&quot;dif&quot;</span>: dif, <span class="string">&quot;dea&quot;</span>: dea, <span class="string">&quot;hist&quot;</span>: hist&#125;,</span><br><span class="line">        <span class="string">&quot;risk&quot;</span>: &#123;<span class="string">&quot;max_drawdown&quot;</span>: max_dd, <span class="string">&quot;volatility&quot;</span>: volatility, <span class="string">&quot;sharpe&quot;</span>: sharpe&#125;,</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="六、完整分析示例"><a href="#六、完整分析示例" class="headerlink" title="六、完整分析示例"></a>六、完整分析示例</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">analyze_fund</span>(<span class="hljs-params">code: <span class="hljs-built_in">str</span>, nav_data: <span class="hljs-type">List</span>[<span class="hljs-type">Dict</span>]</span>) -&gt; <span class="hljs-type">Dict</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;完整基金分析&quot;&quot;&quot;</span><br>    <span class="hljs-comment"># 提取净值</span><br>    navs = [item[<span class="hljs-string">&quot;nav&quot;</span>] <span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> nav_data]<br>    <br>    <span class="hljs-comment"># 计算 MA</span><br>    ma5 = calculate_ma(navs, <span class="hljs-number">5</span>)<br>    ma20 = calculate_ma(navs, <span class="hljs-number">20</span>)<br>    ma60 = calculate_ma(navs, <span class="hljs-number">60</span>)<br>    <br>    <span class="hljs-comment"># 计算 MACD</span><br>    dif, dea, hist = calculate_macd(navs)<br>    <br>    <span class="hljs-comment"># 风险指标</span><br>    max_dd, _, _ = calculate_max_drawdown(navs)<br>    volatility = calculate_volatility(navs)<br>    sharpe = calculate_sharpe(navs, volatility)<br>    <br>    <span class="hljs-comment"># 综合信号</span><br>    trend = get_trend_status(ma5, ma20, ma60, hist)<br>    <br>    <span class="hljs-keyword">return</span> &#123;<br>        <span class="hljs-string">&quot;code&quot;</span>: code,<br>        <span class="hljs-string">&quot;trend&quot;</span>: trend,<br>        <span class="hljs-string">&quot;ma&quot;</span>: &#123;<span class="hljs-string">&quot;ma5&quot;</span>: ma5, <span class="hljs-string">&quot;ma20&quot;</span>: ma20, <span class="hljs-string">&quot;ma60&quot;</span>: ma60&#125;,<br>        <span class="hljs-string">&quot;macd&quot;</span>: &#123;<span class="hljs-string">&quot;dif&quot;</span>: dif, <span class="hljs-string">&quot;dea&quot;</span>: dea, <span class="hljs-string">&quot;hist&quot;</span>: hist&#125;,<br>        <span class="hljs-string">&quot;risk&quot;</span>: &#123;<span class="hljs-string">&quot;max_drawdown&quot;</span>: max_dd, <span class="hljs-string">&quot;volatility&quot;</span>: volatility, <span class="hljs-string">&quot;sharpe&quot;</span>: sharpe&#125;,<br>    &#125;<br></code></pre></td></tr></table></figure>
 
 <hr>
-<h2 id="七、输出效果"><a href="#七、输出效果" class="headerlink" title="七、输出效果"></a>七、输出效果</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">🔹 天弘中证科创创业50ETF联接C (012895) [ETF]</span><br><span class="line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span><br><span class="line">📈 Trend: 🟡 UP (MA5 &gt; MA20, MACD positive)</span><br><span class="line">📊 MA Status: MA5=1.025, MA20=1.038, MA60=1.045</span><br><span class="line">📉 MACD: DIF=0.0012, DEA=0.0008, Hist=+0.0004</span><br><span class="line"></span><br><span class="line">📊 Relative Strength: vs 创业板指 +2.3%</span><br><span class="line"></span><br><span class="line">📉 Risk Metrics:</span><br><span class="line">   Max Drawdown: 3.2% (🟢 LOW)</span><br><span class="line">   Volatility: 1.8% (🟡 MEDIUM)</span><br><span class="line">   Sharpe: 1.24</span><br><span class="line"></span><br><span class="line">💡 Signal: HOLD - 趋势稳定，无明显反转信号</span><br></pre></td></tr></table></figure>
+<h2 id="七、输出效果"><a href="#七、输出效果" class="headerlink" title="七、输出效果"></a>七、输出效果</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs routeros">🔹 天弘中证科创创业50ETF联接C (012895) [ETF]<br>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br>📈 Trend: 🟡 UP (MA5 &gt; MA20, MACD positive)<br>📊 MA Status: <span class="hljs-attribute">MA5</span>=1.025, <span class="hljs-attribute">MA20</span>=1.038, <span class="hljs-attribute">MA60</span>=1.045<br>📉 MACD: <span class="hljs-attribute">DIF</span>=0.0012, <span class="hljs-attribute">DEA</span>=0.0008, <span class="hljs-attribute">Hist</span>=+0.0004<br><br>📊 Relative Strength: vs 创业板指 +2.3%<br><br>📉 Risk Metrics:<br>   Max Drawdown: 3.2% (🟢 LOW)<br>   Volatility: 1.8% (🟡 MEDIUM)<br>   Sharpe: 1.24<br><br>💡 Signal: HOLD - 趋势稳定，无明显反转信号<br></code></pre></td></tr></table></figure>
 
 <hr>
 <h2 id="七、真实数据分析效果"><a href="#七、真实数据分析效果" class="headerlink" title="七、真实数据分析效果"></a>七、真实数据分析效果</h2><p>使用东方财富 API 获取真实数据后的分析结果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">======================================================================</span><br><span class="line">📊 Enhanced Fund Analysis Report</span><br><span class="line">   Analysis Date: 2026-02-06 15:42</span><br><span class="line">   Data Source: Eastmoney API (真实数据)</span><br><span class="line">======================================================================</span><br><span class="line"></span><br><span class="line">🔹 天弘中证科创创业50ETF联接C (012895) [ETF]</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">📈 Trend: 🔴 DOWN</span><br><span class="line">   MA5=1.0251, MA20=1.0398, MA60=1.0398</span><br><span class="line">   MACD: DIF=-0.0084, Hist=-0.0034</span><br><span class="line">📊 Total Return (20d): -4.24%</span><br><span class="line"></span><br><span class="line">📉 Risk Metrics:</span><br><span class="line">   Max Drawdown: 5.58% (🟡 MEDIUM)</span><br><span class="line">   Volatility: 24.45%</span><br><span class="line">   Sharpe Ratio: -2.31</span><br><span class="line"></span><br><span class="line">📊 Relative Strength:</span><br><span class="line">   vs 创业板指: -0.52%</span><br><span class="line">   Category Rank: TOP 30%</span><br><span class="line"></span><br><span class="line">🔹 南方亚太精选ETF联接(QDII)C (021190) [QDII]</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">📈 Trend: 🟡 UP</span><br><span class="line">   MA5=1.3220, MA20=1.2975, MA60=1.2975</span><br><span class="line">   MACD: DIF=0.0134, Hist=0.0053</span><br><span class="line">📊 Total Return (20d): +4.95%</span><br><span class="line"></span><br><span class="line">📉 Risk Metrics:</span><br><span class="line">   Max Drawdown: 1.72% (🟢 LOW)</span><br><span class="line">   Volatility: 32.53%</span><br><span class="line">   Sharpe Ratio: 1.83</span><br><span class="line"></span><br><span class="line">🔹 华泰柏瑞致远混合C (017992) [Mixed]</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">📈 Trend: 🟡 UP</span><br><span class="line">   MA5=1.6926, MA20=1.6439, MA60=1.6439</span><br><span class="line">   MACD: DIF=0.0415, Hist=0.0166</span><br><span class="line">📊 Total Return (20d): +12.06%</span><br><span class="line"></span><br><span class="line">======================================================================</span><br><span class="line">🏆 Performance Ranking:</span><br><span class="line">   1. 华泰柏瑞致远混合C: +12.06% (🟡 UP)</span><br><span class="line">   2. 南方亚太精选ETF联接(QDII)C: +4.95% (🟡 UP)</span><br><span class="line">   3. 天弘中证科创创业50ETF联接C: -4.24% (🔴 DOWN)</span><br><span class="line">======================================================================</span><br></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs routeros">======================================================================<br>📊 Enhanced Fund Analysis Report<br>   Analysis Date: 2026-02-06 15:42<br>   Data Source: Eastmoney API (真实数据)<br>======================================================================<br><br>🔹 天弘中证科创创业50ETF联接C (012895) [ETF]<br>------------------------------------------------------------<br>📈 Trend: 🔴 DOWN<br>   <span class="hljs-attribute">MA5</span>=1.0251, <span class="hljs-attribute">MA20</span>=1.0398, <span class="hljs-attribute">MA60</span>=1.0398<br>   MACD: <span class="hljs-attribute">DIF</span>=-0.0084, <span class="hljs-attribute">Hist</span>=-0.0034<br>📊 Total Return (20d): -4.24%<br><br>📉 Risk Metrics:<br>   Max Drawdown: 5.58% (🟡 MEDIUM)<br>   Volatility: 24.45%<br>   Sharpe Ratio: -2.31<br><br>📊 Relative Strength:<br>   vs 创业板指: -0.52%<br>   Category Rank: TOP 30%<br><br>🔹 南方亚太精选ETF联接(QDII)C (021190) [QDII]<br>------------------------------------------------------------<br>📈 Trend: 🟡 UP<br>   <span class="hljs-attribute">MA5</span>=1.3220, <span class="hljs-attribute">MA20</span>=1.2975, <span class="hljs-attribute">MA60</span>=1.2975<br>   MACD: <span class="hljs-attribute">DIF</span>=0.0134, <span class="hljs-attribute">Hist</span>=0.0053<br>📊 Total Return (20d): +4.95%<br><br>📉 Risk Metrics:<br>   Max Drawdown: 1.72% (🟢 LOW)<br>   Volatility: 32.53%<br>   Sharpe Ratio: 1.83<br><br>🔹 华泰柏瑞致远混合C (017992) [Mixed]<br>------------------------------------------------------------<br>📈 Trend: 🟡 UP<br>   <span class="hljs-attribute">MA5</span>=1.6926, <span class="hljs-attribute">MA20</span>=1.6439, <span class="hljs-attribute">MA60</span>=1.6439<br>   MACD: <span class="hljs-attribute">DIF</span>=0.0415, <span class="hljs-attribute">Hist</span>=0.0166<br>📊 Total Return (20d): +12.06%<br><br>======================================================================<br>🏆 Performance Ranking:<br>   1. 华泰柏瑞致远混合C: +12.06% (🟡 UP)<br>   2. 南方亚太精选ETF联接(QDII)C: +4.95% (🟡 UP)<br>   3. 天弘中证科创创业50ETF联接C: -4.24% (🔴 DOWN)<br>======================================================================<br></code></pre></td></tr></table></figure>
 
 <p><strong>结果解读</strong>：</p>
 <ul>
@@ -495,90 +548,390 @@
 </ol>
 <hr>
 <h2 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h2><p>完整的分析脚本已集成到 OpenClaw 技能系统中：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/root/.openclaw/skills/fund-analysis/scripts/fund_analysis_enhanced.py</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">/root/.openclaw/skills/fund-analysis/scripts/fund_analysis_enhanced.py<br></code></pre></td></tr></table></figure>
 
 <p><strong>运行方式</strong>：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 完整分析（使用真实数据）</span></span><br><span class="line">python3 fund_analysis_enhanced.py</span><br><span class="line"></span><br><span class="line"><span class="comment"># 单基金信号</span></span><br><span class="line">python3 fund_analysis_enhanced.py --signal 012895</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 完整分析（使用真实数据）</span><br>python3 fund_analysis_enhanced.py<br><br><span class="hljs-comment"># 单基金信号</span><br>python3 fund_analysis_enhanced.py --signal 012895<br></code></pre></td></tr></table></figure>
 
 <p><strong>依赖</strong>：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install requests</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install requests<br></code></pre></td></tr></table></figure>
 
 <hr>
 <p><em>欢迎在评论区分享你的基金分析经验！</em></p>
 
-    </div>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
 
+<span class="category-chains">
+  
+  
     
-    
-    
-
-    <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/Python/" rel="tag"># Python</a>
-              <a href="/tags/%E5%9F%BA%E9%87%91%E5%88%86%E6%9E%90/" rel="tag"># 基金分析</a>
-              <a href="/tags/%E6%8A%80%E6%9C%AF%E6%8C%87%E6%A0%87/" rel="tag"># 技术指标</a>
-              <a href="/tags/MA/" rel="tag"># MA</a>
-              <a href="/tags/MACD/" rel="tag"># MACD</a>
-          </div>
-
+      <span class="category-chain">
         
+  <a href="/categories/%E6%8A%80%E6%9C%AF/" class="category-chain-item">技术</a>
+  
+  
 
-          <div class="post-nav">
-            <div class="post-nav-item">
-                <a href="/2026/02/06/serper-api-guide/" rel="prev" title="Serper.dev 免费 Google 搜索 API 使用指南">
-                  <i class="fa fa-angle-left"></i> Serper.dev 免费 Google 搜索 API 使用指南
-                </a>
-            </div>
-            <div class="post-nav-item">
-                <a href="/2026/02/10/OpenClaw-Memory-Search-%E6%9C%AC%E5%9C%B0Embedding%E9%85%8D%E7%BD%AE/" rel="next" title="OpenClaw Memory Search 配置优化 - 本地 Embedding 方案">
-                  OpenClaw Memory Search 配置优化 - 本地 Embedding 方案 <i class="fa fa-angle-right"></i>
-                </a>
-            </div>
-          </div>
-    </footer>
-  </article>
-</div>
-
-
-
-
-
-
-</div>
-  </main>
-
-  <footer class="footer">
-    <div class="footer-inner">
-
-  <div class="copyright">
-    &copy; 
-    <span itemprop="copyrightYear">2026</span>
-    <span class="with-love">
-      <i class="fa fa-heart"></i>
-    </span>
-    <span class="author" itemprop="copyrightHolder">XY</span>
-  </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
-  </div>
+      </span>
+    
+  
+</span>
 
     </div>
-  </footer>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Python/" class="print-no-link">#Python</a>
+      
+        <a href="/tags/%E5%9F%BA%E9%87%91%E5%88%86%E6%9E%90/" class="print-no-link">#基金分析</a>
+      
+        <a href="/tags/%E6%8A%80%E6%9C%AF%E6%8C%87%E6%A0%87/" class="print-no-link">#技术指标</a>
+      
+        <a href="/tags/MA/" class="print-no-link">#MA</a>
+      
+        <a href="/tags/MACD/" class="print-no-link">#MACD</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>如何用 Python 实现基金趋势分析与信号生成</div>
+      <div>https://blog.2001.life/2026/02/06/fund-analysis-python/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>XY</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年2月6日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/02/10/OpenClaw-Memory-Search-%E6%9C%AC%E5%9C%B0Embedding%E9%85%8D%E7%BD%AE/" title="OpenClaw Memory Search 配置优化 - 本地 Embedding 方案">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">OpenClaw Memory Search 配置优化 - 本地 Embedding 方案</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/02/06/serper-api-guide/" title="Serper.dev 免费 Google 搜索 API 使用指南">
+                        <span class="hidden-mobile">Serper.dev 免费 Google 搜索 API 使用指南</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
 
   
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-  </div>
-  <div class="sidebar-dimmer"></div>
-  <div class="back-to-top" role="button" aria-label="返回顶部">
-    <i class="fa fa-arrow-up fa-lg"></i>
-    <span>0%</span>
-  </div>
 
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
 
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
 </body>
 </html>
