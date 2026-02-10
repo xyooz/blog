@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>基金每日复盘 | 2026-02-10</title>
+    <link href="/2026/02/10/%E5%9F%BA%E9%87%91%E6%AF%8F%E6%97%A5%E5%A4%8D%E7%9B%98-2026-02-10/"/>
+    <url>/2026/02/10/%E5%9F%BA%E9%87%91%E6%AF%8F%E6%97%A5%E5%A4%8D%E7%9B%98-2026-02-10/</url>
+    
+    <content type="html"><![CDATA[<h2 id="📊-今日持仓表现"><a href="#📊-今日持仓表现" class="headerlink" title="📊 今日持仓表现"></a>📊 今日持仓表现</h2><table><thead><tr><th>基金名称</th><th>代码</th><th>今日涨跌</th><th>持仓收益</th></tr></thead><tbody><tr><td>天弘中证科创创业50</td><td>012895</td><td>+0.39%</td><td>浮亏中</td></tr><tr><td>南方亚太精选ETF联接</td><td>021190</td><td>+2.31%*</td><td>+1.2%</td></tr><tr><td>华泰柏瑞致远混合C</td><td>017992</td><td>-0.72%</td><td><strong>-9.4%</strong></td></tr></tbody></table><p>*南方亚太为 QDII 基金，净值更新略有延迟</p><hr><h2 id="🤔-今日思考"><a href="#🤔-今日思考" class="headerlink" title="🤔 今日思考"></a>🤔 今日思考</h2><h3 id="1-关于止盈策略的调整"><a href="#1-关于止盈策略的调整" class="headerlink" title="1. 关于止盈策略的调整"></a>1. 关于止盈策略的调整</h3><p>原本设定的目标是「涨 20% 卖 1&#x2F;4」，但目前看来这个目标在震荡市中很难达成。</p><p><strong>新的策略思考</strong>：</p><ul><li>改为 <strong>5-10% 分批止盈</strong> 更为现实</li><li>涨多了就卖点，落袋为安</li><li>不要贪心，赚 5% 也是赚</li></ul><h3 id="2-关于华泰致远的补仓问题"><a href="#2-关于华泰致远的补仓问题" class="headerlink" title="2. 关于华泰致远的补仓问题"></a>2. 关于华泰致远的补仓问题</h3><p>华泰致远目前亏损 -9.4%，需要上涨 <strong>10.4%</strong> 才能回本。</p><p><strong>决定</strong>：再观望一个月再做决定</p><ul><li>基金本身持仓方向没问题（黄金 + 科技）</li><li>短期不确定因素较多（春节、特朗普政策等）</li><li>资金压力不大，可以慢慢等</li></ul><h3 id="3-关于节前风险"><a href="#3-关于节前风险" class="headerlink" title="3. 关于节前风险"></a>3. 关于节前风险</h3><p>担心过年回来大跌，这是人之常情。</p><p><strong>应对思路</strong>：</p><ul><li>先观望，看明天走势再决定</li><li>节前最后几个交易日随时可以调整</li><li>减仓 or 持仓，取决于个人风险承受能力</li></ul><hr><h2 id="📈-基金状态总结"><a href="#📈-基金状态总结" class="headerlink" title="📈 基金状态总结"></a>📈 基金状态总结</h2><table><thead><tr><th>基金</th><th>当前状态</th><th>后续操作</th></tr></thead><tbody><tr><td>科创50</td><td>回血中，继续观察</td><td>涨多了可以卖点</td></tr><tr><td>亚太精选</td><td>小赚 1.2%，稳</td><td>明天看走势决定是否止盈</td></tr><tr><td>华泰致远</td><td>亏损 -9.4%，躺平</td><td>观望一个月</td></tr></tbody></table><hr><h2 id="💡-投资感悟"><a href="#💡-投资感悟" class="headerlink" title="💡 投资感悟"></a>💡 投资感悟</h2><ol><li><strong>择时很难</strong>：不要试图精准踩点</li><li><strong>落袋为安</strong>：涨了就是赚了，不要太贪</li><li><strong>长期持有</strong>：优质基金拿住，时间会给出答案</li><li><strong>复盘很重要</strong>：记录每日思考，帮助改进策略</li></ol><hr><p><em>持续更新中…</em></p><hr><p><strong>相关文章</strong>：</p><ul><li><a href="/2026/02/05/fund-investment-survival/">基金投资笔记：如何在震荡市中生存</a></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>投资笔记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>基金</tag>
+      
+      <tag>投资复盘</tag>
+      
+      <tag>理财</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>OpenClaw Memory Search 配置优化 - 本地 Embedding 方案</title>
     <link href="/2026/02/10/OpenClaw-Memory-Search-%E6%9C%AC%E5%9C%B0Embedding%E9%85%8D%E7%BD%AE/"/>
     <url>/2026/02/10/OpenClaw-Memory-Search-%E6%9C%AC%E5%9C%B0Embedding%E9%85%8D%E7%BD%AE/</url>
