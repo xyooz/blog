@@ -19,15 +19,15 @@
   <meta name="author" content="XY">
   <meta name="keywords" content="OpenClaw,AI,技术博客,Ctrl+S">
   
-    <meta name="description" content="本文基于 OpenClaw 基金分析技能的实现，分享技术指标的 Python 实现方法。  前言在之前的文章中，我介绍了如何使用 Serper.dev API 获取搜索数据。今天我们来聊聊如何用 Python 实现基金的趋势分析和信号生成。 本文将涵盖：  移动平均线（MA）的计算 MACD 指标的实现 最大回撤、波动率等风险指标 如何生成交易信号   零、真实数据获取使用东方财富 API 获取">
+    <meta name="description" content="本文分享如何用 Python 实现基金的趋势分析和信号生成，涵盖 MA、MACD、最大回撤、夏普比率等核心指标。   前言用 Python 实现基金分析，可以帮助我们：  量化判断：用数据而非感觉做决策 自动监控：定时分析，不用天天盯盘 信号提示：及时发现买卖点  本文将实现：  移动平均线（MA）计算 MACD 指标实现 最大回撤、波动率等风险指标 综合信号生成   一、数据获取使用东方财富">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如何用 Python 实现基金趋势分析与信号生成">
+<meta property="og:title" content="Python 基金趋势分析与信号生成实战">
 <meta property="og:url" content="https://blog.2001.life/2026/02/06/fund-analysis-python/index.html">
 <meta property="og:site_name" content="Ctrl+S | 保存习惯">
-<meta property="og:description" content="本文基于 OpenClaw 基金分析技能的实现，分享技术指标的 Python 实现方法。  前言在之前的文章中，我介绍了如何使用 Serper.dev API 获取搜索数据。今天我们来聊聊如何用 Python 实现基金的趋势分析和信号生成。 本文将涵盖：  移动平均线（MA）的计算 MACD 指标的实现 最大回撤、波动率等风险指标 如何生成交易信号   零、真实数据获取使用东方财富 API 获取">
+<meta property="og:description" content="本文分享如何用 Python 实现基金的趋势分析和信号生成，涵盖 MA、MACD、最大回撤、夏普比率等核心指标。   前言用 Python 实现基金分析，可以帮助我们：  量化判断：用数据而非感觉做决策 自动监控：定时分析，不用天天盯盘 信号提示：及时发现买卖点  本文将实现：  移动平均线（MA）计算 MACD 指标实现 最大回撤、波动率等风险指标 综合信号生成   一、数据获取使用东方财富">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-02-06T07:35:00.000Z">
-<meta property="article:modified_time" content="2026-02-06T07:44:19.580Z">
+<meta property="article:modified_time" content="2026-02-11T13:44:04.368Z">
 <meta property="article:author" content="XY">
 <meta property="article:tag" content="MA">
 <meta property="article:tag" content="MACD">
@@ -38,7 +38,7 @@
   
   
   
-  <title>如何用 Python 实现基金趋势分析与信号生成 - Ctrl+S | 保存习惯</title>
+  <title>Python 基金趋势分析与信号生成实战 - Ctrl+S | 保存习惯</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -204,7 +204,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="如何用 Python 实现基金趋势分析与信号生成"></span>
+            <span id="subtitle" data-typed-text="Python 基金趋势分析与信号生成实战"></span>
           
         </div>
 
@@ -227,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.1k 字
+          1.1k 字
         
       </span>
     
@@ -238,7 +238,7 @@
         
         
         
-          18 分钟
+          10 分钟
         
       </span>
     
@@ -275,99 +275,69 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">如何用 Python 实现基金趋势分析与信号生成</h1>
+            <h1 id="seo-header">Python 基金趋势分析与信号生成实战</h1>
             
             
               <div class="markdown-body">
                 
                 <blockquote>
-<p>本文基于 OpenClaw 基金分析技能的实现，分享技术指标的 Python 实现方法。</p>
+<p>本文分享如何用 Python 实现基金的<strong>趋势分析</strong>和<strong>信号生成</strong>，涵盖 MA、MACD、最大回撤、夏普比率等核心指标。</p>
 </blockquote>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在之前的文章中，我介绍了如何使用 Serper.dev API 获取搜索数据。今天我们来聊聊如何用 Python 实现基金的<strong>趋势分析</strong>和<strong>信号生成</strong>。</p>
-<p>本文将涵盖：</p>
+<hr>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>用 Python 实现基金分析，可以帮助我们：</p>
 <ul>
-<li>移动平均线（MA）的计算</li>
-<li>MACD 指标的实现</li>
-<li>最大回撤、波动率等风险指标</li>
-<li>如何生成交易信号</li>
+<li><strong>量化判断</strong>：用数据而非感觉做决策</li>
+<li><strong>自动监控</strong>：定时分析，不用天天盯盘</li>
+<li><strong>信号提示</strong>：及时发现买卖点</li>
 </ul>
+<p>本文将实现：</p>
+<ol>
+<li>移动平均线（MA）计算</li>
+<li>MACD 指标实现</li>
+<li>最大回撤、波动率等风险指标</li>
+<li>综合信号生成</li>
+</ol>
 <hr>
-<h2 id="零、真实数据获取"><a href="#零、真实数据获取" class="headerlink" title="零、真实数据获取"></a>零、真实数据获取</h2><p>使用东方财富 API 获取基金历史净值：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">from</span> datetime <span class="hljs-keyword">import</span> datetime, timedelta<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_fund_history</span>(<span class="hljs-params">fund_code: <span class="hljs-built_in">str</span>, days: <span class="hljs-built_in">int</span> = <span class="hljs-number">60</span></span>) -&gt; <span class="hljs-type">List</span>[<span class="hljs-type">Dict</span>]:<br>    <span class="hljs-string">&quot;&quot;&quot;获取基金历史净值 - 真实数据&quot;&quot;&quot;</span><br>    url = <span class="hljs-string">&quot;http://api.fund.eastmoney.com/f10/lsjz&quot;</span><br>    end_date = datetime.now().strftime(<span class="hljs-string">&quot;%Y-%m-%d&quot;</span>)<br>    start_date = (datetime.now() - timedelta(days=days+<span class="hljs-number">30</span>)).strftime(<span class="hljs-string">&quot;%Y-%m-%d&quot;</span>)<br>    <br>    params = &#123;<br>        <span class="hljs-string">&quot;fundCode&quot;</span>: fund_code,<br>        <span class="hljs-string">&quot;pageIndex&quot;</span>: <span class="hljs-number">1</span>,<br>        <span class="hljs-string">&quot;pageSize&quot;</span>: days,<br>        <span class="hljs-string">&quot;startDate&quot;</span>: start_date,<br>        <span class="hljs-string">&quot;endDate&quot;</span>: end_date,<br>        <span class="hljs-string">&quot;_&quot;</span>: <span class="hljs-built_in">int</span>(time.time() * <span class="hljs-number">1000</span>)<br>    &#125;<br>    headers = &#123;<br>        <span class="hljs-string">&quot;User-Agent&quot;</span>: <span class="hljs-string">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36&quot;</span>,<br>        <span class="hljs-string">&quot;Referer&quot;</span>: <span class="hljs-string">f&quot;http://fund.eastmoney.com/jjjz_<span class="hljs-subst">&#123;fund_code&#125;</span>.html&quot;</span>,<br>    &#125;<br>    <br>    <span class="hljs-keyword">try</span>:<br>        r = requests.get(url, params=params, headers=headers, timeout=<span class="hljs-number">15</span>)<br>        <span class="hljs-keyword">if</span> r.status_code == <span class="hljs-number">200</span>:<br>            data = r.json()<br>            <span class="hljs-keyword">if</span> data.get(<span class="hljs-string">&quot;Data&quot;</span>):<br>                records = data[<span class="hljs-string">&quot;Data&quot;</span>].get(<span class="hljs-string">&quot;LSJZList&quot;</span>, [])<br>                <span class="hljs-comment"># 解析为标准格式</span><br>                <span class="hljs-keyword">return</span> [&#123;<br>                    <span class="hljs-string">&quot;date&quot;</span>: r[<span class="hljs-string">&quot;FSRQ&quot;</span>],<br>                    <span class="hljs-string">&quot;nav&quot;</span>: <span class="hljs-built_in">float</span>(r[<span class="hljs-string">&quot;DWJZ&quot;</span>]),<br>                    <span class="hljs-string">&quot;change&quot;</span>: <span class="hljs-built_in">float</span>(r[<span class="hljs-string">&quot;JZZZL&quot;</span>])<br>                &#125; <span class="hljs-keyword">for</span> r <span class="hljs-keyword">in</span> records]<br>    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Error fetching <span class="hljs-subst">&#123;fund_code&#125;</span>: <span class="hljs-subst">&#123;e&#125;</span>&quot;</span>)<br>    <span class="hljs-keyword">return</span> []<br></code></pre></td></tr></table></figure>
-
-<p><strong>API 返回字段</strong>：</p>
-<table>
-<thead>
-<tr>
-<th>字段</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>FSRQ</code></td>
-<td>净值日期</td>
-</tr>
-<tr>
-<td><code>DWJZ</code></td>
-<td>单位净值</td>
-</tr>
-<tr>
-<td><code>LJJZ</code></td>
-<td>累计净值</td>
-</tr>
-<tr>
-<td><code>JZZZL</code></td>
-<td>日增长率(%)</td>
-</tr>
-</tbody></table>
-<p><strong>使用示例</strong>：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 获取 60 天历史数据</span><br>data = get_fund_history(<span class="hljs-string">&quot;012895&quot;</span>, days=<span class="hljs-number">60</span>)<br><span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> data[:<span class="hljs-number">5</span>]:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;item[<span class="hljs-string">&#x27;date&#x27;</span>]&#125;</span>: <span class="hljs-subst">&#123;item[<span class="hljs-string">&#x27;nav&#x27;</span>]&#125;</span> (<span class="hljs-subst">&#123;item[<span class="hljs-string">&#x27;change&#x27;</span>]&#125;</span>%)&quot;</span>)<br></code></pre></td></tr></table></figure>
-
-<p><strong>输出示例</strong>：</p>
-<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs subunit">2026<span class="hljs-string">-02</span><span class="hljs-string">-05</span>: 0.9993 (<span class="hljs-string">-1</span>.85%)<br>2026<span class="hljs-string">-02</span><span class="hljs-string">-04</span>: 1.0181 (<span class="hljs-string">-1</span>.35%)<br>2026<span class="hljs-string">-02</span><span class="hljs-string">-03</span>: 1.0320 (0.64%)<br>...<br></code></pre></td></tr></table></figure>
-
-<blockquote>
-<p>⚠️ 注意：东方财富 API 可能有访问频率限制，建议设置合理的请求间隔。</p>
-</blockquote>
-<hr>
-<h2 id="一、核心数据结构"><a href="#一、核心数据结构" class="headerlink" title="一、核心数据结构"></a>一、核心数据结构</h2><p>首先，定义基金数据和基准：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 基金组合</span><br>FUNDS = &#123;<br>    <span class="hljs-string">&quot;012895&quot;</span>: &#123;<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;天弘中证科创创业50ETF联接C&quot;</span>, <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;ETF&quot;</span>, <span class="hljs-string">&quot;benchmark&quot;</span>: <span class="hljs-string">&quot;创业板指&quot;</span>&#125;,<br>    <span class="hljs-string">&quot;021190&quot;</span>: &#123;<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;南方亚太精选ETF联接(QDII)C&quot;</span>, <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;QDII&quot;</span>, <span class="hljs-string">&quot;benchmark&quot;</span>: <span class="hljs-string">&quot;恒生指数&quot;</span>&#125;,<br>    <span class="hljs-string">&quot;017992&quot;</span>: &#123;<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;华泰柏瑞致远混合C&quot;</span>, <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;Mixed&quot;</span>, <span class="hljs-string">&quot;benchmark&quot;</span>: <span class="hljs-string">&quot;沪深300&quot;</span>&#125;,<br>&#125;<br><br><span class="hljs-comment"># 净值数据结构</span><br>nav_data = [<br>    &#123;<span class="hljs-string">&quot;date&quot;</span>: <span class="hljs-string">&quot;2026-02-04&quot;</span>, <span class="hljs-string">&quot;nav&quot;</span>: <span class="hljs-number">1.0181</span>, <span class="hljs-string">&quot;change&quot;</span>: -<span class="hljs-number">1.35</span>&#125;,<br>    &#123;<span class="hljs-string">&quot;date&quot;</span>: <span class="hljs-string">&quot;2026-02-03&quot;</span>, <span class="hljs-string">&quot;nav&quot;</span>: <span class="hljs-number">1.0320</span>, <span class="hljs-string">&quot;change&quot;</span>: <span class="hljs-number">0.64</span>&#125;,<br>    <span class="hljs-comment"># ...</span><br>]<br></code></pre></td></tr></table></figure>
+<h2 id="一、数据获取"><a href="#一、数据获取" class="headerlink" title="一、数据获取"></a>一、数据获取</h2><p>使用东方财富 API 获取基金历史净值：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">from</span> datetime <span class="hljs-keyword">import</span> datetime, timedelta<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_fund_history</span>(<span class="hljs-params">fund_code: <span class="hljs-built_in">str</span>, days: <span class="hljs-built_in">int</span> = <span class="hljs-number">60</span></span>) -&gt; <span class="hljs-type">List</span>[<span class="hljs-type">Dict</span>]:<br>    <span class="hljs-string">&quot;&quot;&quot;获取基金历史净值&quot;&quot;&quot;</span><br>    url = <span class="hljs-string">&quot;http://api.fund.eastmoney.com/f10/lsjz&quot;</span><br>    end_date = datetime.now().strftime(<span class="hljs-string">&quot;%Y-%m-%d&quot;</span>)<br>    start_date = (datetime.now() - timedelta(days=days+<span class="hljs-number">30</span>)).strftime(<span class="hljs-string">&quot;%Y-%m-%d&quot;</span>)<br>    <br>    params = &#123;<br>        <span class="hljs-string">&quot;fundCode&quot;</span>: fund_code,<br>        <span class="hljs-string">&quot;pageIndex&quot;</span>: <span class="hljs-number">1</span>,<br>        <span class="hljs-string">&quot;pageSize&quot;</span>: days,<br>        <span class="hljs-string">&quot;startDate&quot;</span>: start_date,<br>        <span class="hljs-string">&quot;endDate&quot;</span>: end_date,<br>        <span class="hljs-string">&quot;_&quot;</span>: <span class="hljs-built_in">int</span>(time.time() * <span class="hljs-number">1000</span>)<br>    &#125;<br>    headers = &#123;<span class="hljs-string">&quot;User-Agent&quot;</span>: <span class="hljs-string">&quot;Mozilla/5.0&quot;</span>&#125;<br>    <br>    <span class="hljs-keyword">try</span>:<br>        r = requests.get(url, params=params, headers=headers, timeout=<span class="hljs-number">15</span>)<br>        <span class="hljs-keyword">if</span> r.status_code == <span class="hljs-number">200</span>:<br>            data = r.json()<br>            <span class="hljs-keyword">if</span> data.get(<span class="hljs-string">&quot;Data&quot;</span>):<br>                records = data[<span class="hljs-string">&quot;Data&quot;</span>].get(<span class="hljs-string">&quot;LSJZ&quot;</span>, [])<br>                <span class="hljs-keyword">return</span> [&#123;<br>                    <span class="hljs-string">&quot;date&quot;</span>: r[<span class="hljs-string">&quot;FSRQ&quot;</span>],<br>                    <span class="hljs-string">&quot;nav&quot;</span>: <span class="hljs-built_in">float</span>(r[<span class="hljs-string">&quot;DWJZ&quot;</span>]),<br>                    <span class="hljs-string">&quot;change&quot;</span>: <span class="hljs-built_in">float</span>(r[<span class="hljs-string">&quot;JZZZL&quot;</span>])<br>                &#125; <span class="hljs-keyword">for</span> r <span class="hljs-keyword">in</span> records]<br>    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Error: <span class="hljs-subst">&#123;e&#125;</span>&quot;</span>)<br>    <span class="hljs-keyword">return</span> []<br></code></pre></td></tr></table></figure>
 
 <hr>
-<h2 id="二、移动平均线（MA）计算"><a href="#二、移动平均线（MA）计算" class="headerlink" title="二、移动平均线（MA）计算"></a>二、移动平均线（MA）计算</h2><h3 id="2-1-简单移动平均（SMA）"><a href="#2-1-简单移动平均（SMA）" class="headerlink" title="2.1 简单移动平均（SMA）"></a>2.1 简单移动平均（SMA）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_ma</span>(<span class="hljs-params">data: <span class="hljs-type">List</span>[<span class="hljs-built_in">float</span>], period: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">float</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;计算简单移动平均&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(data) &lt; period:<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">sum</span>(data) / <span class="hljs-built_in">len</span>(data) <span class="hljs-keyword">if</span> data <span class="hljs-keyword">else</span> <span class="hljs-number">0</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">sum</span>(data[-period:]) / period<br></code></pre></td></tr></table></figure>
+<h2 id="二、MA-移动平均线"><a href="#二、MA-移动平均线" class="headerlink" title="二、MA 移动平均线"></a>二、MA 移动平均线</h2><h3 id="2-1-简单移动平均（SMA）"><a href="#2-1-简单移动平均（SMA）" class="headerlink" title="2.1 简单移动平均（SMA）"></a>2.1 简单移动平均（SMA）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_ma</span>(<span class="hljs-params">data: <span class="hljs-type">List</span>[<span class="hljs-built_in">float</span>], period: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">float</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;计算简单移动平均&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(data) &lt; period:<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">sum</span>(data) / <span class="hljs-built_in">len</span>(data) <span class="hljs-keyword">if</span> data <span class="hljs-keyword">else</span> <span class="hljs-number">0</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">sum</span>(data[-period:]) / period<br></code></pre></td></tr></table></figure>
 
-<p><strong>原理</strong>：取最近 <code>period</code> 个价格的平均值。</p>
 <table>
 <thead>
 <tr>
 <th>周期</th>
 <th>用途</th>
+<th>敏感度</th>
 </tr>
 </thead>
 <tbody><tr>
 <td>MA5</td>
-<td>短期趋势，敏感度高</td>
+<td>短期趋势</td>
+<td>高</td>
 </tr>
 <tr>
 <td>MA20</td>
-<td>中期趋势，最常用</td>
+<td>中期趋势</td>
+<td>中</td>
 </tr>
 <tr>
 <td>MA60</td>
 <td>长期趋势</td>
+<td>低</td>
 </tr>
 </tbody></table>
-<h3 id="2-2-指数移动平均（EMA）"><a href="#2-2-指数移动平均（EMA）" class="headerlink" title="2.2 指数移动平均（EMA）"></a>2.2 指数移动平均（EMA）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_ema</span>(<span class="hljs-params">data: <span class="hljs-type">List</span>[<span class="hljs-built_in">float</span>], period: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">float</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;计算指数移动平均&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(data) &lt; period:<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">sum</span>(data) / <span class="hljs-built_in">len</span>(data) <span class="hljs-keyword">if</span> data <span class="hljs-keyword">else</span> <span class="hljs-number">0</span><br>    <br>    multiplier = <span class="hljs-number">2</span> / (period + <span class="hljs-number">1</span>)  <span class="hljs-comment"># 权重系数</span><br>    ema = data[<span class="hljs-number">0</span>]<br>    <span class="hljs-keyword">for</span> price <span class="hljs-keyword">in</span> data[<span class="hljs-number">1</span>:]:<br>        ema = price * multiplier + ema * (<span class="hljs-number">1</span> - multiplier)<br>    <span class="hljs-keyword">return</span> ema<br></code></pre></td></tr></table></figure>
+<h3 id="2-2-指数移动平均（EMA）"><a href="#2-2-指数移动平均（EMA）" class="headerlink" title="2.2 指数移动平均（EMA）"></a>2.2 指数移动平均（EMA）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_ema</span>(<span class="hljs-params">data: <span class="hljs-type">List</span>[<span class="hljs-built_in">float</span>], period: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">float</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;计算指数移动平均（近期权重更高）&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(data) &lt; period:<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">sum</span>(data) / <span class="hljs-built_in">len</span>(data) <span class="hljs-keyword">if</span> data <span class="hljs-keyword">else</span> <span class="hljs-number">0</span><br>    <br>    multiplier = <span class="hljs-number">2</span> / (period + <span class="hljs-number">1</span>)<br>    ema = data[<span class="hljs-number">0</span>]<br>    <span class="hljs-keyword">for</span> price <span class="hljs-keyword">in</span> data[<span class="hljs-number">1</span>:]:<br>        ema = price * multiplier + ema * (<span class="hljs-number">1</span> - multiplier)<br>    <span class="hljs-keyword">return</span> ema<br></code></pre></td></tr></table></figure>
 
-<p><strong>EMA vs SMA</strong>：EMA 对近期价格赋予更高权重，反应更灵敏。</p>
 <h3 id="2-3-MA-交叉信号"><a href="#2-3-MA-交叉信号" class="headerlink" title="2.3 MA 交叉信号"></a>2.3 MA 交叉信号</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">detect_ma_crossover</span>(<span class="hljs-params">ma5: <span class="hljs-built_in">float</span>, ma20: <span class="hljs-built_in">float</span></span>) -&gt; <span class="hljs-built_in">str</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;检测 MA 交叉信号&quot;&quot;&quot;</span><br>    diff = ma5 - ma20<br>    <span class="hljs-keyword">if</span> diff &gt; <span class="hljs-number">0.01</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;GOLDEN_CROSS&quot;</span>  <span class="hljs-comment"># 金叉，看涨</span><br>    <span class="hljs-keyword">elif</span> diff &lt; -<span class="hljs-number">0.01</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;DEATH_CROSS&quot;</span>   <span class="hljs-comment"># 死叉，看跌</span><br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;NEUTRAL&quot;</span><br></code></pre></td></tr></table></figure>
 
 <hr>
-<h2 id="三、MACD-指标实现"><a href="#三、MACD-指标实现" class="headerlink" title="三、MACD 指标实现"></a>三、MACD 指标实现</h2><h3 id="3-1-MACD-计算公式"><a href="#3-1-MACD-计算公式" class="headerlink" title="3.1 MACD 计算公式"></a>3.1 MACD 计算公式</h3><figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs abnf"><span class="hljs-attribute">DIF</span> <span class="hljs-operator">=</span> EMA12 - EMA26<br><span class="hljs-attribute">DEA</span> <span class="hljs-operator">=</span> EMA9(DIF)<br><span class="hljs-attribute">Histogram</span> <span class="hljs-operator">=</span> (DIF - DEA) × <span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
+<h2 id="三、MACD-指标"><a href="#三、MACD-指标" class="headerlink" title="三、MACD 指标"></a>三、MACD 指标</h2><h3 id="3-1-公式"><a href="#3-1-公式" class="headerlink" title="3.1 公式"></a>3.1 公式</h3><figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs abnf"><span class="hljs-attribute">DIF</span> <span class="hljs-operator">=</span> EMA12 - EMA26<br><span class="hljs-attribute">DEA</span> <span class="hljs-operator">=</span> EMA9(DIF)<br><span class="hljs-attribute">Histogram</span> <span class="hljs-operator">=</span> (DIF - DEA) × <span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
 
-<h3 id="3-2-Python-实现"><a href="#3-2-Python-实现" class="headerlink" title="3.2 Python 实现"></a>3.2 Python 实现</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_macd</span>(<span class="hljs-params">data: <span class="hljs-type">List</span>[<span class="hljs-built_in">float</span>], fast: <span class="hljs-built_in">int</span> = <span class="hljs-number">12</span>, slow: <span class="hljs-built_in">int</span> = <span class="hljs-number">26</span>, signal: <span class="hljs-built_in">int</span> = <span class="hljs-number">9</span></span>) -&gt; <span class="hljs-type">Tuple</span>[<span class="hljs-built_in">float</span>, <span class="hljs-built_in">float</span>, <span class="hljs-built_in">float</span>]:<br>    <span class="hljs-string">&quot;&quot;&quot;计算 MACD：DIF, DEA, Histogram&quot;&quot;&quot;</span><br>    ema12 = calculate_ema(data, fast)<br>    ema26 = calculate_ema(data, slow)<br>    <br>    dif = ema12 - ema26<br>    dea = dif * <span class="hljs-number">0.8</span>  <span class="hljs-comment"># DEA 是 DIF 的 EMA，这里简化处理</span><br>    hist = (dif - dea) * <span class="hljs-number">2</span><br>    <br>    <span class="hljs-keyword">return</span> dif, dea, hist<br></code></pre></td></tr></table></figure>
+<h3 id="3-2-Python-实现"><a href="#3-2-Python-实现" class="headerlink" title="3.2 Python 实现"></a>3.2 Python 实现</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_macd</span>(<span class="hljs-params">data: <span class="hljs-type">List</span>[<span class="hljs-built_in">float</span>]</span>) -&gt; <span class="hljs-type">Tuple</span>[<span class="hljs-built_in">float</span>, <span class="hljs-built_in">float</span>, <span class="hljs-built_in">float</span>]:<br>    <span class="hljs-string">&quot;&quot;&quot;计算 MACD&quot;&quot;&quot;</span><br>    ema12 = calculate_ema(data, <span class="hljs-number">12</span>)<br>    ema26 = calculate_ema(data, <span class="hljs-number">26</span>)<br>    <br>    dif = ema12 - ema26<br>    dea = calculate_ema([dif], <span class="hljs-number">9</span>)  <span class="hljs-comment"># DIF 的 EMA</span><br>    hist = (dif - dea) * <span class="hljs-number">2</span><br>    <br>    <span class="hljs-keyword">return</span> dif, dea, hist<br></code></pre></td></tr></table></figure>
 
-<h3 id="3-3-MACD-信号解读"><a href="#3-3-MACD-信号解读" class="headerlink" title="3.3 MACD 信号解读"></a>3.3 MACD 信号解读</h3><table>
+<h3 id="3-3-信号解读"><a href="#3-3-信号解读" class="headerlink" title="3.3 信号解读"></a>3.3 信号解读</h3><table>
 <thead>
 <tr>
 <th>状态</th>
@@ -377,61 +347,55 @@
 </tr>
 </thead>
 <tbody><tr>
-<td>🟢 强势</td>
+<td>多头</td>
 <td>DIF &gt; DEA</td>
 <td>&gt; 0</td>
 <td>看涨</td>
 </tr>
 <tr>
-<td>🟡 弱势</td>
-<td>DIF &gt; DEA</td>
-<td>≈ 0</td>
 <td>震荡</td>
+<td>DIF ≈ DEA</td>
+<td>≈ 0</td>
+<td>观望</td>
 </tr>
 <tr>
-<td>🔴 看跌</td>
+<td>空头</td>
 <td>DIF &lt; DEA</td>
 <td>&lt; 0</td>
 <td>看跌</td>
 </tr>
 </tbody></table>
 <hr>
-<h2 id="四、风险指标计算"><a href="#四、风险指标计算" class="headerlink" title="四、风险指标计算"></a>四、风险指标计算</h2><h3 id="4-1-最大回撤（Max-Drawdown）"><a href="#4-1-最大回撤（Max-Drawdown）" class="headerlink" title="4.1 最大回撤（Max Drawdown）"></a>4.1 最大回撤（Max Drawdown）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_max_drawdown</span>(<span class="hljs-params">data: <span class="hljs-type">List</span>[<span class="hljs-built_in">float</span>]</span>) -&gt; <span class="hljs-type">Tuple</span>[<span class="hljs-built_in">float</span>, <span class="hljs-built_in">float</span>, <span class="hljs-built_in">float</span>]:<br>    <span class="hljs-string">&quot;&quot;&quot;计算最大回撤、峰值、峰值日期&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> data:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span><br>    <br>    max_nav = <span class="hljs-number">0</span><br>    max_drawdown = <span class="hljs-number">0</span><br>    peak_idx = <span class="hljs-number">0</span><br>    <br>    <span class="hljs-keyword">for</span> i, nav <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(data):<br>        <span class="hljs-keyword">if</span> nav &gt; max_nav:<br>            max_nav = nav<br>            peak_idx = i<br>        drawdown = (max_nav - nav) / max_nav * <span class="hljs-number">100</span><br>        <span class="hljs-keyword">if</span> drawdown &gt; max_drawdown:<br>            max_drawdown = drawdown<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">round</span>(max_drawdown, <span class="hljs-number">2</span>), max_nav, peak_idx<br></code></pre></td></tr></table></figure>
+<h2 id="四、风险指标"><a href="#四、风险指标" class="headerlink" title="四、风险指标"></a>四、风险指标</h2><h3 id="4-1-最大回撤"><a href="#4-1-最大回撤" class="headerlink" title="4.1 最大回撤"></a>4.1 最大回撤</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_max_drawdown</span>(<span class="hljs-params">data: <span class="hljs-type">List</span>[<span class="hljs-built_in">float</span>]</span>) -&gt; <span class="hljs-built_in">float</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;计算最大回撤百分比&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> data:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>    <br>    max_nav = <span class="hljs-number">0</span><br>    max_dd = <span class="hljs-number">0</span><br>    <br>    <span class="hljs-keyword">for</span> nav <span class="hljs-keyword">in</span> data:<br>        <span class="hljs-keyword">if</span> nav &gt; max_nav:<br>            max_nav = nav<br>        dd = (max_nav - nav) / max_nav * <span class="hljs-number">100</span><br>        <span class="hljs-keyword">if</span> dd &gt; max_dd:<br>            max_dd = dd<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">round</span>(max_dd, <span class="hljs-number">2</span>)<br></code></pre></td></tr></table></figure>
 
-<p><strong>回撤等级</strong>：</p>
 <table>
 <thead>
 <tr>
-<th>等级</th>
-<th>MaxDD</th>
-<th>风险</th>
+<th>回撤</th>
+<th>风险等级</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>🟢 低</td>
 <td>&lt; 5%</td>
 <td>低风险</td>
 </tr>
 <tr>
-<td>🟡 中</td>
 <td>5-15%</td>
 <td>中风险</td>
 </tr>
 <tr>
-<td>🔴 高</td>
 <td>&gt; 15%</td>
 <td>高风险</td>
 </tr>
 </tbody></table>
-<h3 id="4-2-波动率（Volatility）"><a href="#4-2-波动率（Volatility）" class="headerlink" title="4.2 波动率（Volatility）"></a>4.2 波动率（Volatility）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_volatility</span>(<span class="hljs-params">data: <span class="hljs-type">List</span>[<span class="hljs-built_in">float</span>]</span>) -&gt; <span class="hljs-built_in">float</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;计算日波动率（年化）&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(data) &lt; <span class="hljs-number">2</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>    <br>    changes = [d <span class="hljs-keyword">for</span> d <span class="hljs-keyword">in</span> data[<span class="hljs-number">1</span>:]]  <span class="hljs-comment"># 日涨跌</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> changes:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>    <br>    std = statistics.stdev(changes)<br>    annualized = std * math.sqrt(<span class="hljs-number">252</span>)  <span class="hljs-comment"># 年化（252个交易日）</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">round</span>(annualized * <span class="hljs-number">100</span>, <span class="hljs-number">2</span>)  <span class="hljs-comment"># 转为百分比</span><br></code></pre></td></tr></table></figure>
+<h3 id="4-2-波动率"><a href="#4-2-波动率" class="headerlink" title="4.2 波动率"></a>4.2 波动率</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> math<br><span class="hljs-keyword">import</span> statistics<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_volatility</span>(<span class="hljs-params">data: <span class="hljs-type">List</span>[<span class="hljs-built_in">float</span>]</span>) -&gt; <span class="hljs-built_in">float</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;计算年化波动率（百分比）&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(data) &lt; <span class="hljs-number">2</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>    <br>    changes = [d <span class="hljs-keyword">for</span> d <span class="hljs-keyword">in</span> data[<span class="hljs-number">1</span>:]]<br>    std = statistics.stdev(changes)<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">round</span>(std * math.sqrt(<span class="hljs-number">252</span>) * <span class="hljs-number">100</span>, <span class="hljs-number">2</span>)<br></code></pre></td></tr></table></figure>
 
-<h3 id="4-3-夏普比率（Sharpe-Ratio）"><a href="#4-3-夏普比率（Sharpe-Ratio）" class="headerlink" title="4.3 夏普比率（Sharpe Ratio）"></a>4.3 夏普比率（Sharpe Ratio）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_sharpe</span>(<span class="hljs-params">data: <span class="hljs-type">List</span>[<span class="hljs-built_in">float</span>], volatility: <span class="hljs-built_in">float</span>, risk_free: <span class="hljs-built_in">float</span> = <span class="hljs-number">0.03</span></span>) -&gt; <span class="hljs-built_in">float</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;计算夏普比率&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> data <span class="hljs-keyword">or</span> volatility == <span class="hljs-number">0</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>    <br>    total_return = (data[-<span class="hljs-number">1</span>] - data[<span class="hljs-number">0</span>]) / data[<span class="hljs-number">0</span>]<br>    annualized_return = total_return * (<span class="hljs-number">252</span> / <span class="hljs-built_in">len</span>(data))<br>    <br>    sharpe = (annualized_return - risk_free) / (volatility / <span class="hljs-number">100</span>)<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">round</span>(sharpe, <span class="hljs-number">2</span>)<br></code></pre></td></tr></table></figure>
+<h3 id="4-3-夏普比率"><a href="#4-3-夏普比率" class="headerlink" title="4.3 夏普比率"></a>4.3 夏普比率</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_sharpe</span>(<span class="hljs-params">data: <span class="hljs-type">List</span>[<span class="hljs-built_in">float</span>], volatility: <span class="hljs-built_in">float</span>, risk_free: <span class="hljs-built_in">float</span> = <span class="hljs-number">0.03</span></span>) -&gt; <span class="hljs-built_in">float</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;计算夏普比率&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> data <span class="hljs-keyword">or</span> volatility == <span class="hljs-number">0</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>    <br>    total_return = (data[-<span class="hljs-number">1</span>] - data[<span class="hljs-number">0</span>]) / data[<span class="hljs-number">0</span>]<br>    annualized = total_return * (<span class="hljs-number">252</span> / <span class="hljs-built_in">len</span>(data))<br>    sharpe = (annualized - risk_free) / (volatility / <span class="hljs-number">100</span>)<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">round</span>(sharpe, <span class="hljs-number">2</span>)<br></code></pre></td></tr></table></figure>
 
-<p><strong>夏普比率含义</strong>：</p>
 <table>
 <thead>
 <tr>
-<th>比率</th>
+<th>夏普比率</th>
 <th>评价</th>
 </tr>
 </thead>
@@ -440,11 +404,11 @@
 <td>优秀</td>
 </tr>
 <tr>
-<td>1.5 - 2.0</td>
+<td>1.5-2.0</td>
 <td>良好</td>
 </tr>
 <tr>
-<td>1.0 - 1.5</td>
+<td>1.0-1.5</td>
 <td>一般</td>
 </tr>
 <tr>
@@ -453,27 +417,16 @@
 </tr>
 </tbody></table>
 <hr>
-<h2 id="五、综合信号生成"><a href="#五、综合信号生成" class="headerlink" title="五、综合信号生成"></a>五、综合信号生成</h2><p>将所有指标组合成最终信号：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_trend_status</span>(<span class="hljs-params">ma5: <span class="hljs-built_in">float</span>, ma20: <span class="hljs-built_in">float</span>, ma60: <span class="hljs-built_in">float</span>, macd_hist: <span class="hljs-built_in">float</span></span>) -&gt; <span class="hljs-built_in">str</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;综合判断趋势状态&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">if</span> ma5 &gt; ma20 &gt; ma60 <span class="hljs-keyword">and</span> macd_hist &gt; <span class="hljs-number">0</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;🟢 STRONG_UP&quot;</span>   <span class="hljs-comment"># 强势上涨</span><br>    <span class="hljs-keyword">elif</span> ma5 &gt; ma20 <span class="hljs-keyword">and</span> macd_hist &gt; <span class="hljs-number">0</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;🟡 UP&quot;</span>           <span class="hljs-comment"># 温和上涨</span><br>    <span class="hljs-keyword">elif</span> ma5 &gt; ma20:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;🟡 UP_STABLE&quot;</span>   <span class="hljs-comment"># 上涨企稳</span><br>    <span class="hljs-keyword">elif</span> ma5 &lt; ma20 <span class="hljs-keyword">and</span> macd_hist &lt; <span class="hljs-number">0</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;🔴 DOWN&quot;</span>         <span class="hljs-comment"># 下跌趋势</span><br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;🟠 CONSOLIDATE&quot;</span>  <span class="hljs-comment"># 震荡整理</span><br></code></pre></td></tr></table></figure>
+<h2 id="五、综合信号"><a href="#五、综合信号" class="headerlink" title="五、综合信号"></a>五、综合信号</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_trend_status</span>(<span class="hljs-params">ma5: <span class="hljs-built_in">float</span>, ma20: <span class="hljs-built_in">float</span>, ma60: <span class="hljs-built_in">float</span>, macd_hist: <span class="hljs-built_in">float</span></span>) -&gt; <span class="hljs-built_in">str</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;综合判断趋势&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">if</span> ma5 &gt; ma20 &gt; ma60 <span class="hljs-keyword">and</span> macd_hist &gt; <span class="hljs-number">0</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;🟢 STRONG_UP&quot;</span>   <span class="hljs-comment"># 强势上涨</span><br>    <span class="hljs-keyword">elif</span> ma5 &gt; ma20 <span class="hljs-keyword">and</span> macd_hist &gt; <span class="hljs-number">0</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;🟡 UP&quot;</span>           <span class="hljs-comment"># 温和上涨</span><br>    <span class="hljs-keyword">elif</span> ma5 &lt; ma20 <span class="hljs-keyword">and</span> macd_hist &lt; <span class="hljs-number">0</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;🔴 DOWN&quot;</span>         <span class="hljs-comment"># 下跌趋势</span><br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;🟠 CONSOLIDATE&quot;</span>  <span class="hljs-comment"># 震荡整理</span><br></code></pre></td></tr></table></figure>
 
 <hr>
-<h2 id="六、完整分析示例"><a href="#六、完整分析示例" class="headerlink" title="六、完整分析示例"></a>六、完整分析示例</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">analyze_fund</span>(<span class="hljs-params">code: <span class="hljs-built_in">str</span>, nav_data: <span class="hljs-type">List</span>[<span class="hljs-type">Dict</span>]</span>) -&gt; <span class="hljs-type">Dict</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;完整基金分析&quot;&quot;&quot;</span><br>    <span class="hljs-comment"># 提取净值</span><br>    navs = [item[<span class="hljs-string">&quot;nav&quot;</span>] <span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> nav_data]<br>    <br>    <span class="hljs-comment"># 计算 MA</span><br>    ma5 = calculate_ma(navs, <span class="hljs-number">5</span>)<br>    ma20 = calculate_ma(navs, <span class="hljs-number">20</span>)<br>    ma60 = calculate_ma(navs, <span class="hljs-number">60</span>)<br>    <br>    <span class="hljs-comment"># 计算 MACD</span><br>    dif, dea, hist = calculate_macd(navs)<br>    <br>    <span class="hljs-comment"># 风险指标</span><br>    max_dd, _, _ = calculate_max_drawdown(navs)<br>    volatility = calculate_volatility(navs)<br>    sharpe = calculate_sharpe(navs, volatility)<br>    <br>    <span class="hljs-comment"># 综合信号</span><br>    trend = get_trend_status(ma5, ma20, ma60, hist)<br>    <br>    <span class="hljs-keyword">return</span> &#123;<br>        <span class="hljs-string">&quot;code&quot;</span>: code,<br>        <span class="hljs-string">&quot;trend&quot;</span>: trend,<br>        <span class="hljs-string">&quot;ma&quot;</span>: &#123;<span class="hljs-string">&quot;ma5&quot;</span>: ma5, <span class="hljs-string">&quot;ma20&quot;</span>: ma20, <span class="hljs-string">&quot;ma60&quot;</span>: ma60&#125;,<br>        <span class="hljs-string">&quot;macd&quot;</span>: &#123;<span class="hljs-string">&quot;dif&quot;</span>: dif, <span class="hljs-string">&quot;dea&quot;</span>: dea, <span class="hljs-string">&quot;hist&quot;</span>: hist&#125;,<br>        <span class="hljs-string">&quot;risk&quot;</span>: &#123;<span class="hljs-string">&quot;max_drawdown&quot;</span>: max_dd, <span class="hljs-string">&quot;volatility&quot;</span>: volatility, <span class="hljs-string">&quot;sharpe&quot;</span>: sharpe&#125;,<br>    &#125;<br></code></pre></td></tr></table></figure>
+<h2 id="六、完整示例"><a href="#六、完整示例" class="headerlink" title="六、完整示例"></a>六、完整示例</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">analyze_fund</span>(<span class="hljs-params">code: <span class="hljs-built_in">str</span>, nav_data: <span class="hljs-type">List</span>[<span class="hljs-type">Dict</span>]</span>) -&gt; <span class="hljs-type">Dict</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;完整基金分析&quot;&quot;&quot;</span><br>    navs = [item[<span class="hljs-string">&quot;nav&quot;</span>] <span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> nav_data]<br>    <br>    ma5 = calculate_ma(navs, <span class="hljs-number">5</span>)<br>    ma20 = calculate_ma(navs, <span class="hljs-number">20</span>)<br>    ma60 = calculate_ma(navs, <span class="hljs-number">60</span>)<br>    dif, dea, hist = calculate_macd(navs)<br>    <br>    max_dd = calculate_max_drawdown(navs)<br>    volatility = calculate_volatility(navs)<br>    sharpe = calculate_sharpe(navs, volatility)<br>    <br>    trend = get_trend_status(ma5, ma20, ma60, hist)<br>    <br>    <span class="hljs-keyword">return</span> &#123;<br>        <span class="hljs-string">&quot;code&quot;</span>: code,<br>        <span class="hljs-string">&quot;trend&quot;</span>: trend,<br>        <span class="hljs-string">&quot;ma&quot;</span>: &#123;<span class="hljs-string">&quot;ma5&quot;</span>: ma5, <span class="hljs-string">&quot;ma20&quot;</span>: ma20, <span class="hljs-string">&quot;ma60&quot;</span>: ma60&#125;,<br>        <span class="hljs-string">&quot;macd&quot;</span>: &#123;<span class="hljs-string">&quot;dif&quot;</span>: dif, <span class="hljs-string">&quot;dea&quot;</span>: dea, <span class="hljs-string">&quot;hist&quot;</span>: hist&#125;,<br>        <span class="hljs-string">&quot;risk&quot;</span>: &#123;<span class="hljs-string">&quot;max_drawdown&quot;</span>: max_dd, <span class="hljs-string">&quot;volatility&quot;</span>: volatility, <span class="hljs-string">&quot;sharpe&quot;</span>: sharpe&#125;,<br>    &#125;<br></code></pre></td></tr></table></figure>
 
 <hr>
-<h2 id="七、输出效果"><a href="#七、输出效果" class="headerlink" title="七、输出效果"></a>七、输出效果</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs routeros">🔹 天弘中证科创创业50ETF联接C (012895) [ETF]<br>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br>📈 Trend: 🟡 UP (MA5 &gt; MA20, MACD positive)<br>📊 MA Status: <span class="hljs-attribute">MA5</span>=1.025, <span class="hljs-attribute">MA20</span>=1.038, <span class="hljs-attribute">MA60</span>=1.045<br>📉 MACD: <span class="hljs-attribute">DIF</span>=0.0012, <span class="hljs-attribute">DEA</span>=0.0008, <span class="hljs-attribute">Hist</span>=+0.0004<br><br>📊 Relative Strength: vs 创业板指 +2.3%<br><br>📉 Risk Metrics:<br>   Max Drawdown: 3.2% (🟢 LOW)<br>   Volatility: 1.8% (🟡 MEDIUM)<br>   Sharpe: 1.24<br><br>💡 Signal: HOLD - 趋势稳定，无明显反转信号<br></code></pre></td></tr></table></figure>
+<h2 id="七、输出示例"><a href="#七、输出示例" class="headerlink" title="七、输出示例"></a>七、输出示例</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs routeros">🔹 某ETF基金 [指数型]<br>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br>📈 Trend: 🟡 UP<br>📊 MA: <span class="hljs-attribute">MA5</span>=1.025, <span class="hljs-attribute">MA20</span>=1.038, <span class="hljs-attribute">MA60</span>=1.045<br>📉 MACD: <span class="hljs-attribute">DIF</span>=+0.0012, <span class="hljs-attribute">Hist</span>=+0.0004<br><br>📊 Risk Metrics:<br>   Max Drawdown: 3.2% (🟢 LOW)<br>   Volatility: 1.8% (🟡 MEDIUM)<br>   Sharpe: 1.24<br><br>💡 Signal: HOLD<br></code></pre></td></tr></table></figure>
 
 <hr>
-<h2 id="七、真实数据分析效果"><a href="#七、真实数据分析效果" class="headerlink" title="七、真实数据分析效果"></a>七、真实数据分析效果</h2><p>使用东方财富 API 获取真实数据后的分析结果：</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs routeros">======================================================================<br>📊 Enhanced Fund Analysis Report<br>   Analysis Date: 2026-02-06 15:42<br>   Data Source: Eastmoney API (真实数据)<br>======================================================================<br><br>🔹 天弘中证科创创业50ETF联接C (012895) [ETF]<br>------------------------------------------------------------<br>📈 Trend: 🔴 DOWN<br>   <span class="hljs-attribute">MA5</span>=1.0251, <span class="hljs-attribute">MA20</span>=1.0398, <span class="hljs-attribute">MA60</span>=1.0398<br>   MACD: <span class="hljs-attribute">DIF</span>=-0.0084, <span class="hljs-attribute">Hist</span>=-0.0034<br>📊 Total Return (20d): -4.24%<br><br>📉 Risk Metrics:<br>   Max Drawdown: 5.58% (🟡 MEDIUM)<br>   Volatility: 24.45%<br>   Sharpe Ratio: -2.31<br><br>📊 Relative Strength:<br>   vs 创业板指: -0.52%<br>   Category Rank: TOP 30%<br><br>🔹 南方亚太精选ETF联接(QDII)C (021190) [QDII]<br>------------------------------------------------------------<br>📈 Trend: 🟡 UP<br>   <span class="hljs-attribute">MA5</span>=1.3220, <span class="hljs-attribute">MA20</span>=1.2975, <span class="hljs-attribute">MA60</span>=1.2975<br>   MACD: <span class="hljs-attribute">DIF</span>=0.0134, <span class="hljs-attribute">Hist</span>=0.0053<br>📊 Total Return (20d): +4.95%<br><br>📉 Risk Metrics:<br>   Max Drawdown: 1.72% (🟢 LOW)<br>   Volatility: 32.53%<br>   Sharpe Ratio: 1.83<br><br>🔹 华泰柏瑞致远混合C (017992) [Mixed]<br>------------------------------------------------------------<br>📈 Trend: 🟡 UP<br>   <span class="hljs-attribute">MA5</span>=1.6926, <span class="hljs-attribute">MA20</span>=1.6439, <span class="hljs-attribute">MA60</span>=1.6439<br>   MACD: <span class="hljs-attribute">DIF</span>=0.0415, <span class="hljs-attribute">Hist</span>=0.0166<br>📊 Total Return (20d): +12.06%<br><br>======================================================================<br>🏆 Performance Ranking:<br>   1. 华泰柏瑞致远混合C: +12.06% (🟡 UP)<br>   2. 南方亚太精选ETF联接(QDII)C: +4.95% (🟡 UP)<br>   3. 天弘中证科创创业50ETF联接C: -4.24% (🔴 DOWN)<br>======================================================================<br></code></pre></td></tr></table></figure>
-
-<p><strong>结果解读</strong>：</p>
-<ul>
-<li><strong>华泰柏瑞致远</strong>：趋势 UP，收益 +12.06%，MACD 动能向上</li>
-<li><strong>南方亚太精选</strong>：趋势 UP，收益 +4.95%，最大回撤仅 1.72%</li>
-<li><strong>天弘科创创业</strong>：趋势 DOWN，短期可能需要观望</li>
-</ul>
-<hr>
-<h2 id="八、总结"><a href="#八、总结" class="headerlink" title="八、总结"></a>八、总结</h2><h3 id="核心指标"><a href="#核心指标" class="headerlink" title="核心指标"></a>核心指标</h3><table>
+<h2 id="八、总结"><a href="#八、总结" class="headerlink" title="八、总结"></a>八、总结</h2><table>
 <thead>
 <tr>
 <th>指标</th>
@@ -487,23 +440,13 @@
 <td>高</td>
 </tr>
 <tr>
-<td>MA60</td>
-<td>长期趋势</td>
-<td>低</td>
-</tr>
-<tr>
 <td>MACD</td>
 <td>动能判断</td>
 <td>中</td>
 </tr>
 <tr>
 <td>MaxDD</td>
-<td>最大回撤</td>
-<td>-</td>
-</tr>
-<tr>
-<td>Volatility</td>
-<td>波动率</td>
+<td>风险控制</td>
 <td>-</td>
 </tr>
 <tr>
@@ -512,52 +455,17 @@
 <td>-</td>
 </tr>
 </tbody></table>
-<h3 id="信号等级"><a href="#信号等级" class="headerlink" title="信号等级"></a>信号等级</h3><table>
-<thead>
-<tr>
-<th>信号</th>
-<th>含义</th>
-<th>操作建议</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>🟢 STRONG_UP</td>
-<td>强势上涨</td>
-<td>买入&#x2F;持有</td>
-</tr>
-<tr>
-<td>🟡 UP</td>
-<td>温和上涨</td>
-<td>持有</td>
-</tr>
-<tr>
-<td>🟠 CONSOLIDATE</td>
-<td>震荡整理</td>
-<td>观望</td>
-</tr>
-<tr>
-<td>🔴 DOWN</td>
-<td>下跌趋势</td>
-<td>减仓&#x2F;止损</td>
-</tr>
-</tbody></table>
 <h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ol>
-<li><strong>历史数据不代表未来</strong>：指标基于历史计算，不能预测未来</li>
-<li><strong>结合市场环境</strong>：单一指标可能有假信号，需要综合判断</li>
-<li><strong>设置止损</strong>：即使趋势良好，也要设置合理的止损位</li>
+<li><strong>历史不代表未来</strong>：指标基于历史数据</li>
+<li><strong>综合判断</strong>：单一指标可能有假信号</li>
+<li><strong>设置止损</strong>：即使趋势良好也要控制风险</li>
 </ol>
 <hr>
-<h2 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h2><p>完整的分析脚本已集成到 OpenClaw 技能系统中：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">/root/.openclaw/skills/fund-analysis/scripts/fund_analysis_enhanced.py<br></code></pre></td></tr></table></figure>
-
-<p><strong>运行方式</strong>：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 完整分析（使用真实数据）</span><br>python3 fund_analysis_enhanced.py<br><br><span class="hljs-comment"># 单基金信号</span><br>python3 fund_analysis_enhanced.py --signal 012895<br></code></pre></td></tr></table></figure>
-
-<p><strong>依赖</strong>：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install requests<br></code></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>完整脚本：<code>/root/.openclaw/skills/fund-analysis/scripts/</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 运行分析</span><br>python3 fund_analysis_enhanced.py<br><br><span class="hljs-comment"># 依赖</span><br>pip install requests statistics<br></code></pre></td></tr></table></figure>
 
 <hr>
-<p><em>欢迎在评论区分享你的基金分析经验！</em></p>
+<p><em>技术笔记 · 持续更新</em></p>
 
                 
               </div>
@@ -576,7 +484,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%8A%80%E6%9C%AF/" class="category-chain-item">技术</a>
+  <a href="/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/" class="category-chain-item">技术笔记</a>
   
   
 
@@ -611,7 +519,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>如何用 Python 实现基金趋势分析与信号生成</div>
+      <div>Python 基金趋势分析与信号生成实战</div>
       <div>https://blog.2001.life/2026/02/06/fund-analysis-python/</div>
     </div>
     <div class="license-meta">
