@@ -19,24 +19,24 @@
   <meta name="author" content="XY">
   <meta name="keywords" content="OpenClaw,AI,技术博客,Ctrl+S">
   
-    <meta name="description" content="技术分析入门：MA 移动平均线 + MACD 实战指南 两个最常用的技术指标，用通俗易懂的方式解释清楚    什么是 MA（移动平均线）？一句话：把过去 N 天的价格平均一下，画成一条线 三种常用 MA   指标 含义    MA5 短期成本（1周）   MA20 中期成本（1个月）   MA60 长期成本（3个月）   如何看趋势？12MA5 &gt; MA20 &gt; MA60  →  多头">
+    <meta name="description" content="技术分析入门：MA 移动平均线 + MACD 实战指南 两个最常用的技术指标，用通俗易懂的方式解释清楚    什么是 MA（移动平均线）？一句话：把过去 N 天的价格平均一下，画成一条线 三种常用 MA   指标 含义    MA5 短期成本（1周）   MA20 中期成本（1个月）   MA60 长期成本（3个月）   金叉 vs 死叉   信号 条件 操作建议    死叉 🔴 MA5 下穿">
 <meta property="og:type" content="article">
 <meta property="og:title" content="技术分析入门：MA 移动平均线 + MACD 实战指南">
 <meta property="og:url" content="https://blog.2001.life/2026/02/11/2026-02-11-ma-macd-technical-indicators/index.html">
 <meta property="og:site_name" content="Ctrl+S | 保存习惯">
-<meta property="og:description" content="技术分析入门：MA 移动平均线 + MACD 实战指南 两个最常用的技术指标，用通俗易懂的方式解释清楚    什么是 MA（移动平均线）？一句话：把过去 N 天的价格平均一下，画成一条线 三种常用 MA   指标 含义    MA5 短期成本（1周）   MA20 中期成本（1个月）   MA60 长期成本（3个月）   如何看趋势？12MA5 &gt; MA20 &gt; MA60  →  多头">
+<meta property="og:description" content="技术分析入门：MA 移动平均线 + MACD 实战指南 两个最常用的技术指标，用通俗易懂的方式解释清楚    什么是 MA（移动平均线）？一句话：把过去 N 天的价格平均一下，画成一条线 三种常用 MA   指标 含义    MA5 短期成本（1周）   MA20 中期成本（1个月）   MA60 长期成本（3个月）   金叉 vs 死叉   信号 条件 操作建议    死叉 🔴 MA5 下穿">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://blog.2001.life/img/ma_macd_indicator.png">
-<meta property="og:image" content="https://blog.2001.life/img/signal_table.png">
+<meta property="og:image" content="https://blog.2001.life/img/ma_crossover.png">
+<meta property="og:image" content="https://blog.2001.life/img/macd_signals.png">
 <meta property="article:published_time" content="2026-02-11T06:30:00.000Z">
-<meta property="article:modified_time" content="2026-02-11T13:49:09.864Z">
+<meta property="article:modified_time" content="2026-02-11T15:01:27.044Z">
 <meta property="article:author" content="XY">
 <meta property="article:tag" content="MA">
 <meta property="article:tag" content="MACD">
 <meta property="article:tag" content="技术指标">
 <meta property="article:tag" content="投资入门">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://blog.2001.life/img/ma_macd_indicator.png">
+<meta name="twitter:image" content="https://blog.2001.life/img/ma_crossover.png">
   
   
   
@@ -229,7 +229,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          548 字
+          483 字
         
       </span>
     
@@ -285,7 +285,7 @@
                 <h1 id="技术分析入门：MA-移动平均线-MACD-实战指南"><a href="#技术分析入门：MA-移动平均线-MACD-实战指南" class="headerlink" title="技术分析入门：MA 移动平均线 + MACD 实战指南"></a>技术分析入门：MA 移动平均线 + MACD 实战指南</h1><blockquote>
 <p>两个最常用的技术指标，用通俗易懂的方式解释清楚</p>
 </blockquote>
-<p><img src="/img/ma_macd_indicator.png" srcset="/img/loading.gif" lazyload alt="MA and MACD Indicators"></p>
+<p><img src="/img/ma_crossover.png" srcset="/img/loading.gif" lazyload alt="MA Golden Cross &amp; Death Cross"></p>
 <hr>
 <h2 id="什么是-MA（移动平均线）？"><a href="#什么是-MA（移动平均线）？" class="headerlink" title="什么是 MA（移动平均线）？"></a>什么是 MA（移动平均线）？</h2><p><strong>一句话</strong>：把过去 N 天的价格平均一下，画成一条线</p>
 <h3 id="三种常用-MA"><a href="#三种常用-MA" class="headerlink" title="三种常用 MA"></a>三种常用 MA</h3><table>
@@ -308,8 +308,6 @@
 <td>长期成本（3个月）</td>
 </tr>
 </tbody></table>
-<h3 id="如何看趋势？"><a href="#如何看趋势？" class="headerlink" title="如何看趋势？"></a>如何看趋势？</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">MA5</span> &gt; MA20 &gt; MA60  →  多头排列，上涨趋势<br>MA5 &lt; MA20 &lt; MA60  →  空头排列，下跌趋势<br></code></pre></td></tr></table></figure>
-
 <h3 id="金叉-vs-死叉"><a href="#金叉-vs-死叉" class="headerlink" title="金叉 vs 死叉"></a>金叉 vs 死叉</h3><table>
 <thead>
 <tr>
@@ -319,17 +317,21 @@
 </tr>
 </thead>
 <tbody><tr>
-<td>金叉</td>
-<td>MA5 上穿 MA20</td>
-<td>买入&#x2F;持有</td>
-</tr>
-<tr>
-<td>死叉</td>
+<td><strong>死叉</strong> 🔴</td>
 <td>MA5 下穿 MA20</td>
 <td>卖出&#x2F;减仓</td>
 </tr>
+<tr>
+<td><strong>金叉</strong> 🟢</td>
+<td>MA5 上穿 MA20</td>
+<td>买入&#x2F;持有</td>
+</tr>
 </tbody></table>
-<p><strong>本质</strong>：MA 反映市场平均成本在哪，价格在成本线上方就强。</p>
+<p><strong>图解说明</strong>：</p>
+<ul>
+<li>🔴 <strong>死叉</strong>：MA5 从上方下穿 MA20，价格呈下降趋势 → 卖出信号</li>
+<li>🟢 <strong>金叉</strong>：MA5 从下方上穿 MA20，价格呈上升趋势 → 买入信号</li>
+</ul>
 <hr>
 <h2 id="什么是-MACD？"><a href="#什么是-MACD？" class="headerlink" title="什么是 MACD？"></a>什么是 MACD？</h2><p><strong>一句话</strong>：衡量短期和长期趋势的速度差异</p>
 <h3 id="三个要素"><a href="#三个要素" class="headerlink" title="三个要素"></a>三个要素</h3><table>
@@ -367,19 +369,10 @@
 <td>MACD &lt; 0</td>
 <td>空头，动能向下</td>
 </tr>
-<tr>
-<td>MACD 由负转正</td>
-<td>动能转强，可能启动上涨</td>
-</tr>
-<tr>
-<td>MACD 由正转负</td>
-<td>动能转弱，可能开始下跌</td>
-</tr>
 </tbody></table>
-<p><strong>本质</strong>：MACD 反映趋势动能在哪，值越大趋势越强。</p>
 <hr>
 <h2 id="MA-MACD-组合使用"><a href="#MA-MACD-组合使用" class="headerlink" title="MA + MACD 组合使用"></a>MA + MACD 组合使用</h2><p>单独看一个指标可能有假信号，组合使用更可靠：</p>
-<p><img src="/img/signal_table.png" srcset="/img/loading.gif" lazyload alt="Signal Summary Table"></p>
+<p><img src="/img/macd_signals.png" srcset="/img/loading.gif" lazyload alt="Trading Signals Summary"></p>
 <h3 id="信号强度"><a href="#信号强度" class="headerlink" title="信号强度"></a>信号强度</h3><table>
 <thead>
 <tr>
@@ -401,7 +394,7 @@
 </tr>
 </tbody></table>
 <hr>
-<h2 id="实战案例"><a href="#实战案例" class="headerlink" title="实战案例"></a>实战案例</h2><h3 id="案例-1：某黄金主题基金"><a href="#案例-1：某黄金主题基金" class="headerlink" title="案例 1：某黄金主题基金"></a>案例 1：某黄金主题基金</h3><table>
+<h2 id="实战案例"><a href="#实战案例" class="headerlink" title="实战案例"></a>实战案例</h2><h3 id="某黄金主题基金"><a href="#某黄金主题基金" class="headerlink" title="某黄金主题基金"></a>某黄金主题基金</h3><table>
 <thead>
 <tr>
 <th>指标</th>
@@ -425,7 +418,7 @@
 <td>持有待涨</td>
 </tr>
 </tbody></table>
-<h3 id="案例-2：某科创创业板-ETF"><a href="#案例-2：某科创创业板-ETF" class="headerlink" title="案例 2：某科创创业板 ETF"></a>案例 2：某科创创业板 ETF</h3><table>
+<h3 id="某科创创业板-ETF"><a href="#某科创创业板-ETF" class="headerlink" title="某科创创业板 ETF"></a>某科创创业板 ETF</h3><table>
 <thead>
 <tr>
 <th>指标</th>
