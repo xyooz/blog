@@ -1,0 +1,770 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.svg">
+  <link rel="icon" href="/img/favicon.svg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="XY">
+  <meta name="keywords" content="OpenClaw,AI,技术博客,Ctrl+S">
+  
+    <meta name="description" content="OpenClaw 集成 Minimax MCP 教程什么是 MCP？MCP (Model Context Protocol) 是一个让 AI 助手调用外部工具的标准化协议。 通过 MCP，OpenClaw 可以：  🌐 网络搜索 - 实时查询新闻、资料 🖼️ 图片理解 - 分析用户发送的图片  Minimax MCP 功能   工具 功能 示例    minimax.web_search 网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenClaw 集成 Minimax MCP 教程">
+<meta property="og:url" content="https://blog.2001.life/2026/02/12/openclaw-minimax-mcp/index.html">
+<meta property="og:site_name" content="Ctrl+S | 保存习惯">
+<meta property="og:description" content="OpenClaw 集成 Minimax MCP 教程什么是 MCP？MCP (Model Context Protocol) 是一个让 AI 助手调用外部工具的标准化协议。 通过 MCP，OpenClaw 可以：  🌐 网络搜索 - 实时查询新闻、资料 🖼️ 图片理解 - 分析用户发送的图片  Minimax MCP 功能   工具 功能 示例    minimax.web_search 网络">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-02-12T15:58:00.000Z">
+<meta property="article:modified_time" content="2026-02-12T15:51:24.341Z">
+<meta property="article:author" content="XY">
+<meta property="article:tag" content="MCP">
+<meta property="article:tag" content="Minimax">
+<meta property="article:tag" content="OpenClaw">
+<meta property="article:tag" content="图片理解">
+<meta property="article:tag" content="网络搜索">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>OpenClaw 集成 Minimax MCP 教程 - Ctrl+S | 保存习惯</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.2001.life","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Ctrl+S | 保存习惯</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="OpenClaw 集成 Minimax MCP 教程"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-02-12 23:58" pubdate>
+          2026年2月12日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          834 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          7 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">OpenClaw 集成 Minimax MCP 教程</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="OpenClaw-集成-Minimax-MCP-教程"><a href="#OpenClaw-集成-Minimax-MCP-教程" class="headerlink" title="OpenClaw 集成 Minimax MCP 教程"></a>OpenClaw 集成 Minimax MCP 教程</h1><h2 id="什么是-MCP？"><a href="#什么是-MCP？" class="headerlink" title="什么是 MCP？"></a>什么是 MCP？</h2><p>MCP (Model Context Protocol) 是一个让 AI 助手调用外部工具的标准化协议。</p>
+<p>通过 MCP，OpenClaw 可以：</p>
+<ul>
+<li>🌐 <strong>网络搜索</strong> - 实时查询新闻、资料</li>
+<li>🖼️ <strong>图片理解</strong> - 分析用户发送的图片</li>
+</ul>
+<h2 id="Minimax-MCP-功能"><a href="#Minimax-MCP-功能" class="headerlink" title="Minimax MCP 功能"></a>Minimax MCP 功能</h2><table>
+<thead>
+<tr>
+<th>工具</th>
+<th>功能</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>minimax.web_search</code></td>
+<td>网络搜索</td>
+<td>“今晚美股新闻”</td>
+</tr>
+<tr>
+<td><code>minimax.understand_image</code></td>
+<td>图片理解</td>
+<td>分析截图&#x2F;照片</td>
+</tr>
+</tbody></table>
+<h2 id="前置要求"><a href="#前置要求" class="headerlink" title="前置要求"></a>前置要求</h2><ul>
+<li>OpenClaw 已安装</li>
+<li>mcporter 已安装</li>
+<li>Minimax API Key</li>
+</ul>
+<hr>
+<h2 id="配置步骤"><a href="#配置步骤" class="headerlink" title="配置步骤"></a>配置步骤</h2><h3 id="1-安装-MCP-包"><a href="#1-安装-MCP-包" class="headerlink" title="1. 安装 MCP 包"></a>1. 安装 MCP 包</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 使用 pip 安装（uvx 可能不可用）</span><br>pip install minimax-coding-plan-mcp<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-配置-mcporter"><a href="#2-配置-mcporter" class="headerlink" title="2. 配置 mcporter"></a>2. 配置 mcporter</h3><p>编辑 <code>/root/.config/mcporter/mcporter.json</code>：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;mcpServers&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;minimax&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;command&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;python3&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;args&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;-m&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;minimax_mcp.server&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;env&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;MINIMAX_API_KEY&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;sk-cp-your-api-key-here&quot;</span><br>      <span class="hljs-punctuation">&#125;</span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="3-测试安装"><a href="#3-测试安装" class="headerlink" title="3. 测试安装"></a>3. 测试安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 测试 web_search</span><br>mcporter call minimax.web_search query: <span class="hljs-string">&quot;今天日期&quot;</span> --config /root/.config/mcporter/mcporter.json<br><br><span class="hljs-comment"># 测试图片理解</span><br>mcporter call minimax.understand_image prompt: <span class="hljs-string">&quot;描述这张图&quot;</span> image_source: <span class="hljs-string">&quot;/path/to/image.jpg&quot;</span> --config /root/.config/mcporter/mcporter.json<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="在-OpenClaw-中使用"><a href="#在-OpenClaw-中使用" class="headerlink" title="在 OpenClaw 中使用"></a>在 OpenClaw 中使用</h2><h3 id="方法一：手动调用"><a href="#方法一：手动调用" class="headerlink" title="方法一：手动调用"></a>方法一：手动调用</h3><p>在对话中直接让我使用 MCP 工具：</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs 1c">用户：<span class="hljs-string">&quot;帮我搜索今晚美股新闻&quot;</span><br>我：→ 调用 minimax.web_search<br></code></pre></td></tr></table></figure>
+
+<h3 id="方法二：自动识别"><a href="#方法二：自动识别" class="headerlink" title="方法二：自动识别"></a>方法二：自动识别</h3><p>我会在以下场景自动使用 MCP：</p>
+<ul>
+<li>用户要求查资料&#x2F;新闻 → 使用 <code>web_search</code></li>
+<li>用户发送图片 → 使用 <code>understand_image</code></li>
+</ul>
+<hr>
+<h2 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h2><h3 id="示例-1：网络搜索"><a href="#示例-1：网络搜索" class="headerlink" title="示例 1：网络搜索"></a>示例 1：网络搜索</h3><p><strong>命令</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">mcporter call minimax.web_search query: <span class="hljs-string">&quot;2026年2月12日美股收盘&quot;</span> --config /root/.config/mcporter/mcporter.json<br></code></pre></td></tr></table></figure>
+
+<p><strong>返回</strong>：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;organic&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>    <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;title&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;美股收盘:非农提振昙花一现 三大指数集体收跌&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;snippet&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;道琼斯指数跌0.13%,报50121.40点...&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;link&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;...&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">]</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="示例-2：图片理解"><a href="#示例-2：图片理解" class="headerlink" title="示例 2：图片理解"></a>示例 2：图片理解</h3><p><strong>命令</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">mcporter call minimax.understand_image prompt: <span class="hljs-string">&quot;请分析这张图片的内容&quot;</span> image_source: <span class="hljs-string">&quot;/path/to/image.jpg&quot;</span> --config /root/.config/mcporter/mcporter.json<br></code></pre></td></tr></table></figure>
+
+<p><strong>返回</strong>：</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs erlang">这张图片展示了一个关于 Windows 内核开发（x64 SSDT Hook）的技术讨论...<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="完整配置示例"><a href="#完整配置示例" class="headerlink" title="完整配置示例"></a>完整配置示例</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 1. 安装依赖</span><br>pip install minimax-coding-plan-mcp<br><br><span class="hljs-comment"># 2. 创建配置目录</span><br><span class="hljs-built_in">mkdir</span> -p /root/.config/mcporter<br><br><span class="hljs-comment"># 3. 写入配置</span><br><span class="hljs-built_in">cat</span> &gt; /root/.config/mcporter/mcporter.json &lt;&lt; <span class="hljs-string">&#x27;EOF&#x27;</span><br>&#123;<br>  <span class="hljs-string">&quot;mcpServers&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;minimax&quot;</span>: &#123;<br>      <span class="hljs-string">&quot;command&quot;</span>: <span class="hljs-string">&quot;python3&quot;</span>,<br>      <span class="hljs-string">&quot;args&quot;</span>: [<span class="hljs-string">&quot;-m&quot;</span>, <span class="hljs-string">&quot;minimax_mcp.server&quot;</span>],<br>      <span class="hljs-string">&quot;env&quot;</span>: &#123;<br>        <span class="hljs-string">&quot;MINIMAX_API_KEY&quot;</span>: <span class="hljs-string">&quot;sk-cp-your-api-key-here&quot;</span><br>      &#125;<br>    &#125;<br>  &#125;<br>&#125;<br>EOF<br><br><span class="hljs-comment"># 4. 测试</span><br>mcporter call minimax.web_search query: <span class="hljs-string">&quot;测试&quot;</span> --config /root/.config/mcporter/mcporter.json<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><h3 id="API-Key-安全"><a href="#API-Key-安全" class="headerlink" title="API Key 安全"></a>API Key 安全</h3><ul>
+<li>✅ API Key 存储在 mcporter 配置中</li>
+<li>✅ 也可以使用环境变量 <code>MINIMAX_API_KEY</code></li>
+<li>❌ 不要在公开渠道分享你的 API Key</li>
+</ul>
+<h3 id="命令格式"><a href="#命令格式" class="headerlink" title="命令格式"></a>命令格式</h3><p>使用 <code>mcporter call</code> 调用工具：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">mcporter call &lt;server&gt;.&lt;tool&gt; &lt;args&gt; --config &lt;config-path&gt;<br></code></pre></td></tr></table></figure>
+
+<h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h3><p><strong>Q: uvx 安装失败？</strong><br>A: 使用 <code>pip install minimax-coding-plan-mcp</code> 替代</p>
+<p><strong>Q: 找不到命令？</strong><br>A: 确保 python3 在 PATH 中，或使用绝对路径 <code>/usr/bin/python3</code></p>
+<p><strong>Q: 返回空结果？</strong><br>A: 检查 API Key 是否正确，网络是否正常</p>
+<hr>
+<h2 id="与-OpenClaw-集成效果"><a href="#与-OpenClaw-集成效果" class="headerlink" title="与 OpenClaw 集成效果"></a>与 OpenClaw 集成效果</h2><p>集成后，OpenClaw 的能力大幅提升：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>之前</th>
+<th>之后</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>查新闻</td>
+<td>需要手动搜索</td>
+<td>自动调用 web_search</td>
+</tr>
+<tr>
+<td>分析图片</td>
+<td>无法处理</td>
+<td>调用 understand_image</td>
+</tr>
+<tr>
+<td>信息获取</td>
+<td>依赖训练数据</td>
+<td>实时网络查询</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Minimax MCP 为 OpenClaw 带来了：</p>
+<ul>
+<li>🌐 <strong>实时网络搜索</strong> - 不再依赖训练数据截止日期</li>
+<li>🖼️ <strong>图片理解能力</strong> - 可以分析用户发送的截图、照片</li>
+<li>⚡ <strong>高效准确</strong> - 基于大模型的搜索和理解</li>
+</ul>
+<p>只需简单的配置，就能让 OpenClaw 如虎添翼！</p>
+<hr>
+<p><strong>参考</strong>：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.minimaxi.com/">Minimax API 文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/anthroplabs/mcporter">mcporter GitHub</a></li>
+</ul>
+<hr>
+<p><em>记录于 2026-02-12</em></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/" class="category-chain-item">技术教程</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/OpenClaw/" class="print-no-link">#OpenClaw</a>
+      
+        <a href="/tags/MCP/" class="print-no-link">#MCP</a>
+      
+        <a href="/tags/Minimax/" class="print-no-link">#Minimax</a>
+      
+        <a href="/tags/%E7%BD%91%E7%BB%9C%E6%90%9C%E7%B4%A2/" class="print-no-link">#网络搜索</a>
+      
+        <a href="/tags/%E5%9B%BE%E7%89%87%E7%90%86%E8%A7%A3/" class="print-no-link">#图片理解</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>OpenClaw 集成 Minimax MCP 教程</div>
+      <div>https://blog.2001.life/2026/02/12/openclaw-minimax-mcp/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>XY</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年2月12日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/02/12/openclaw-compaction-debug/" title="OpenClaw Compaction 配置排查笔记">
+                        <span class="hidden-mobile">OpenClaw Compaction 配置排查笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

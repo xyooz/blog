@@ -19,25 +19,25 @@
   <meta name="author" content="XY">
   <meta name="keywords" content="OpenClaw,AI,技术博客,Ctrl+S">
   
-    <meta name="description" content="投资日记 · 2026年2月12日市场概况今晚美股三大指数小幅收跌：    指数 收盘 涨跌    道琼斯 50,121.40 -0.13% 🔴   标普500 6,941.47 -0.01% ➖   纳斯达克 23,066.47 -0.16% 🔴   核心新闻非农数据超预期：  美国1月新增就业 13万人（远超预期5.5万） 失业率降至 4.3% 市场影响：降低美联储降息预期  热点板块：">
+    <meta name="description" content="OpenClaw Compaction 配置排查笔记问题现象在使用 OpenClaw 时发现：  Context 达到 80%+ 但 Compactions: 0 始终不触发 Memory 状态显示 dirty 配置了 maxHistoryShare: 0.40 但似乎无效  1234🦞 OpenClaw 2026.2.9📚 Context: 169k&#x2F;205k (83%)🧹 Compact">
 <meta property="og:type" content="article">
-<meta property="og:title" content="投资日记 · 2026年2月12日：非农数据与存储股行情">
-<meta property="og:url" content="https://blog.2001.life/2026/02/12/2026-02-12-fund-daily-review/index.html">
+<meta property="og:title" content="OpenClaw Compaction 配置排查笔记">
+<meta property="og:url" content="https://blog.2001.life/2026/02/12/openclaw-compaction-debug/index.html">
 <meta property="og:site_name" content="Ctrl+S | 保存习惯">
-<meta property="og:description" content="投资日记 · 2026年2月12日市场概况今晚美股三大指数小幅收跌：    指数 收盘 涨跌    道琼斯 50,121.40 -0.13% 🔴   标普500 6,941.47 -0.01% ➖   纳斯达克 23,066.47 -0.16% 🔴   核心新闻非农数据超预期：  美国1月新增就业 13万人（远超预期5.5万） 失业率降至 4.3% 市场影响：降低美联储降息预期  热点板块：">
+<meta property="og:description" content="OpenClaw Compaction 配置排查笔记问题现象在使用 OpenClaw 时发现：  Context 达到 80%+ 但 Compactions: 0 始终不触发 Memory 状态显示 dirty 配置了 maxHistoryShare: 0.40 但似乎无效  1234🦞 OpenClaw 2026.2.9📚 Context: 169k&#x2F;205k (83%)🧹 Compact">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2026-02-12T15:25:00.000Z">
-<meta property="article:modified_time" content="2026-02-12T15:21:03.575Z">
+<meta property="article:published_time" content="2026-02-12T15:55:00.000Z">
+<meta property="article:modified_time" content="2026-02-12T15:51:07.452Z">
 <meta property="article:author" content="XY">
-<meta property="article:tag" content="基金分析">
-<meta property="article:tag" content="存储概念股">
-<meta property="article:tag" content="投资日记">
-<meta property="article:tag" content="美股">
+<meta property="article:tag" content="Compaction">
+<meta property="article:tag" content="OpenClaw">
+<meta property="article:tag" content="内存管理">
+<meta property="article:tag" content="问题排查">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>投资日记 · 2026年2月12日：非农数据与存储股行情 - Ctrl+S | 保存习惯</title>
+  <title>OpenClaw Compaction 配置排查笔记 - Ctrl+S | 保存习惯</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -203,7 +203,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="投资日记 · 2026年2月12日：非农数据与存储股行情"></span>
+            <span id="subtitle" data-typed-text="OpenClaw Compaction 配置排查笔记"></span>
           
         </div>
 
@@ -214,7 +214,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2026-02-12 23:25" pubdate>
+        <time datetime="2026-02-12 23:55" pubdate>
           2026年2月12日 晚上
         </time>
       </span>
@@ -226,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          659 字
+          539 字
         
       </span>
     
@@ -237,7 +237,7 @@
         
         
         
-          6 分钟
+          5 分钟
         
       </span>
     
@@ -274,156 +274,100 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">投资日记 · 2026年2月12日：非农数据与存储股行情</h1>
+            <h1 id="seo-header">OpenClaw Compaction 配置排查笔记</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="投资日记-·-2026年2月12日"><a href="#投资日记-·-2026年2月12日" class="headerlink" title="投资日记 · 2026年2月12日"></a>投资日记 · 2026年2月12日</h1><h2 id="市场概况"><a href="#市场概况" class="headerlink" title="市场概况"></a>市场概况</h2><h3 id="今晚美股"><a href="#今晚美股" class="headerlink" title="今晚美股"></a>今晚美股</h3><p>三大指数小幅收跌：</p>
-<table>
+                <h1 id="OpenClaw-Compaction-配置排查笔记"><a href="#OpenClaw-Compaction-配置排查笔记" class="headerlink" title="OpenClaw Compaction 配置排查笔记"></a>OpenClaw Compaction 配置排查笔记</h1><h2 id="问题现象"><a href="#问题现象" class="headerlink" title="问题现象"></a>问题现象</h2><p>在使用 OpenClaw 时发现：</p>
+<ul>
+<li>Context 达到 80%+ 但 <code>Compactions: 0</code> 始终不触发</li>
+<li>Memory 状态显示 <code>dirty</code></li>
+<li>配置了 <code>maxHistoryShare: 0.40</code> 但似乎无效</li>
+</ul>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs nix">🦞 OpenClaw <span class="hljs-number">2026.2</span>.<span class="hljs-number">9</span><br>📚 <span class="hljs-params">Context:</span> <span class="hljs-number">169</span>k<span class="hljs-symbol">/205k</span> (<span class="hljs-number">83</span>%)<br>🧹 <span class="hljs-params">Compactions:</span> <span class="hljs-number">0</span><br>� <span class="hljs-params">Memory:</span> dirty<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="排查过程"><a href="#排查过程" class="headerlink" title="排查过程"></a>排查过程</h2><h3 id="1-查看当前配置"><a href="#1-查看当前配置" class="headerlink" title="1. 查看当前配置"></a>1. 查看当前配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">openclaw gateway config.get | grep -A10 compaction<br></code></pre></td></tr></table></figure>
+
+<p>发现配置：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-attr">&quot;compaction&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;mode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;default&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;reserveTokensFloor&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">30000</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;maxHistoryShare&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.4</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="2-查阅官方文档"><a href="#2-查阅官方文档" class="headerlink" title="2. 查阅官方文档"></a>2. 查阅官方文档</h3><p>查看 <a target="_blank" rel="noopener" href="https://docs.openclaw.ai/zh-CN/concepts/compaction">OpenClaw Compaction 文档</a>：</p>
+<blockquote>
+<p>压缩会将较早的对话总结为一条紧凑的摘要条目，并保持近期消息不变。</p>
+</blockquote>
+<p>查看配置文档 <code>agents.defaults.compaction</code>：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;mode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;default&quot;</span><span class="hljs-punctuation">,</span>  <span class="hljs-comment">// 或 &quot;safeguard&quot;</span><br>  <span class="hljs-attr">&quot;reserveTokensFloor&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">20000</span><span class="hljs-punctuation">,</span>  <span class="hljs-comment">// 最小保留 token</span><br>  <span class="hljs-attr">&quot;memoryFlush&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;enabled&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;softThresholdTokens&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4000</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="3-发现问题"><a href="#3-发现问题" class="headerlink" title="3. 发现问题"></a>3. 发现问题</h3><p><strong><code>maxHistoryShare</code> 不是有效的配置项！</strong></p>
+<p>这是一个无效参数，OpenClaw 会忽略它，导致 compaction 行为异常。</p>
+<hr>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><h3 id="正确配置"><a href="#正确配置" class="headerlink" title="正确配置"></a>正确配置</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;agents&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;defaults&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;compaction&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;mode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;default&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;reserveTokensFloor&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">20000</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;memoryFlush&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>          <span class="hljs-attr">&quot;enabled&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span><br>          <span class="hljs-attr">&quot;softThresholdTokens&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4000</span><br>        <span class="hljs-punctuation">&#125;</span><br>      <span class="hljs-punctuation">&#125;</span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="配置含义"><a href="#配置含义" class="headerlink" title="配置含义"></a>配置含义</h3><table>
 <thead>
 <tr>
-<th>指数</th>
-<th>收盘</th>
-<th>涨跌</th>
+<th>参数</th>
+<th>说明</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>道琼斯</td>
-<td>50,121.40</td>
-<td>-0.13% 🔴</td>
+<td><code>mode</code></td>
+<td>压缩策略，<code>default</code> 或 <code>safeguard</code></td>
 </tr>
 <tr>
-<td>标普500</td>
-<td>6,941.47</td>
-<td>-0.01% ➖</td>
+<td><code>reserveTokensFloor</code></td>
+<td>压缩时必须保留的 token（默认 20000）</td>
 </tr>
 <tr>
-<td>纳斯达克</td>
-<td>23,066.47</td>
-<td>-0.16% 🔴</td>
+<td><code>memoryFlush.enabled</code></td>
+<td>是否在压缩前自动保存记忆</td>
+</tr>
+<tr>
+<td><code>softThresholdTokens</code></td>
+<td>距离压缩还有多少 token 时触发记忆刷新</td>
 </tr>
 </tbody></table>
-<h3 id="核心新闻"><a href="#核心新闻" class="headerlink" title="核心新闻"></a>核心新闻</h3><p><strong>非农数据超预期</strong>：</p>
+<h3 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-attr">[对话增长]</span> → <span class="hljs-selector-attr">[距离压缩还有 4000 token]</span> → <span class="hljs-selector-attr">[memoryFlush 先存记忆]</span> → <span class="hljs-selector-attr">[然后压缩]</span><br>                                                    ↑<br>                              softThresholdTokens<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="配置步骤"><a href="#配置步骤" class="headerlink" title="配置步骤"></a>配置步骤</h2><h3 id="1-更新配置"><a href="#1-更新配置" class="headerlink" title="1. 更新配置"></a>1. 更新配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash">openclaw gateway config.patch --raw <span class="hljs-string">&#x27;&#123;</span><br><span class="hljs-string">  &quot;agents&quot;: &#123;</span><br><span class="hljs-string">    &quot;defaults&quot;: &#123;</span><br><span class="hljs-string">      &quot;compaction&quot;: &#123;</span><br><span class="hljs-string">        &quot;mode&quot;: &quot;default&quot;,</span><br><span class="hljs-string">        &quot;reserveTokensFloor&quot;: 20000,</span><br><span class="hljs-string">        &quot;memoryFlush&quot;: &#123;</span><br><span class="hljs-string">          &quot;enabled&quot;: true,</span><br><span class="hljs-string">          &quot;softThresholdTokens&quot;: 4000</span><br><span class="hljs-string">        &#125;</span><br><span class="hljs-string">      &#125;</span><br><span class="hljs-string">    &#125;</span><br><span class="hljs-string">  &#125;</span><br><span class="hljs-string">&#125;&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="2-重启-Gateway"><a href="#2-重启-Gateway" class="headerlink" title="2. 重启 Gateway"></a>2. 重启 Gateway</h3><p>配置会自动重启。也可以手动：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">openclaw gateway restart<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-验证"><a href="#3-验证" class="headerlink" title="3. 验证"></a>3. 验证</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">openclaw status<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>配置更新后：</p>
 <ul>
-<li>美国1月新增就业 <strong>13万人</strong>（远超预期5.5万）</li>
-<li>失业率降至 <strong>4.3%</strong></li>
-<li>市场影响：降低美联储降息预期</li>
-</ul>
-<p><strong>热点板块</strong>：</p>
-<ul>
-<li>💾 <strong>存储概念股大涨</strong>：美光科技 +9.94%，闪迪涨超10%</li>
-<li>🔥 科技巨头回调：谷歌、微软跌超2%</li>
-<li>🟡 盘前期货小幅走高</li>
-</ul>
-<h3 id="中概股"><a href="#中概股" class="headerlink" title="中概股"></a>中概股</h3><ul>
-<li>纳斯达克中国金龙指数跌 0.65%</li>
-<li>台积电涨超3%，金山云涨10%</li>
+<li>✅ Compaction 正常触发</li>
+<li>✅ Memory dirty 状态消失</li>
+<li>✅ 记忆自动保存到 <code>memory/YYYY-MM-DD.md</code></li>
 </ul>
 <hr>
-<h2 id="持仓分析"><a href="#持仓分析" class="headerlink" title="持仓分析"></a>持仓分析</h2><h3 id="今日基金表现"><a href="#今日基金表现" class="headerlink" title="今日基金表现"></a>今日基金表现</h3><table>
-<thead>
-<tr>
-<th>基金</th>
-<th>区间收益</th>
-<th>波动率</th>
-<th>最大回撤</th>
-<th>状态</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>012895 科创创业50</td>
-<td>-2.69%</td>
-<td>1.54%</td>
-<td>1.93%</td>
-<td>🔴 偏弱</td>
-</tr>
-<tr>
-<td>021190 南方亚太精选</td>
-<td>+3.59%</td>
-<td>1.00%</td>
-<td>3.88%</td>
-<td>🟢 稳定</td>
-</tr>
-<tr>
-<td>017992 华泰致远</td>
-<td>+3.28%</td>
-<td>3.24%</td>
-<td>10.75%</td>
-<td>🟡 波动大</td>
-</tr>
-</tbody></table>
-<h3 id="收益排名（近11天）"><a href="#收益排名（近11天）" class="headerlink" title="收益排名（近11天）"></a>收益排名（近11天）</h3><ol>
-<li><strong>南方亚太精选</strong>: +3.59% ✅ 最稳</li>
-<li><strong>华泰致远</strong>: +3.28% ⚠️ 波动大</li>
-<li><strong>科创创业50</strong>: -2.69% ❌ 需观察</li>
+<h2 id="GitHub-Issue"><a href="#GitHub-Issue" class="headerlink" title="GitHub Issue"></a>GitHub Issue</h2><p>这个问题在社区也有讨论：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/openclaw/openclaw/issues/10863">Issue #10863</a>: Memory status Dirty flag rebounds to true</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/openclaw/openclaw/issues/14143">Issue #14143</a>: Memory compaction never triggers</li>
+</ul>
+<p><code>dirty</code> 状态在某些版本中存在”假阳性”问题，不影响实际功能。</p>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<li><strong><code>maxHistoryShare</code> 不是官方配置项</strong>，不要使用</li>
+<li>官方正确的 compaction 配置包含 <code>memoryFlush</code></li>
+<li>Compaction 和 memory flush 相辅相成</li>
+<li>如果遇到问题，优先查阅官方文档</li>
 </ol>
 <hr>
-<h2 id="明日展望"><a href="#明日展望" class="headerlink" title="明日展望"></a>明日展望</h2><h3 id="有利因素"><a href="#有利因素" class="headerlink" title="有利因素"></a>有利因素</h3><ul>
-<li>✅ 存储概念股大涨（美光 +10%）</li>
-<li>✅ 亚太市场期货小幅走高</li>
-<li>✅ 华泰致远近期表现尚可</li>
-</ul>
-<h3 id="不利因素"><a href="#不利因素" class="headerlink" title="不利因素"></a>不利因素</h3><ul>
-<li>❌ 美股三大指数收跌</li>
-<li>❌ 科技股普遍回调</li>
-<li>❌ 科创创业50 仍处弱势</li>
-</ul>
-<h3 id="行情预判"><a href="#行情预判" class="headerlink" title="行情预判"></a>行情预判</h3><table>
-<thead>
-<tr>
-<th>基金</th>
-<th>预判</th>
-<th>理由</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>012895</strong></td>
-<td>🔴 偏弱</td>
-<td>纳指跌 + 死叉信号</td>
-</tr>
-<tr>
-<td><strong>021190</strong></td>
-<td>🟡 震荡</td>
-<td>亚太稳，但技术面震荡</td>
-</tr>
-<tr>
-<td><strong>017992</strong></td>
-<td>🔴 观望</td>
-<td>科技回调，波动大</td>
-</tr>
-</tbody></table>
-<hr>
-<h2 id="操作计划"><a href="#操作计划" class="headerlink" title="操作计划"></a>操作计划</h2><h3 id="今日操作"><a href="#今日操作" class="headerlink" title="今日操作"></a>今日操作</h3><ol>
-<li><strong>科创创业50</strong>：保持现有持仓，暂不加仓</li>
-<li><strong>南方亚太精选</strong>：趋势良好，继续持有</li>
-<li><strong>华泰致远</strong>：观望一个月再决定是否补仓</li>
-</ol>
-<h3 id="策略调整"><a href="#策略调整" class="headerlink" title="策略调整"></a>策略调整</h3><p><strong>止盈策略更新</strong>：</p>
+<p><strong>参考文档</strong>：</p>
 <ul>
-<li>原策略：涨 20% 卖 1&#x2F;4</li>
-<li>新策略：<strong>涨 5-10% 分批止盈</strong>（震荡市难涨到 20%）</li>
+<li><a target="_blank" rel="noopener" href="https://docs.openclaw.ai/zh-CN/gateway/configuration#agentsdefaultscompaction%E9%A2%84%E7%95%99%E7%A9%BA%E9%97%B4--%E8%AE%B0%E5%BF%86%E5%88%B7%E6%96%B0">OpenClaw 配置 - Compaction</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.openclaw.ai/zh-CN/concepts/compaction">OpenClaw Compaction 概念</a></li>
 </ul>
 <hr>
-<h2 id="投资心得"><a href="#投资心得" class="headerlink" title="投资心得"></a>投资心得</h2><h3 id="关于非农数据"><a href="#关于非农数据" class="headerlink" title="关于非农数据"></a>关于非农数据</h3><ol>
-<li><strong>数据超预期</strong> → 经济好 → 降息预期下降 → 股市承压</li>
-<li><strong>短期波动</strong>：数据公布后市场先涨后跌，说明预期复杂</li>
-<li><strong>长期影响</strong>：关注美联储政策走向</li>
-</ol>
-<h3 id="存储股行情"><a href="#存储股行情" class="headerlink" title="存储股行情"></a>存储股行情</h3><ul>
-<li><strong>美光科技</strong> 大涨近 10%，受 AI 内存需求推动</li>
-<li><strong>行业趋势</strong>：HBM 内存供不应求，存储芯片行情延续</li>
-<li><strong>风险提示</strong>：短期涨幅过大，追高需谨慎</li>
-</ul>
-<h3 id="心态管理"><a href="#心态管理" class="headerlink" title="心态管理"></a>心态管理</h3><ul>
-<li>📉 <strong>跌了不慌</strong>：按计划分批建仓</li>
-<li>📈 <strong>涨了不贪</strong>：5-10% 开始分批止盈</li>
-<li>⏰ <strong>保持耐心</strong>：让时间验证策略</li>
-</ul>
-<hr>
-<p><strong>明日关键</strong>：观察开盘走势，死叉状态下不宜加仓。</p>
-<hr>
-<p><em>投资日记 · 记录学习成长的每一天</em></p>
+<p><em>记录于 2026-02-12</em></p>
 
                 
               </div>
@@ -442,7 +386,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%8A%95%E8%B5%84%E5%A4%8D%E7%9B%98/" class="category-chain-item">投资复盘</a>
+  <a href="/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/" class="category-chain-item">技术笔记</a>
   
   
 
@@ -457,13 +401,13 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%8A%95%E8%B5%84%E6%97%A5%E8%AE%B0/" class="print-no-link">#投资日记</a>
+        <a href="/tags/OpenClaw/" class="print-no-link">#OpenClaw</a>
       
-        <a href="/tags/%E7%BE%8E%E8%82%A1/" class="print-no-link">#美股</a>
+        <a href="/tags/Compaction/" class="print-no-link">#Compaction</a>
       
-        <a href="/tags/%E5%9F%BA%E9%87%91%E5%88%86%E6%9E%90/" class="print-no-link">#基金分析</a>
+        <a href="/tags/%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/" class="print-no-link">#问题排查</a>
       
-        <a href="/tags/%E5%AD%98%E5%82%A8%E6%A6%82%E5%BF%B5%E8%82%A1/" class="print-no-link">#存储概念股</a>
+        <a href="/tags/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" class="print-no-link">#内存管理</a>
       
     </div>
   
@@ -475,8 +419,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>投资日记 · 2026年2月12日：非农数据与存储股行情</div>
-      <div>https://blog.2001.life/2026/02/12/2026-02-12-fund-daily-review/</div>
+      <div>OpenClaw Compaction 配置排查笔记</div>
+      <div>https://blog.2001.life/2026/02/12/openclaw-compaction-debug/</div>
     </div>
     <div class="license-meta">
       
@@ -520,9 +464,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2026/02/12/openclaw-compaction-debug/" title="OpenClaw Compaction 配置排查笔记">
+                      <a href="/2026/02/12/openclaw-minimax-mcp/" title="OpenClaw 集成 Minimax MCP 教程">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">OpenClaw Compaction 配置排查笔记</span>
+                        <span class="hidden-mobile">OpenClaw 集成 Minimax MCP 教程</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -530,8 +474,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2026/02/11/2026-02-11-fund-daily-review/" title="投资日记 · 2026年2月11日：技术分析实战与春节策略">
-                        <span class="hidden-mobile">投资日记 · 2026年2月11日：技术分析实战与春节策略</span>
+                      <a href="/2026/02/12/2026-02-12-fund-daily-review/" title="投资日记 · 2026年2月12日：非农数据与存储股行情">
+                        <span class="hidden-mobile">投资日记 · 2026年2月12日：非农数据与存储股行情</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
